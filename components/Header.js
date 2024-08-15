@@ -1,12 +1,11 @@
 // components/Header.js
 import { useState } from 'react';
-import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { FaChevronDown } from 'react-icons/fa';
+import { Spin as Hamburger } from 'hamburger-react';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
 
   const toggleDropdown = (index) => {
     if (openDropdown === index) {
@@ -52,9 +51,7 @@ export default function Header() {
             </button>
           </div>
           <div className="md:hidden">
-            <button onClick={toggleMenu} className="text-gray-700 hover:text-gray-900">
-              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
+            <Hamburger size={20} duration={0.8} toggled={isOpen} toggle={setIsOpen} />
           </div>
         </div>
       </div>
