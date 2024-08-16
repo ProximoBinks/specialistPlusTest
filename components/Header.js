@@ -41,7 +41,7 @@ export default function Header() {
                   />
                 </button>
                 <div
-                  className="absolute top-full left-[-1rem] mt-2 bg-white shadow-lg rounded-md w-48 border border-red-200 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200"
+                  className="absolute top-full left-[-1rem] mt-2 bg-white shadow-lg rounded-md w-48 border border-red-100 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200"
                   onMouseEnter={() => setOpenDropdown(index)}
                   onMouseLeave={handleMouseLeave}
                 >
