@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
+import Link from 'next/link'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,10 +20,10 @@ export default function Header() {
     <header className="bg-white shadow-lg fixed w-full z-10">
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8 xl:py-4">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+          <Link href="/" className="flex items-center select-none">
             <img src="/sp-logo.png" alt="Specialist Plus Logo" className="h-10 w-10 mr-2" />
             <span className="text-xl font-semibold">Specialist Plus</span>
-          </div>
+          </Link>
           <div className="hidden xl:flex space-x-20"> {/* Increased horizontal gap here */}
             {["About", "Services", "Providers", "Forms", "Contacts"].map((item, index) => (
               <div
