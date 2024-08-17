@@ -83,7 +83,7 @@ export default function Header() {
                   />
                 </button>
                 {openDropdown === index && (
-                  <div className="bg-white shadow-lg rounded-md border border-red-600">
+                  <div className="bg-white shadow-lg rounded-md">
                     <a href="#" className="block px-6 py-4 text-sm text-gray-700 hover:bg-gray-100">
                       Dropdown Item 1
                     </a>
