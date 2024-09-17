@@ -12,7 +12,7 @@ export default function Layout({ children }) {
 
       <Header title="Welcome to my app!" />
 
-      <main className="flex-grow w-full pt-[60px] xl:pt-[100px]"> {/* Added padding-top here */}
+      <main className="flex-grow w-full pt-[60px] xl:pt-[95px] z-0"> {/* Added padding-top here */}
         {children}
       </main>
 

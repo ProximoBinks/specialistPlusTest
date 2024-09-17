@@ -1,12 +1,13 @@
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import L from 'leaflet';
 
 // Fix missing marker icon issue
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
+  iconRetinaUrl:
+    'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
@@ -15,14 +16,21 @@ L.Icon.Default.mergeOptions({
 function useMapPan() {
   const map = useMap();
   const [initialState, setInitialState] = useState(null); // To store initial map center & zoom
+  const hasSetInitialState = useRef(false); // To ensure we set initialState only once
 
   useEffect(() => {
-    if (map) {
-      // Save the initial center and zoom of the map when it first loads
-      setInitialState({
-        center: map.getCenter(),
-        zoom: map.getZoom(), // Store the original zoom level
-      });
+    if (map && !hasSetInitialState.current) {
+      const setInitialMapState = () => {
+        setInitialState({
+          center: map.getCenter(),
+          zoom: map.getZoom(),
+        });
+        hasSetInitialState.current = true;
+        map.off('moveend', setInitialMapState); // Remove listener after setting initial state
+      };
+
+      // Wait for the map to finish moving (e.g., after fitBounds)
+      map.on('moveend', setInitialMapState);
     }
   }, [map]);
 
@@ -36,7 +44,7 @@ function useMapPan() {
   // Restore the map to its original center and zoom level
   const restoreOriginalView = () => {
     if (map && initialState) {
-      map.setView(initialState.center, initialState.zoom, { animate: true }); // Restore the original zoom
+      map.setView(initialState.center, initialState.zoom, { animate: true });
     }
   };
 
@@ -56,25 +64,22 @@ function FitBounds({ bounds }) {
 export default function Map() {
   const locations = [
     {
-      lat: -34.921230,
-      lng: 138.649740,
+      lat: -34.91337112978169,
+      lng: 138.6566237800252,
       name: 'Specialist Plus - St Morris',
       address: '1A Williams Ave, St Morris, SA 5068',
       phone: '(08) 8423 6477',
     },
     {
-      lat: -34.944660,
-      lng: 138.560370,
+      lat: -34.93637249596742,
+      lng: 138.5531469675588,
       name: 'Specialist Plus - Richmond',
       address: '129 Marion Rd, Richmond, SA 5033',
       phone: '(08) 8423 6477',
     },
   ];
 
-  const bounds = [
-    [locations[0].lat, locations[0].lng],
-    [locations[1].lat, locations[1].lng],
-  ];
+  const bounds = locations.map((loc) => [loc.lat, loc.lng]);
 
   return (
     <MapContainer
@@ -102,30 +107,69 @@ export default function Map() {
   );
 }
 
-// Marker component with hover behaviour to pan and zoom
+// Marker component with hover behavior to pan and zoom
 function MapMarker({ location }) {
   const { panAndZoomToLocation, restoreOriginalView } = useMapPan();
+
+  const handleMouseOver = (e) => {
+    e.target.openPopup();
+    panAndZoomToLocation(location.lat, location.lng, 15); // Pan and zoom in on hover
+  };
+
+  const handleMouseOut = (e) => {
+    const toElement = e.originalEvent.relatedTarget;
+
+    if (
+      toElement &&
+      (toElement.closest('.leaflet-popup') ||
+        toElement.closest('.leaflet-marker-icon'))
+    ) {
+      // The mouse is moving to the popup or another marker, do nothing
+      return;
+    }
+
+    e.target.closePopup();
+    restoreOriginalView(); // Restore to original zoom and center on hover out
+  };
+
+  const handlePopupMouseOut = (e) => {
+    const toElement = e.originalEvent.relatedTarget;
+
+    if (
+      toElement &&
+      (toElement.closest('.leaflet-popup') ||
+        toElement.closest('.leaflet-marker-icon'))
+    ) {
+      // Mouse is moving to the marker or popup, do nothing
+      return;
+    }
+
+    e.target._source.closePopup(); // Close the popup
+    restoreOriginalView();
+  };
 
   return (
     <Marker
       position={[location.lat, location.lng]}
       eventHandlers={{
-        mouseover: (e) => {
-          e.target.openPopup();
-          panAndZoomToLocation(location.lat, location.lng, 15); // Pan and zoom in on hover
-        },
-        mouseout: (e) => {
-          e.target.closePopup();
-          restoreOriginalView(); // Restore to original zoom and center on hover out
-        },
+        mouseover: handleMouseOver,
+        mouseout: handleMouseOut,
       }}
     >
-      <Popup autoPan={false}>
+      <Popup
+        autoPan={false}
+        eventHandlers={{
+          mouseout: handlePopupMouseOut,
+        }}
+      >
         <div>
           <h3 className="font-semibold">{location.name}</h3>
           <p>{location.address}</p>
           <p>Tel: {location.phone}</p>
-          <a href="https://www.google.com/maps" className="text-blue-500 hover:underline">
+          <a
+            href="https://www.google.com/maps"
+            className="text-blue-500 hover:underline"
+          >
             Get Directions
           </a>
         </div>
