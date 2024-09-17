@@ -25,3 +25,18 @@ body {
 /* globals.css */
 @import '~slick-carousel/slick/slick.css';
 @import '~slick-carousel/slick/slick-theme.css';
+
+/* Custom styling for the carousel dots */
+.slick-dots li button {
+  font-size: 0; /* Hide the default button text */
+  width: 16px; /* Increased size for the dots */
+  height: 16px;
+  background-color: #ccc; /* Default color for non-active dots */
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #000; /* Active dot (black) */
+}
