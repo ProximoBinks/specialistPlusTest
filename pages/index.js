@@ -51,7 +51,7 @@ export default function Home() {
 
         {/* Map view for larger screens */}
         {isLargeScreen && (
-          <div className="w-full h-[300px] z-0">
+          <div className="w-full h-[500px] z-0">
             <Map />
           </div>
         )}
