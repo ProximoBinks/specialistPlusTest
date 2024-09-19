@@ -1,4 +1,11 @@
-/* globals.css */
+/* styles/globals.css */
+
+/* Import Tailwind base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply Gotham Book globally */
 @font-face {
   font-family: 'Gotham Book';
   src: url('/fonts/GothamBook.otf') format('opentype');
@@ -6,37 +13,41 @@
   font-style: normal;
 }
 
-/* Tailwind base styles */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* Apply Gotham Book globally */
 html,
 body {
   @apply bg-gray-50 p-0 m-0 w-full;
   font-family: 'Gotham Book', sans-serif;
 }
 
-/* * {
-  @apply box-border;
-} */
-
-/* globals.css */
-@import '~slick-carousel/slick/slick.css';
-@import '~slick-carousel/slick/slick-theme.css';
-
 /* Custom styling for the carousel dots */
+.slick-dots {
+  bottom: -25px; /* Adjust position if needed */
+}
+
+.slick-dots li {
+  margin: 0 4px;
+}
+
+.slick-dots li button:before {
+  font-size: 12px;
+  color: #ccc; /* Default color for non-active dots */
+}
+
+.slick-dots li.slick-active button:before {
+  color: #000; /* Active dot color */
+}
+
+/* Optional: Customize the dot size and appearance */
 .slick-dots li button {
   font-size: 0; /* Hide the default button text */
-  width: 16px; /* Increased size for the dots */
-  height: 16px;
-  background-color: #ccc; /* Default color for non-active dots */
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
   border-radius: 50%;
   border: none;
   cursor: pointer;
 }
 
 .slick-dots li.slick-active button {
-  background-color: #000; /* Active dot (black) */
+  background-color: #000;
 }
