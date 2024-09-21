@@ -2,7 +2,7 @@
 import Layout from '@components/Layout';
 import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
 
 // Dynamically import the Map component with SSR disabled
 const Map = dynamic(() => import('@components/Map'), { ssr: false });
@@ -18,13 +18,11 @@ export default function Home() {
     setIsLargeScreen(window.innerWidth >= 765);
   };
 
-  // Set initial screen size and add resize event listener
   useEffect(() => {
-    handleResize(); // Set initial size on component mount
+    handleResize();
     window.addEventListener('resize', handleResize);
-
     return () => {
-      window.removeEventListener('resize', handleResize); // Cleanup listener on unmount
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -42,8 +40,8 @@ export default function Home() {
             Comprehensive care from experienced specialists
           </p>
         </div>
-
       </section>
+
       {/* Why Choose Us Section */}
       <section className="py-12 bg-white">
         <div className="max-w-6xl mx-auto px-4">
@@ -64,7 +62,7 @@ export default function Home() {
                 <p className="my-6 text-[#1b2e60] font-semibold">Comprehensive, multidisciplinary support for all aspects of your health</p>
                 <p className="hidden group-hover:block text-[#1b2e60] transition-opacity duration-300">Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.</p>
                 <Link className="mt-6" href="https://google.com" target="_blank">
-                  <span className="underline text-[#7c7c7c]">Theme overview</span>
+                  <span className="underline text-[#7c7c7c] hover:text-[#1b2e60]">Theme overview</span>
                   <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
                 </Link>
               </div>
@@ -84,7 +82,7 @@ export default function Home() {
                 <p className="my-6 text-[#1b2e60] font-semibold">Expert care to help you recover and get back on track</p>
                 <p className="hidden group-hover:block text-[#1b2e60] transition-opacity duration-300">We provide personalized rehabilitation plans to ensure you get the support and care you need after injury.</p>
                 <Link className="mt-6" href="https://google.com" target="_blank">
-                  <span className="underline text-[#7c7c7c]">Theme overview</span>
+                  <span className="underline text-[#7c7c7c] hover:text-[#1b2e60]">Theme overview</span>
                   <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
                 </Link>
               </div>
@@ -104,7 +102,7 @@ export default function Home() {
                 <p className="my-6 text-[#1b2e60] font-semibold">Personalized medical care from a diverse team of experts</p>
                 <p className="hidden group-hover:block text-[#1b2e60] transition-opacity duration-300">Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.</p>
                 <Link className="mt-6" href="https://google.com" target="_blank">
-                  <span className="underline text-[#7c7c7c]">Theme overview</span>
+                  <span className="underline text-[#7c7c7c] hover:text-[#1b2e60]">Theme overview</span>
                   <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
                 </Link>
               </div>
@@ -113,7 +111,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
 
       {/* Carousel of Doctors */}
       <DoctorsCarousel />

@@ -1,5 +1,6 @@
 // components/Footer.js
 import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -17,11 +18,21 @@ export default function Footer() {
           <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="text-gray-500 space-y-2">
-              <li><a href="#" className="hover:text-gray-900">About Us</a></li>
-              <li><a href="#" className="hover:text-gray-900">Services</a></li>
-              <li><a href="#" className="hover:text-gray-900">Providers</a></li>
-              <li><a href="#" className="hover:text-gray-900">Forms</a></li>
-              <li><a href="#" className="hover:text-gray-900">Contact</a></li>
+              <li>
+                <Link href="/about" className="block hover:text-gray-900">About Us</Link>
+              </li>
+              <li>
+                <Link href="/services" className="block hover:text-gray-900">Services</Link>
+              </li>
+              <li>
+                <Link href="/providers" className="block hover:text-gray-900">Providers</Link>
+              </li>
+              <li>
+                <Link href="/forms" className="block hover:text-gray-900">Forms</Link>
+              </li>
+              <li>
+                <Link href="/contact" className="block hover:text-gray-900">Contact</Link>
+              </li>
             </ul>
           </div>
 
