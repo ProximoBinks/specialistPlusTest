@@ -81,20 +81,29 @@ export default function DoctorsCarousel() {
 
   // Carousel settings for the doctors section
   const sliderSettings = {
-    dots: true, // Keep dots here
+    dots: true, // Keep dots enabled
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000, // Faster autoplay speed
+    autoplaySpeed: 2000,
+    customPaging: function (i) {
+      return (
+        <div
+          className="custom-dot"
+        // Optionally, you can add inline styles here
+        ></div>
+      );
+    },
+    dotsClass: 'slick-dots custom-dots', // Use a custom class for dots
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          // Removed dots from responsive settings
+          // Dots are inherited; no need to specify again
         },
       },
       {
@@ -102,7 +111,7 @@ export default function DoctorsCarousel() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          // Removed dots from responsive settings
+          // Dots are inherited; no need to specify again
         },
       },
     ],

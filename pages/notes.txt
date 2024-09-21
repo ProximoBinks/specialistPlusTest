@@ -10,3 +10,80 @@ https://specialistplus.com.au/
 
 new link
 https://chatgpt.com/c/66ebbb84-00d4-8013-b090-090e8b799329
+
+
+Doctors
+const doctors = [
+    {
+      id: 1,
+      name: 'Dr Poh Yong',
+      title: 'Director',
+      description: 'Dr Poh Yong oversees the management of the clinic and providers.',
+      image: '/doctor1.jpg',
+    },
+    {
+      id: 2,
+      name: 'Dr Dion Suyapto',
+      title: 'Occupational Physician',
+      description: 'Specialist in occupational and environmental medicine.',
+      image: '/doctor2.jpg',
+    },
+    {
+      id: 3,
+      name: 'Dr Arun Gupta',
+      title: 'Consultant Psychiatrist',
+      description: 'Special interest in Independent Psychiatric Examinations.',
+      image: '/doctor3.jpg',
+    },
+    {
+      id: 4,
+      name: 'Dr Joshua Kartika',
+      title: 'Occupational Medical Registrar',
+      description: 'Registrar in occupational and environmental medicine.',
+      image: '/doctor4.jpg',
+    },
+    {
+      id: 5,
+      name: 'Dr Bill Papps',
+      title: 'Occupational Medical Registrar',
+      description: 'Completed Bachelor of Laws and Graduate Diploma in Legal Practice.',
+      image: '/doctor5.jpg',
+    },
+    {
+      id: 6,
+      name: 'Mr Gilles Hammond',
+      title: 'Rehabilitation Psychologist',
+      description: 'Expert in trauma and occupational psychology.',
+      image: '/doctor6.jpg',
+    },
+    {
+      id: 7,
+      name: 'Dr Ishita Gupta',
+      title: 'General Dentist',
+      description: 'Registered dentist in Australia since 2016.',
+      image: '/doctor7.jpg',
+    },
+    {
+      id: 8,
+      name: 'Dr Aiden Tieu',
+      title: 'General Surgeon',
+      description: 'Specialist in open and laparoscopic surgery.',
+      image: '/doctor8.jpg',
+    },
+    {
+      id: 9,
+      name: 'Dr Cecilia Yong',
+      title: 'General Dentist',
+      description:
+        'Experienced in both clinical dentistry and medico-legal assessments.',
+      image: '/doctor9.jpg',
+    },
+    {
+      id: 10,
+      name: 'Dr Devinder Raju',
+      title: 'Colorectal and General Surgeon',
+      description:
+        'Specialist in colorectal cancer and inflammatory bowel disease.',
+      image: '/doctor10.jpg',
+    },
+  ];
