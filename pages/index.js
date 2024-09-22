@@ -49,7 +49,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
             {/* Grid Item 1: Integrated Health Care */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group">
+            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group flex flex-col">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
                   src="/integrated-health.jpg"
@@ -57,19 +57,21 @@ export default function Home() {
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <div className="p-[10%]">
+              <div className="flex flex-col flex-grow p-[10%]">
                 <h3 className="text-lg font-semibold text-[#23528c]">Integrated Health Care</h3>
                 <p className="my-6 text-[#1b2e60] font-semibold">Comprehensive, multidisciplinary support for all aspects of your health</p>
-                <p className="hidden group-hover:block text-[#1b2e60] transition-opacity duration-300">Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.</p>
-                <Link className="mt-6" href="https://google.com" target="_blank">
-                  <span className="underline text-[#7c7c7c] hover:text-[#1b2e60]">Theme overview</span>
-                  <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
-                </Link>
+                <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity transition-transform transform opacity-0 translate-y-3 duration-500 group-hover:opacity-100 group-hover:translate-y-0 text-[13px] mb-6">Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.</p>
+                <div className="mt-auto">
+                  <Link href="https://google.com" target="_blank" className="text-[#7c7c7c] hover:text-[#1b2e60]">
+                    <span className="underline">Theme overview</span>
+                    <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
             {/* Grid Item 2: Injury Management */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group">
+            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group flex flex-col">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
                   src="/injury-mangement.jpg"
@@ -77,19 +79,21 @@ export default function Home() {
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <div className="p-[10%]">
+              <div className="flex flex-col flex-grow p-[10%]">
                 <h3 className="text-lg font-semibold text-[#23528c]">Injury Management</h3>
                 <p className="my-6 text-[#1b2e60] font-semibold">Expert care to help you recover and get back on track</p>
-                <p className="hidden group-hover:block text-[#1b2e60] transition-opacity duration-300">We provide personalized rehabilitation plans to ensure you get the support and care you need after injury.</p>
-                <Link className="mt-6" href="https://google.com" target="_blank">
-                  <span className="underline text-[#7c7c7c] hover:text-[#1b2e60]">Theme overview</span>
-                  <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
-                </Link>
+                <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity transition-transform transform opacity-0 translate-y-3 duration-500 group-hover:opacity-100 group-hover:translate-y-0 text-[13px] mb-6">We provide personalized rehabilitation plans to ensure you get the support and care you need after injury.</p>
+                <div className="mt-auto">
+                  <Link href="https://google.com" target="_blank" className="text-[#7c7c7c] hover:text-[#1b2e60]">
+                    <span className="underline">Theme overview</span>
+                    <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
             {/* Grid Item 3: Specialist Care */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group">
+            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group flex flex-col">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
                   src="/specialist-care.jpg"
@@ -97,20 +101,24 @@ export default function Home() {
                   className="w-full h-full object-cover rounded-lg"
                 />
               </div>
-              <div className="p-[10%]">
+              <div className="flex flex-col flex-grow p-[10%]">
                 <h3 className="text-lg font-semibold text-[#23528c]">Specialist Care</h3>
                 <p className="my-6 text-[#1b2e60] font-semibold">Personalized medical care from a diverse team of experts</p>
-                <p className="hidden group-hover:block text-[#1b2e60] transition-opacity duration-300">Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.</p>
-                <Link className="mt-6" href="https://google.com" target="_blank">
-                  <span className="underline text-[#7c7c7c] hover:text-[#1b2e60]">Theme overview</span>
-                  <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
-                </Link>
+                <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity transition-transform transform opacity-0 translate-y-3 duration-500 group-hover:opacity-100 group-hover:translate-y-0 text-[13px] mb-6">Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.</p>
+                <div className="mt-auto">
+                  <Link href="https://google.com" target="_blank" className="text-[#7c7c7c] hover:text-[#1b2e60]">
+                    <span className="underline">Theme overview</span>
+                    <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+                  </Link>
+                </div>
               </div>
             </div>
 
           </div>
         </div>
       </section>
+
+
 
       {/* Carousel of Doctors */}
       <DoctorsCarousel />
