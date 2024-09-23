@@ -9,7 +9,7 @@
     "export": "next build && next export"
   },
   "dependencies": {
-    "@netlify/plugin-nextjs": "^5.6.0",
+    "@netlify/plugin-nextjs": "^5.7.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "hamburger-react": "^2.5.1",
     "leaflet": "^1.9.4",
