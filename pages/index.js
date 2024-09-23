@@ -32,8 +32,8 @@ export default function Home() {
       description="Welcome to Specialist Plus, providing comprehensive medical care in South Australia."
     >
       {/* Hero Section */}
-      <section className="relative w-full h-[500px] flex items-center justify-center bg-[#f7f7f7]">
-        <div className="absolute inset-0 bg-black opacity-50 z-0"></div>
+      <section className="relative w-full h-[500px] flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/homeBackground.png')" }}>
+        <div className="absolute inset-0 z-0"></div> {/* Overlay */}
         <div className="relative z-10 text-center text-white">
           <h1 className="text-5xl font-bold">Welcome to Specialist Plus</h1>
           <p className="mt-4 text-lg">
