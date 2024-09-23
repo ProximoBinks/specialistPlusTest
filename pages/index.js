@@ -46,10 +46,10 @@ export default function Home() {
       <section className="py-12 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           {/* Responsive Grid for Other Features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative">
 
-            {/* Grid Item 1: Integrated Health Care */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group flex flex-col">
+            {/* Grid Item 1: Integrated Health Care (Locked to Left) */}
+            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-left">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
                   src="/integrated-health.jpg"
@@ -70,8 +70,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Grid Item 2: Injury Management */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group flex flex-col">
+            {/* Grid Item 2: Injury Management (Normal Scaling) */}
+            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-center">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
                   src="/injury-mangement.jpg"
@@ -92,8 +92,8 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Grid Item 3: Specialist Care */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 duration-300 group flex flex-col">
+            {/* Grid Item 3: Specialist Care (Locked to Right) */}
+            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-right">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
                   src="/specialist-care.jpg"
@@ -117,8 +117,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
 
       {/* Carousel of Doctors */}
       <DoctorsCarousel />
