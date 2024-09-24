@@ -1,548 +1,573 @@
+// pages/consent-form.js
+'use client';
 import { useState } from 'react';
-import Layout from '@components/Layout'
+import Layout from '@components/Layout';
 
 export default function ConsentForm() {
-    const [formData, setFormData] = useState({
-        givenNames: '',
-        surname: '',
-        preferredNames: '',
-        email: '',
-        dob: '',
-        addressUnitStreet: '',
-        addressSuburbPostcode: '',
-        phone: '',
-        dateOfInjury: '',
-        medicareNumber: '',
-        referenceNumber: '',
-        expiryDate: '',
-        insurer: '',
-        claimNumber: '',
-        claimManager: '',
-        allergies: '',
-        alcohol: 'Never',
-        alcoholConsumptionPerWeek: '',
-        smokingStatus: 'Never',
-        cigarettesPerDay: '',
-        yearsSmoked: '',
-        quitDate: '',
-        medications: [{ name: '', dosage: '' }],
-        patientAuthority: '',
-        nonConsent: '',
-        fullNameSignature: '',
-        dateSigned: '',
+  const [formData, setFormData] = useState({
+    givenNames: '',
+    surname: '',
+    preferredNames: '',
+    email: '',
+    dob: '',
+    addressUnitStreet: '',
+    addressSuburbPostcode: '',
+    phone: '',
+    dateOfInjury: '',
+    medicareNumber: '',
+    referenceNumber: '',
+    expiryDate: '',
+    insurer: '',
+    claimNumber: '',
+    claimManager: '',
+    allergies: '',
+    alcohol: 'Never',
+    alcoholConsumptionPerWeek: '',
+    smokingStatus: 'Never',
+    cigarettesPerDay: '',
+    yearsSmoked: '',
+    quitDate: '',
+    medications: [{ name: '', dosage: '' }],
+    patientAuthority: '',
+    nonConsent: '',
+    fullNameSignature: '',
+    dateSigned: '',
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const addMedication = () => {
+    setFormData({
+      ...formData,
+      medications: [...formData.medications, { name: '', dosage: '' }],
     });
+  };
 
-    const addMedication = () => {
-        setFormData({
-            ...formData,
-            medications: [...formData.medications, { name: '', dosage: '' }],
-        });
-    };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+  const handleMedicationChange = (index, event) => {
+    const newMedications = formData.medications.map((medication, medIndex) => {
+      if (index === medIndex) {
+        return { ...medication, [event.target.name]: event.target.value };
+      }
+      return medication;
+    });
+    setFormData({ ...formData, medications: newMedications });
+  };
 
-    const handleMedicationChange = (index, event) => {
-        const newMedications = formData.medications.map((medication, medIndex) => {
-            if (index === medIndex) {
-                return { ...medication, [event.target.name]: event.target.value };
-            }
-            return medication;
-        });
-        setFormData({ ...formData, medications: newMedications });
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-    return (
-        <Layout>
-        <div className="max-w-3xl mx-auto py-12 px-4">
-            <h1 className="text-3xl font-bold mb-8">Consent Form</h1>
-            <p className="mb-4">
-                All clients are required to complete the consent form below 48 hours prior to an appointment.
-            </p>
-            <form
-                name="consent-form"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
-                data-netlify-recaptcha="true"
-            >
-                <input type="hidden" name="form-name" value="consent-form" />
-                <p className="hidden">
-                    <label>
-                        Don’t fill this out if you're human: <input name="bot-field" />
-                    </label>
-                </p>
+    const formDataObj = new FormData(e.target);
+    const formDataString = new URLSearchParams(formDataObj).toString();
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Personal Information */}
-                    <div>
-                        <label className="block">
-                            Given names <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="givenNames"
-                                value={formData.givenNames}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+    try {
+      const response = await fetch('/__forms.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formDataString,
+      });
 
-                    <div>
-                        <label className="block">
-                            Surname <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="surname"
-                                value={formData.surname}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+      if (response.ok) {
+        setIsSuccess(true);
+        setErrorMessage('');
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-                    <div>
-                        <label className="block">
-                            Preferred names
-                            <input
-                                type="text"
-                                name="preferredNames"
-                                value={formData.preferredNames}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
+  return (
+    <Layout>
+      <div className="max-w-3xl mx-auto py-12 px-4">
+        <h1 className="text-3xl font-bold mb-8">Consent Form</h1>
+        <p className="mb-4">
+          All clients are required to complete the consent form below 48 hours prior to an appointment.
+        </p>
+        <form name="consent-form" onSubmit={handleSubmit}>
+          <input type="hidden" name="form-name" value="consent-form" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Personal Information */}
+            <div>
+              <label className="block">
+                Given names <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="givenNames"
+                  value={formData.givenNames}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Email <span className="text-red-500">*</span>
-                            <input
-                                type="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Surname <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="surname"
+                  value={formData.surname}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Date of Birth <span className="text-red-500">*</span>
-                            <input
-                                type="date"
-                                name="dob"
-                                value={formData.dob}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Preferred names
+                <input
+                  type="text"
+                  name="preferredNames"
+                  value={formData.preferredNames}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
 
-                    {/* Address Information */}
-                    <div>
-                        <label className="block">
-                            Address (Unit Number and Street) <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="addressUnitStreet"
-                                value={formData.addressUnitStreet}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Email <span className="text-red-500">*</span>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Address (Suburb and Postcode) <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="addressSuburbPostcode"
-                                value={formData.addressSuburbPostcode}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Date of Birth <span className="text-red-500">*</span>
+                <input
+                  type="date"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Phone <span className="text-red-500">*</span>
-                            <input
-                                type="tel"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            {/* Address Information */}
+            <div>
+              <label className="block">
+                Address (Unit Number and Street) <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="addressUnitStreet"
+                  value={formData.addressUnitStreet}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    {/* Injury and Insurance Information */}
-                    <div>
-                        <label className="block">
-                            Date of Injury
-                            <input
-                                type="date"
-                                name="dateOfInjury"
-                                value={formData.dateOfInjury}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Address (Suburb and Postcode) <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="addressSuburbPostcode"
+                  value={formData.addressSuburbPostcode}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Medicare Number <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="medicareNumber"
-                                value={formData.medicareNumber}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Phone <span className="text-red-500">*</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Reference Number <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="referenceNumber"
-                                value={formData.referenceNumber}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            {/* Injury and Insurance Information */}
+            <div>
+              <label className="block">
+                Date of Injury
+                <input
+                  type="date"
+                  name="dateOfInjury"
+                  value={formData.dateOfInjury}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Expiry Date <span className="text-red-500">*</span>
-                            <input
-                                type="date"
-                                name="expiryDate"
-                                value={formData.expiryDate}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Medicare Number <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="medicareNumber"
+                  value={formData.medicareNumber}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Insurer (ie. EML)
-                            <input
-                                type="text"
-                                name="insurer"
-                                value={formData.insurer}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Reference Number <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="referenceNumber"
+                  value={formData.referenceNumber}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Claim Number
-                            <input
-                                type="text"
-                                name="claimNumber"
-                                value={formData.claimNumber}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Expiry Date <span className="text-red-500">*</span>
+                <input
+                  type="date"
+                  name="expiryDate"
+                  value={formData.expiryDate}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Claim Manager
-                            <input
-                                type="text"
-                                name="claimManager"
-                                value={formData.claimManager}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Insurer (ie. EML)
+                <input
+                  type="text"
+                  name="insurer"
+                  value={formData.insurer}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Allergies
-                            <input
-                                type="text"
-                                name="allergies"
-                                value={formData.allergies}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Claim Number
+                <input
+                  type="text"
+                  name="claimNumber"
+                  value={formData.claimNumber}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
 
-                    {/* Alcohol and Smoking Questions */}
-                    <div>
-                        <label className="block">
-                            Do you drink alcohol? <span className="text-red-500">*</span>
-                            <div className="flex items-center space-x-4">
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="alcohol"
-                                        value="Never"
-                                        checked={formData.alcohol === "Never"}
-                                        onChange={handleInputChange}
-                                        className="form-radio"
-                                        required
-                                    />
-                                    <span className="ml-2">Never</span>
-                                </label>
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="alcohol"
-                                        value="Yes"
-                                        checked={formData.alcohol === "Yes"}
-                                        onChange={handleInputChange}
-                                        className="form-radio"
-                                        required
-                                    />
-                                    <span className="ml-2">Yes</span>
-                                </label>
-                            </div>
-                        </label>
-                    </div>
+            <div>
+              <label className="block">
+                Claim Manager
+                <input
+                  type="text"
+                  name="claimManager"
+                  value={formData.claimManager}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
 
-                    {formData.alcohol === "Yes" && (
-                        <div>
-                            <label className="block">
-                                Alcohol Consumption Per Week
-                                <input
-                                    type="number"
-                                    name="alcoholConsumptionPerWeek"
-                                    value={formData.alcoholConsumptionPerWeek}
-                                    onChange={handleInputChange}
-                                    className="w-full border rounded-md p-2"
-                                    required
-                                />
-                            </label>
-                        </div>
-                    )}
+            <div>
+              <label className="block">
+                Allergies
+                <input
+                  type="text"
+                  name="allergies"
+                  value={formData.allergies}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
 
-                    <div>
-                        <label className="block">
-                            Do you smoke? <span className="text-red-500">*</span>
-                            <div className="flex items-center space-x-4">
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="smokingStatus"
-                                        value="Never"
-                                        checked={formData.smokingStatus === "Never"}
-                                        onChange={handleInputChange}
-                                        className="form-radio"
-                                        required
-                                    />
-                                    <span className="ml-2">Never</span>
-                                </label>
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="smokingStatus"
-                                        value="Yes"
-                                        checked={formData.smokingStatus === "Yes"}
-                                        onChange={handleInputChange}
-                                        className="form-radio"
-                                        required
-                                    />
-                                    <span className="ml-2">Yes</span>
-                                </label>
-                                <label className="inline-flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="smokingStatus"
-                                        value="Quit"
-                                        checked={formData.smokingStatus === "Quit"}
-                                        onChange={handleInputChange}
-                                        className="form-radio"
-                                        required
-                                    />
-                                    <span className="ml-2">Quit</span>
-                                </label>
-                            </div>
-                        </label>
-                    </div>
-
-                    {formData.smokingStatus === "Yes" && (
-                        <>
-                            <div>
-                                <label className="block">
-                                    If Yes, how many per day
-                                    <input
-                                        type="number"
-                                        name="cigarettesPerDay"
-                                        value={formData.cigarettesPerDay}
-                                        onChange={handleInputChange}
-                                        className="w-full border rounded-md p-2"
-                                        required
-                                    />
-                                </label>
-                            </div>
-
-                            <div>
-                                <label className="block">
-                                    If Yes, years smoked
-                                    <input
-                                        type="number"
-                                        name="yearsSmoked"
-                                        value={formData.yearsSmoked}
-                                        onChange={handleInputChange}
-                                        className="w-full border rounded-md p-2"
-                                        required
-                                    />
-                                </label>
-                            </div>
-                        </>
-                    )}
-
-                    {formData.smokingStatus === "Quit" && (
-                        <div>
-                            <label className="block">
-                                If Quit, When did you quit
-                                <input
-                                    type="date"
-                                    name="quitDate"
-                                    value={formData.quitDate}
-                                    onChange={handleInputChange}
-                                    className="w-full border rounded-md p-2"
-                                    required
-                                />
-                            </label>
-                        </div>
-                    )}
-
-                    {/* Medications */}
-                    {formData.medications.map((medication, index) => (
-                        <div key={index} className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block">
-                                    Medication Name
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={medication.name}
-                                        onChange={(e) => handleMedicationChange(index, e)}
-                                        className="w-full border rounded-md p-2"
-                                    />
-                                </label>
-                            </div>
-                            <div>
-                                <label className="block">
-                                    Dosage
-                                    <input
-                                        type="text"
-                                        name="dosage"
-                                        value={medication.dosage}
-                                        onChange={(e) => handleMedicationChange(index, e)}
-                                        className="w-full border rounded-md p-2"
-                                    />
-                                </label>
-                            </div>
-                        </div>
-                    ))}
-
-                    <button
-                        type="button"
-                        onClick={addMedication}
-                        className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md h-12"
-                    >
-                        Add More Medications
-                    </button>
-
-                    {/* Patient Authority */}
-                    <div className="mt-8">
-                        <label className="block">
-                            Patient Authority <span className="text-red-500">*</span>
-                            <textarea
-                                name="patientAuthority"
-                                value={formData.patientAuthority}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="block">
-                            Do not consent to my personal information being disclosed to the following:
-                            <input
-                                type="text"
-                                name="nonConsent"
-                                value={formData.nonConsent}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                            />
-                        </label>
-                    </div>
-
-                    {/* Signature Section */}
-                    <div className="mt-8">
-                        <label className="block">
-                            Enter Your Full Name As A Signature <span className="text-red-500">*</span>
-                            <input
-                                type="text"
-                                name="fullNameSignature"
-                                value={formData.fullNameSignature}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
-
-                    <div className="mt-4">
-                        <label className="block">
-                            Date Signed <span className="text-red-500">*</span>
-                            <input
-                                type="date"
-                                name="dateSigned"
-                                value={formData.dateSigned}
-                                onChange={handleInputChange}
-                                className="w-full border rounded-md p-2"
-                                required
-                            />
-                        </label>
-                    </div>
-
-                    <div className="mt-8">
-                        <button
-                            type="submit"
-                            className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700"
-                        >
-                            Submit
-                        </button>
-                    </div>
+            {/* Alcohol and Smoking Questions */}
+            <div>
+              <label className="block">
+                Do you drink alcohol? <span className="text-red-500">*</span>
+                <div className="flex items-center space-x-4">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="alcohol"
+                      value="Never"
+                      checked={formData.alcohol === 'Never'}
+                      onChange={handleInputChange}
+                      className="form-radio"
+                      required
+                    />
+                    <span className="ml-2">Never</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="alcohol"
+                      value="Yes"
+                      checked={formData.alcohol === 'Yes'}
+                      onChange={handleInputChange}
+                      className="form-radio"
+                      required
+                    />
+                    <span className="ml-2">Yes</span>
+                  </label>
                 </div>
-            </form>
-        </div>
-        </Layout>
-    );
+              </label>
+            </div>
+
+            {formData.alcohol === 'Yes' && (
+              <div>
+                <label className="block">
+                  Alcohol Consumption Per Week
+                  <input
+                    type="number"
+                    name="alcoholConsumptionPerWeek"
+                    value={formData.alcoholConsumptionPerWeek}
+                    onChange={handleInputChange}
+                    className="w-full border rounded-md p-2"
+                    required
+                  />
+                </label>
+              </div>
+            )}
+
+            <div>
+              <label className="block">
+                Do you smoke? <span className="text-red-500">*</span>
+                <div className="flex items-center space-x-4">
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="smokingStatus"
+                      value="Never"
+                      checked={formData.smokingStatus === 'Never'}
+                      onChange={handleInputChange}
+                      className="form-radio"
+                      required
+                    />
+                    <span className="ml-2">Never</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="smokingStatus"
+                      value="Yes"
+                      checked={formData.smokingStatus === 'Yes'}
+                      onChange={handleInputChange}
+                      className="form-radio"
+                      required
+                    />
+                    <span className="ml-2">Yes</span>
+                  </label>
+                  <label className="inline-flex items-center">
+                    <input
+                      type="radio"
+                      name="smokingStatus"
+                      value="Quit"
+                      checked={formData.smokingStatus === 'Quit'}
+                      onChange={handleInputChange}
+                      className="form-radio"
+                      required
+                    />
+                    <span className="ml-2">Quit</span>
+                  </label>
+                </div>
+              </label>
+            </div>
+
+            {formData.smokingStatus === 'Yes' && (
+              <>
+                <div>
+                  <label className="block">
+                    If Yes, how many per day
+                    <input
+                      type="number"
+                      name="cigarettesPerDay"
+                      value={formData.cigarettesPerDay}
+                      onChange={handleInputChange}
+                      className="w-full border rounded-md p-2"
+                      required
+                    />
+                  </label>
+                </div>
+
+                <div>
+                  <label className="block">
+                    If Yes, years smoked
+                    <input
+                      type="number"
+                      name="yearsSmoked"
+                      value={formData.yearsSmoked}
+                      onChange={handleInputChange}
+                      className="w-full border rounded-md p-2"
+                      required
+                    />
+                  </label>
+                </div>
+              </>
+            )}
+
+            {formData.smokingStatus === 'Quit' && (
+              <div>
+                <label className="block">
+                  If Quit, When did you quit
+                  <input
+                    type="date"
+                    name="quitDate"
+                    value={formData.quitDate}
+                    onChange={handleInputChange}
+                    className="w-full border rounded-md p-2"
+                    required
+                  />
+                </label>
+              </div>
+            )}
+
+            {/* Medications */}
+            {formData.medications.map((medication, index) => (
+              <div key={index} className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block">
+                    Medication Name
+                    <input
+                      type="text"
+                      name="name"
+                      value={medication.name}
+                      onChange={(e) => handleMedicationChange(index, e)}
+                      className="w-full border rounded-md p-2"
+                    />
+                  </label>
+                </div>
+                <div>
+                  <label className="block">
+                    Dosage
+                    <input
+                      type="text"
+                      name="dosage"
+                      value={medication.dosage}
+                      onChange={(e) => handleMedicationChange(index, e)}
+                      className="w-full border rounded-md p-2"
+                    />
+                  </label>
+                </div>
+              </div>
+            ))}
+
+            <button
+              type="button"
+              onClick={addMedication}
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md h-12"
+            >
+              Add More Medications
+            </button>
+
+            {/* Patient Authority */}
+            <div className="mt-8">
+              <label className="block">
+                Patient Authority <span className="text-red-500">*</span>
+                <textarea
+                  name="patientAuthority"
+                  value={formData.patientAuthority}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
+
+            <div className="mt-4">
+              <label className="block">
+                Do not consent to my personal information being disclosed to the following:
+                <input
+                  type="text"
+                  name="nonConsent"
+                  value={formData.nonConsent}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                />
+              </label>
+            </div>
+
+            {/* Signature Section */}
+            <div className="mt-8">
+              <label className="block">
+                Enter Your Full Name As A Signature <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="fullNameSignature"
+                  value={formData.fullNameSignature}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
+
+            <div className="mt-4">
+              <label className="block">
+                Date Signed <span className="text-red-500">*</span>
+                <input
+                  type="date"
+                  name="dateSigned"
+                  value={formData.dateSigned}
+                  onChange={handleInputChange}
+                  className="w-full border rounded-md p-2"
+                  required
+                />
+              </label>
+            </div>
+
+            <div className="mt-8">
+              <button
+                type="submit"
+                className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700"
+              >
+                {isSubmitting ? 'Submitting...' : 'Submit'}
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {isSuccess && <p className="mt-4 text-green-600">Form submitted successfully!</p>}
+        {errorMessage && <p className="mt-4 text-red-600">Error: {errorMessage}</p>}
+      </div>
+    </Layout>
+  );
 }
