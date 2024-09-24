@@ -2,10 +2,11 @@
 <html>
   <head></head>
   <body>
+    <!-- Consent Form -->
     <form name="consent-form" data-netlify="true" hidden>
       <input type="hidden" name="form-name" value="consent-form" />
       
-      <!-- Add hidden form fields to be detected by Netlify -->
+      <!-- Add hidden form fields for the consent form -->
       <input name="givenNames" type="text" />
       <input name="surname" type="text" />
       <input name="email" type="email" />
@@ -31,6 +32,18 @@
       <input name="medications" type="text" />
       <input name="fullNameSignature" type="text" />
       <input name="dateSigned" type="date" />
+    </form>
+
+    <!-- Contact Form -->
+    <form name="contact-form" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="contact-form" />
+
+      <!-- Add hidden form fields for the contact form -->
+      <input name="firstName" type="text" />
+      <input name="lastName" type="text" />
+      <input name="email" type="email" />
+      <input name="subject" type="text" />
+      <textarea name="message"></textarea>
     </form>
   </body>
 </html>
