@@ -1,6 +1,6 @@
 import Layout from '@components/Layout';
 import Link from 'next/link';
-import { doctors } from '../pages/data/doctorsData'; // Update this to import from the new data file
+import { doctors } from '../data/doctorsData'; // Update this to import from the new data file
 
 export default function Doctors() {
   return (

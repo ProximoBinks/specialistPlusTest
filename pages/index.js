@@ -74,7 +74,7 @@ export default function Home() {
             <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-center">
               <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                 <img
-                  src="/injury-mangement.jpg"
+                  src="/injury-management.jpg"
                   alt="Injury Management"
                   className="w-full h-full object-cover rounded-lg"
                 />

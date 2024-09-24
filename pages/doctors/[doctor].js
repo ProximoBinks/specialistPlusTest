@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Layout from '@components/Layout';
-import { doctors } from '../../pages/data/doctorsData'; // Update the path to the new data file
+import { doctors } from '../../data/doctorsData'; // Update the path to the new data file
 
 export default function DoctorProfile({ doctor }) {
   const router = useRouter();

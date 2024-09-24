@@ -14,7 +14,7 @@ export default function Header() {
       url: '/about',
       subtitles: [
         { title: 'Our Doctors', url: '/doctors' },
-        { title: 'Practice Locations', url: '/practice-locations' },
+        { title: 'Practice Locations', url: '/contact' },
       ],
     },
     {

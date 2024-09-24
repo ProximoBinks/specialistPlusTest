@@ -1,6 +1,6 @@
 import Slider from 'react-slick';
 import Image from 'next/image';
-import { doctors } from '../pages/data/doctorsData'; // Import the shared doctors data
+import { doctors } from '../data/doctorsData'; // Import the shared doctors data
 import Link from 'next/link';
 
 export default function DoctorsCarousel() {
