@@ -3,7 +3,7 @@ import Layout from '@components/Layout'
 
 export default function About() {
   return (
-    <Layout>
+    <Layout title="About — Specialist Plus" description="">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-4">About Us</h1>
         <p className="mb-4">

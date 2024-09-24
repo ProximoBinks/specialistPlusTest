@@ -41,7 +41,7 @@ export default function Header() {
       url: '/contact',
       subtitles: [
         { title: 'Opening Hours', url: '/opening-hours' },
-        { title: 'Email Us', url: '/contact-email' },
+        { title: 'Email Us', url: '/contact' },
       ],
     },
   ];
