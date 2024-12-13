@@ -1,0 +1,29 @@
+// pages/Forms.js
+import Layout from '@components/Layout';
+import Link from 'next/link';
+
+export default function Forms() {
+  return (
+    <Layout title="Forms — Specialist Plus" description="Directory of available forms at Specialist Plus.">
+      <div className="max-w-4xl mx-auto px-6 py-12">
+        <h1 className="text-4xl font-bold mb-6 text-center">Forms</h1>
+        <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+          <h2 className="text-2xl font-semibold mb-4">Available Forms</h2>
+          <ul className="divide-y divide-gray-300">
+            <li className="py-4">
+              <Link
+                href="/consent-form"
+                className="text-lg text-blue-600 font-medium hover:text-blue-800 hover:underline"
+              >
+                Consent Form
+              </Link>
+              <p className="text-sm text-gray-500 mt-1">
+                Please complete this form to provide your consent for treatment or services.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </Layout>
+  );
+}

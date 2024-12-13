@@ -127,26 +127,63 @@ export default function Home() {
 
         {/* Grid view for smaller screens */}
         <div className="grid grid-cols-1 gap-8 p-4 w-full md:hidden">
-          <div className="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 className="text-2xl font-semibold">
+          {/* St Morris Location */}
+          <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
               Specialist Plus - St Morris
             </h3>
-            <p>Medical center in St. Morris, South Australia</p>
-            <p>Address: 1A Williams Ave, St Morris SA 5068</p>
-            <p>Hours: Closed ⋅ Opens 7:30 am Mon</p>
-            <p>Phone: (08) 8423 6477</p>
+            <p className="text-gray-600 mb-2">
+              Medical center in St. Morris, South Australia
+            </p>
+            <p className="text-gray-600">
+              <span className="font-medium">Address:</span> 1A Williams Ave, St Morris SA 5068
+            </p>
+            <p className="text-gray-600">
+              <span className="font-medium">Hours:</span> Closed ⋅ Opens 7:30 am Mon
+            </p>
+            <p className="text-gray-600 mb-4">
+              <span className="font-medium">Phone:</span>{' '}
+              <a href="tel:+61884236477" className="text-red-600 hover:underline">(08) 8423 6477</a>
+            </p>
+            <a
+              href="https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 flex items-center space-x-2 font-medium"
+            >
+              View on Google Maps
+            </a>
           </div>
 
-          <div className="bg-gray-100 p-4 rounded-lg shadow">
-            <h3 className="text-2xl font-semibold">
+          {/* Richmond Location */}
+          <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white">
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
               Specialist Plus - Richmond
             </h3>
-            <p>Medical center in Richmond, South Australia</p>
-            <p>Address: 129 Marion Rd, Richmond SA 5033</p>
-            <p>Hours: Closed ⋅ Opens 8:30 am Tue</p>
-            <p>Phone: (08) 8423 6477</p>
+            <p className="text-gray-600 mb-2">
+              Medical center in Richmond, South Australia
+            </p>
+            <p className="text-gray-600">
+              <span className="font-medium">Address:</span> 129 Marion Rd, Richmond SA 5033
+            </p>
+            <p className="text-gray-600">
+              <span className="font-medium">Hours:</span> Closed ⋅ Opens 8:30 am Tue
+            </p>
+            <p className="text-gray-600 mb-4">
+              <span className="font-medium">Phone:</span>{' '}
+              <a href="tel:+61884236477" className="text-red-600 hover:underline">(08) 8423 6477</a>
+            </p>
+            <a
+              href="https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 flex items-center space-x-2 font-medium"
+            >
+              View on Google Maps
+            </a>
           </div>
         </div>
+
 
         {/* Map view for larger screens */}
         {isLargeScreen && (

@@ -12,11 +12,10 @@ L.Icon.Default.mergeOptions({
   shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
 });
 
-// Custom hook to handle panning and zooming the map
 function useMapPan() {
   const map = useMap();
-  const [initialState, setInitialState] = useState(null); // To store initial map center & zoom
-  const hasSetInitialState = useRef(false); // To ensure we set initialState only once
+  const [initialState, setInitialState] = useState(null);
+  const hasSetInitialState = useRef(false);
 
   useEffect(() => {
     if (map && !hasSetInitialState.current) {
@@ -26,22 +25,18 @@ function useMapPan() {
           zoom: map.getZoom(),
         });
         hasSetInitialState.current = true;
-        map.off('moveend', setInitialMapState); // Remove listener after setting initial state
+        map.off('moveend', setInitialMapState);
       };
-
-      // Wait for the map to finish moving (e.g., after fitBounds)
       map.on('moveend', setInitialMapState);
     }
   }, [map]);
 
-  // Pan and zoom to a location with animation
   const panAndZoomToLocation = (lat, lng, zoomLevel = 15) => {
     if (map) {
       map.setView([lat, lng], zoomLevel, { animate: true });
     }
   };
 
-  // Restore the map to its original center and zoom level
   const restoreOriginalView = () => {
     if (map && initialState) {
       map.setView(initialState.center, initialState.zoom, { animate: true });
@@ -69,6 +64,8 @@ export default function Map() {
       name: 'Specialist Plus - St Morris',
       address: '1A Williams Ave, St Morris, SA 5068',
       phone: '(08) 8423 6477',
+      directionsUrl:
+        'https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493'
     },
     {
       lat: -34.93637249596742,
@@ -76,6 +73,8 @@ export default function Map() {
       name: 'Specialist Plus - Richmond',
       address: '129 Marion Rd, Richmond, SA 5033',
       phone: '(08) 8423 6477',
+      directionsUrl:
+        'https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698'
     },
   ];
 
@@ -83,8 +82,8 @@ export default function Map() {
 
   return (
     <MapContainer
-      center={[-34.9285, 138.6007]} // Initial center
-      zoom={12} // Default zoom
+      center={[-34.9285, 138.6007]}
+      zoom={12}
       id="map"
       style={{ height: '100%', width: '100%' }}
       scrollWheelZoom={false}
@@ -107,68 +106,45 @@ export default function Map() {
   );
 }
 
-// Marker component with hover behavior to pan and zoom
 function MapMarker({ location }) {
   const { panAndZoomToLocation, restoreOriginalView } = useMapPan();
+  const markerRef = useRef(null);
 
   const handleMouseOver = (e) => {
     e.target.openPopup();
-    panAndZoomToLocation(location.lat, location.lng, 15); // Pan and zoom in on hover
+    panAndZoomToLocation(location.lat, location.lng, 15);
   };
 
-  const handleMouseOut = (e) => {
-    const toElement = e.originalEvent.relatedTarget;
-
-    if (
-      toElement &&
-      (toElement.closest('.leaflet-popup') ||
-        toElement.closest('.leaflet-marker-icon'))
-    ) {
-      // The mouse is moving to the popup or another marker, do nothing
-      return;
-    }
-
-    e.target.closePopup();
-    restoreOriginalView(); // Restore to original zoom and center on hover out
+  const handleMouseOut = () => {
+    // Let the popup manage closing
   };
 
-  const handlePopupMouseOut = (e) => {
-    const toElement = e.originalEvent.relatedTarget;
-
-    if (
-      toElement &&
-      (toElement.closest('.leaflet-popup') ||
-        toElement.closest('.leaflet-marker-icon'))
-    ) {
-      // Mouse is moving to the marker or popup, do nothing
-      return;
+  const handlePopupMouseLeave = () => {
+    if (markerRef.current) {
+      markerRef.current.closePopup();
+      restoreOriginalView();
     }
-
-    e.target._source.closePopup(); // Close the popup
-    restoreOriginalView();
   };
 
   return (
     <Marker
+      ref={markerRef}
       position={[location.lat, location.lng]}
       eventHandlers={{
         mouseover: handleMouseOver,
         mouseout: handleMouseOut,
       }}
     >
-      <Popup
-        autoPan={false}
-        eventHandlers={{
-          mouseout: handlePopupMouseOut,
-        }}
-      >
-        <div>
+      <Popup autoPan={false} closeButton={false}>
+        <div onMouseLeave={handlePopupMouseLeave}>
           <h3 className="font-semibold">{location.name}</h3>
           <p>{location.address}</p>
           <p>Tel: {location.phone}</p>
           <a
-            href="https://www.google.com/maps"
+            href={location.directionsUrl}
             className="text-blue-500 hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Get Directions
           </a>
