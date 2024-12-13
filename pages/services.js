@@ -15,7 +15,7 @@ export default function Services() {
                             <h2 className="text-2xl font-semibold text-gray-800">Occupational Physician</h2>
                         </div>
                         <h3 className="text-lg font-medium text-gray-700 mb-2">Specialised Services</h3>
-                        <ul className="list-disc pl-6 space-y-2 text-gray-600 mb-4">
+                        <ul className="list-disc pl-6 space-y-2 text-black mb-4 font-bold">
                             <li>Psychiatry</li>
                             <li>Psychology</li>
                             <li>Injury Management</li>

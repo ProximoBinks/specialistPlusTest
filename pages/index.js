@@ -25,7 +25,29 @@ export default function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
+  const cards = [
+    {
+      imgSrc: '/integrated-health.jpg',
+      title: 'Integrated Health Care',
+      description: 'Comprehensive, multidisciplinary support for all aspects of your health',
+      hoverText: 'Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.',
+      link: '/about',
+    },
+    {
+      imgSrc: '/injury-management.jpg',
+      title: 'Injury Management',
+      description: 'Expert care to help you recover and get back on track',
+      hoverText: 'We provide personalised rehabilitation plans to ensure you get the support and care you need after injury.',
+      link: '/about',
+    },
+    {
+      imgSrc: '/specialist-care.jpg',
+      title: 'Specialist Care',
+      description: 'Personalised medical care from a diverse team of experts',
+      hoverText: 'Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.',
+      link: '/about',
+    },
+  ];
   return (
     <Layout
       title="Home — Specialist Plus"
@@ -42,81 +64,119 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-12 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          {/* Responsive Grid for Other Features */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 relative">
+      {/* Why Choose Us Section (Shown only on md and up) */}
+      <section className="py-12 bg-white hidden md:block">
+        <div className="max-w-6xl mx-auto px-4 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
 
-            {/* Grid Item 1: Integrated Health Care (Locked to Left) */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-left">
-              <div className="w-full aspect-w-16 aspect-h-9 mb-4">
-                <img
-                  src="/integrated-health.jpg"
-                  alt="Integrated Health Care"
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="flex flex-col flex-grow p-[10%]">
-                <h3 className="text-lg font-semibold text-[#23528c]">Integrated Health Care</h3>
-                <p className="my-6 text-[#1b2e60] font-semibold">Comprehensive, multidisciplinary support for all aspects of your health</p>
-                <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity transition-transform transform opacity-0 translate-y-3 duration-500 group-hover:opacity-100 group-hover:translate-y-0 text-[13px] mb-6">Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.</p>
-                <div className="mt-auto">
-                  <Link href="https://google.com" target="_blank" className="text-[#7c7c7c] hover:text-[#1b2e60]">
-                    <span className="underline">Theme overview</span>
-                    <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
-                  </Link>
+            {/* Card Wrapper 1 (Left anchor) */}
+            <div className="relative min-h-[480px]">
+              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-left">
+                <div className="w-full aspect-w-16 aspect-h-9 mb-4">
+                  <img
+                    src="/integrated-health.jpg"
+                    alt="Integrated Health Care"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
                 </div>
+                <div className="flex flex-col flex-grow p-[10%] min-h-[260px]">
+                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">Integrated Health Care</h3>
+                  <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
+                    Comprehensive, multidisciplinary support for all aspects of your health
+                  </p>
+                  <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
+                    Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.
+                  </p>
+                  <div className="mt-auto">
+                    <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
+                      <span className="text-sm xl:text-lg underline">Further info</span>
+                      <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+                    </Link>
+                  </div>
+                </div>
+                <style jsx>{`
+                  .group:hover {
+                    transform: scale(1.2);
+                    z-index: 50;
+                  }
+                `}</style>
               </div>
             </div>
 
-            {/* Grid Item 2: Injury Management (Normal Scaling) */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-center">
-              <div className="w-full aspect-w-16 aspect-h-9 mb-4">
-                <img
-                  src="/injury-management.jpg"
-                  alt="Injury Management"
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="flex flex-col flex-grow p-[10%]">
-                <h3 className="text-lg font-semibold text-[#23528c]">Injury Management</h3>
-                <p className="my-6 text-[#1b2e60] font-semibold">Expert care to help you recover and get back on track</p>
-                <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity transition-transform transform opacity-0 translate-y-3 duration-500 group-hover:opacity-100 group-hover:translate-y-0 text-[13px] mb-6">We provide personalized rehabilitation plans to ensure you get the support and care you need after injury.</p>
-                <div className="mt-auto">
-                  <Link href="https://google.com" target="_blank" className="text-[#7c7c7c] hover:text-[#1b2e60]">
-                    <span className="underline">Theme overview</span>
-                    <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
-                  </Link>
+            {/* Card Wrapper 2 (Center anchor) */}
+            <div className="relative min-h-[480px]">
+              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-center">
+                <div className="w-full aspect-w-16 aspect-h-9 mb-4">
+                  <img
+                    src="/injury-management.jpg"
+                    alt="Injury Management"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
                 </div>
+                <div className="flex flex-col flex-grow p-[10%] min-h-[260px]">
+                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">Injury Management</h3>
+                  <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
+                    Expert care to help you recover and get back on track
+                  </p>
+                  <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
+                    We provide personalised rehabilitation plans to ensure you get the support and care you need after injury.
+                  </p>
+                  <div className="mt-auto">
+                    <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
+                      <span className="text-sm xl:text-lg underline">Further info</span>
+                      <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+                    </Link>
+                  </div>
+                </div>
+                <style jsx>{`
+                  .group:hover {
+                    transform: scale(1.2);
+                    z-index: 50;
+                  }
+                `}</style>
               </div>
             </div>
 
-            {/* Grid Item 3: Specialist Care (Locked to Right) */}
-            <div className="bg-white p-4 rounded-lg shadow-md transition-transform transform hover:scale-110 hover:z-20 hover:relative duration-500 group flex flex-col origin-right">
-              <div className="w-full aspect-w-16 aspect-h-9 mb-4">
-                <img
-                  src="/specialist-care.jpg"
-                  alt="Specialist Care"
-                  className="w-full h-full object-cover rounded-lg"
-                />
-              </div>
-              <div className="flex flex-col flex-grow p-[10%]">
-                <h3 className="text-lg font-semibold text-[#23528c]">Specialist Care</h3>
-                <p className="my-6 text-[#1b2e60] font-semibold">Personalized medical care from a diverse team of experts</p>
-                <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity transition-transform transform opacity-0 translate-y-3 duration-500 group-hover:opacity-100 group-hover:translate-y-0 text-[13px] mb-6">Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.</p>
-                <div className="mt-auto">
-                  <Link href="https://google.com" target="_blank" className="text-[#7c7c7c] hover:text-[#1b2e60]">
-                    <span className="underline">Theme overview</span>
-                    <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
-                  </Link>
+            {/* Card Wrapper 3 (Right anchor) */}
+            <div className="relative min-h-[480px]">
+              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-right">
+                <div className="w-full aspect-w-16 aspect-h-9 mb-4">
+                  <img
+                    src="/specialist-care.jpg"
+                    alt="Specialist Care"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
                 </div>
+                <div className="flex flex-col flex-grow p-[10%] min-h-[260px]">
+                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">Specialist Care</h3>
+                  <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
+                    Personalised medical care from a diverse team of experts
+                  </p>
+                  <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
+                    Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.
+                  </p>
+                  <div className="mt-auto">
+                    <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
+                      <span className="text-sm xl:text-lg underline">Further info</span>
+                      <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+                    </Link>
+                  </div>
+                </div>
+                <style jsx>{`
+                  .group:hover {
+                    transform: scale(1.2);
+                    z-index: 50;
+                  }
+                `}</style>
               </div>
             </div>
 
           </div>
         </div>
       </section>
+
+      {/* Mobile Carousel (Shown only on small screens) */}
+      <MobileWhyChooseUsCarousel cards={cards} />
 
       {/* Carousel of Doctors */}
       <DoctorsCarousel />
@@ -184,7 +244,6 @@ export default function Home() {
           </div>
         </div>
 
-
         {/* Map view for larger screens */}
         {isLargeScreen && (
           <div className="w-full h-[500px] z-0">
@@ -193,5 +252,64 @@ export default function Home() {
         )}
       </section>
     </Layout>
+  );
+}
+
+function MobileWhyChooseUsCarousel({ cards }) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % cards.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + cards.length) % cards.length);
+  };
+
+  return (
+    <div className="block md:hidden py-12 bg-white">
+      <h2 className="text-2xl font-bold text-center mb-8">Why Choose Us</h2>
+      <div className="max-w-md mx-auto relative">
+        {/* Card display */}
+        <div className="bg-white p-4 rounded-lg shadow-md flex flex-col">
+          <div className="w-full aspect-w-16 aspect-h-9 mb-4">
+            <img
+              src={cards[currentSlide].imgSrc}
+              alt={cards[currentSlide].title}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <h3 className="text-md font-semibold text-[#23528c]">{cards[currentSlide].title}</h3>
+          <p className="my-4 text-[#1b2e60] font-semibold text-sm">
+            {cards[currentSlide].description}
+          </p>
+          <p className="text-[#4d4d4d] text-[13px] mb-6">
+            {cards[currentSlide].hoverText}
+          </p>
+          <div className="mt-auto">
+            <Link href={cards[currentSlide].link} className="text-[#7c7c7c] hover:text-[#1b2e60]">
+              <span className="text-sm underline">Further info</span>
+              <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex justify-center space-x-4 mt-4">
+          <button
+            onClick={prevSlide}
+            className="bg-gray-200 hover:bg-gray-300 text-black px-3 py-1 rounded"
+          >
+            Prev
+          </button>
+          <button
+            onClick={nextSlide}
+            className="bg-gray-200 hover:bg-gray-300 text-black px-3 py-1 rounded"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
