@@ -11,25 +11,35 @@ export default function DoctorProfile({ doctor }) {
 
   return (
     <Layout title={`${doctor.name} — Specialist Plus`} description={`Learn more about ${doctor.name}`}>
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="max-w-7xl mx-auto py-16 px-6 sm:px-8 lg:px-12 xl:max-w-8xl">
+        {/* Back Button */}
+        <div className="mb-8">
+          <button
+            onClick={() => router.push('/doctors')}
+            className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition"
+          >
+            &larr; Back to Doctors
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:gap-12 gap-8">
           {/* Left Column (Image) */}
           <div className="flex justify-center">
             <img
               src={doctor.image}
               alt={doctor.name}
-              className="rounded-md object-cover min-w-full max-w-xs"
+              className="rounded-lg object-cover w-full max-w-md xl:max-w-lg"
             />
           </div>
 
           {/* Right Column (Info) */}
-          <div className="flex flex-col justify-start">
-            <h1 className="text-3xl font-bold mb-4">{doctor.name}</h1>
-            <p className="text-lg text-gray-500 mb-2">{doctor.title}</p>
+          <div className="flex flex-col justify-start xl:text-lg">
+            <h1 className="text-4xl font-bold mb-6 xl:text-5xl">{doctor.name}</h1>
+            <p className="text-lg text-gray-500 mb-4 xl:mb-6">{doctor.title}</p>
 
             {/* Render the about content with line breaks */}
             <p
-              className="text-md text-gray-700"
+              className="text-md text-gray-700 xl:text-lg"
               dangerouslySetInnerHTML={{ __html: doctor.about }}
             />
           </div>

@@ -25,7 +25,7 @@ export default function Footer() {
                 <Link href="/services" className="block hover:text-gray-900">Services</Link>
               </li>
               <li>
-                <Link href="/providers" className="block hover:text-gray-900">Providers</Link>
+                <Link href="/doctors" className="block hover:text-gray-900">Providers</Link>
               </li>
               <li>
                 <Link href="/forms" className="block hover:text-gray-900">Forms</Link>
@@ -44,10 +44,37 @@ export default function Footer() {
             <p className="text-gray-500 mt-2">Email: admin@specialistplus.com.au</p>
             <p className="text-gray-500">Phone: (08) 8423 6477</p>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-gray-500 hover:text-gray-900"><FaFacebookF size={20} /></a>
-              <a href="#" className="text-gray-500 hover:text-gray-900"><FaLinkedinIn size={20} /></a>
-              <a href="#" className="text-gray-500 hover:text-gray-900"><FaInstagram size={20} /></a>
+              {/* Facebook */}
+              <a
+                href="https://www.facebook.com/p/Specialist-Plus-100083018906533/"
+                className="text-gray-500 hover:text-gray-900"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebookF size={20} />
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://au.linkedin.com/company/specialistplus"
+                className="text-gray-500 hover:text-gray-900"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaLinkedinIn size={20} />
+              </a>
+
+              {/* Instagram (commented out) */}
+              {/* <a
+    href="#"
+    className="text-gray-500 hover:text-gray-900"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <FaInstagram size={20} />
+  </a> */}
             </div>
+
           </div>
         </div>
       </div>

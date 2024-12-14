@@ -312,4 +312,4 @@ function MobileWhyChooseUsCarousel({ cards }) {
       </div>
     </div>
   );
-}
+} 

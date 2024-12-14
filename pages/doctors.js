@@ -10,11 +10,14 @@ export default function Doctors() {
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
           {doctors.map((doctor) => (
             <div key={doctor.id} className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center text-center">
-              <img
-                src={doctor.image}
-                alt={doctor.name}
-                className="rounded-md object-cover mb-4"
-              />
+              {/* Wrap image directly with Link */}
+              <Link href={doctor.profileUrl}>
+                <img
+                  src={doctor.image}
+                  alt={doctor.name}
+                  className="rounded-md object-cover mb-4 cursor-pointer hover:opacity-90 transition duration-200"
+                />
+              </Link>
               <h2 className="text-xl font-semibold mb-2">{doctor.name}</h2>
               <p className="text-md text-gray-500">{doctor.title}</p>
               <p className="mt-4 text-gray-600">{doctor.description}</p>

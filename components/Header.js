@@ -32,7 +32,7 @@ export default function Header() {
     },
     {
       title: 'Forms',
-      url:'/forms',
+      url: '/forms',
       subtitles: [{ title: 'Consent Form', url: '/consent-form' }],
     },
     {
@@ -119,9 +119,11 @@ export default function Header() {
             ))}
           </div>
           <div className="hidden xl:block">
-            <button className="bg-red-600 text-white px-6 py-3 rounded-3xl hover:bg-red-700 font-bold">
-              Call Us
-            </button>
+            <a href="tel:+61884236477">
+              <button className="bg-red-600 text-white px-6 py-3 rounded-3xl hover:bg-red-700 font-bold">
+                Call Us
+              </button>
+            </a>
           </div>
           <div className="xl:hidden">
             {/* Add ref to the hamburger button */}
