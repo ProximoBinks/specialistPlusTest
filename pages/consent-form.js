@@ -1,5 +1,3 @@
-// pages/consent-form.js
-
 'use client';
 import { useState } from 'react';
 import Layout from '@components/Layout';
@@ -10,11 +8,8 @@ export default function ConsentForm() {
         surname: '',
         preferredNames: '',
         email: '',
-        // Changed from dob to dateOfBirth
         dateOfBirth: '',
-        // Changed from addressUnitStreet to addressUnit
         addressUnit: '',
-        // Changed from addressSuburbPostcode to addressSuburb
         addressSuburb: '',
         phone: '',
         dateOfInjury: '',
@@ -25,16 +20,11 @@ export default function ConsentForm() {
         claimNumber: '',
         claimManager: '',
         allergies: '',
-        // Matches the 'alcohol' field in __forms.html
         alcohol: 'Never',
-        // Changed from alcoholConsumptionPerWeek to alcoholConsumption
         alcoholConsumption: '',
-        // Changed from smokingStatus to smoke
         smoke: 'Never',
-        // Changed from cigarettesPerDay to smokePerDay
         smokePerDay: '',
         yearsSmoked: '',
-        // Changed from quitDate to quitWhen
         quitWhen: '',
         medications: [{ name: '', dosage: '' }],
         patientAuthority: '',
@@ -72,22 +62,26 @@ export default function ConsentForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-    
-        // Build a URLSearchParams body from the actual form element:
+
+        // Build a FormData object from the form element
         const formDataObj = new FormData(e.target);
-    
+
+        // Add the hidden `name` field dynamically from `givenNames`
+        formDataObj.set('name', formData.givenNames);
+
         // Serialize medications as JSON
         formDataObj.set('medications', JSON.stringify(formData.medications));
-    
+
+        // Convert to x-www-form-urlencoded
         const formDataString = new URLSearchParams(formDataObj).toString();
-    
+
         try {
             const response = await fetch('/__forms.html', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: formDataString,
             });
-    
+
             if (response.ok) {
                 setIsSuccess(true);
                 setErrorMessage('');
@@ -109,11 +103,9 @@ export default function ConsentForm() {
                     All clients are required to complete the consent form below 48 hours prior to an appointment.
                 </p>
                 <form name="consent-form" onSubmit={handleSubmit}>
-                    {/* Netlify form name markers */}
                     <input type="hidden" name="form-name" value="consent-form" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {/* Personal Information */}
                         <div>
                             <label className="block">
                                 Given names <span className="text-red-500">*</span>

@@ -5,8 +5,14 @@
     <!-- Consent Form -->
     <form name="consent-form" data-netlify="true" hidden>
       <input type="hidden" name="form-name" value="consent-form" />
+      
+      <!-- Add the subject field for customizing email title -->
+      <input type="hidden" name="subject" value="Consent Form - %{name}" />
+      
+      <!-- Hidden field for Netlify substitution -->
+      <input type="hidden" name="name" />
 
-      <!-- Add hidden form fields for the consent form -->
+      <!-- Form fields -->
       <input name="givenNames" type="text" />
       <input name="surname" type="text" />
       <input name="email" type="email" />
@@ -28,20 +34,11 @@
       <input name="smokePerDay" type="text" />
       <input name="yearsSmoked" type="text" />
       <input name="quitWhen" type="text" />
-      <!-- Medications (for simplicity, include multiple inputs) -->
       <input name="medications" type="hidden" />
       <input name="patientAuthority" type="text" />
       <input name="nonConsent" type="text" />
       <input name="fullNameSignature" type="text" />
       <input name="dateSigned" type="date" />
-      <input
-        type="hidden"
-        name="subject"
-        value="{`Consent"
-        form
-        -
-        ${formData.givenNames}`}
-      />
     </form>
 
     <!-- Contact Form -->
