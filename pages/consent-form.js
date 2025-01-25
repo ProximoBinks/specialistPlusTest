@@ -72,18 +72,22 @@ export default function ConsentForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
+    
         // Build a URLSearchParams body from the actual form element:
         const formDataObj = new FormData(e.target);
+    
+        // Serialize medications as JSON
+        formDataObj.set('medications', JSON.stringify(formData.medications));
+    
         const formDataString = new URLSearchParams(formDataObj).toString();
-
+    
         try {
             const response = await fetch('/__forms.html', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: formDataString,
             });
-
+    
             if (response.ok) {
                 setIsSuccess(true);
                 setErrorMessage('');
