@@ -5,7 +5,7 @@
     <!-- Consent Form -->
     <form name="consent-form" data-netlify="true" hidden>
       <input type="hidden" name="form-name" value="consent-form" />
-      
+
       <!-- Add hidden form fields for the consent form -->
       <input name="givenNames" type="text" />
       <input name="surname" type="text" />
@@ -34,6 +34,14 @@
       <input name="nonConsent" type="text" />
       <input name="fullNameSignature" type="text" />
       <input name="dateSigned" type="date" />
+      <input
+        type="hidden"
+        name="subject"
+        value="{`Consent"
+        form
+        -
+        ${formData.givenNames}`}
+      />
     </form>
 
     <!-- Contact Form -->
