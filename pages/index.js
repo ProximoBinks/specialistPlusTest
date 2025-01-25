@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-// Dynamically import the Map component with SSR disabled
-const Map = dynamic(() => import('@components/Map'), { ssr: false });
+// Dynamically import the new Map component (no SSR)
+const CustomMap = dynamic(() => import('@components/CustomMap'), { ssr: false });
 
 // Import the DoctorsCarousel component
 import DoctorsCarousel from '@components/DoctorsCarousel';
@@ -25,6 +25,7 @@ export default function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   const cards = [
     {
       imgSrc: '/integrated-health.jpg',
@@ -48,13 +49,17 @@ export default function Home() {
       link: '/about',
     },
   ];
+
   return (
     <Layout
       title="Home — Specialist Plus"
       description="Welcome to Specialist Plus, providing comprehensive medical care in South Australia."
     >
       {/* Hero Section */}
-      <section className="relative w-full h-[500px] flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('/homeBackground.png')" }}>
+      <section
+        className="relative w-full h-[500px] flex items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/homeBackground.png')" }}
+      >
         <div className="absolute inset-0 z-0"></div> {/* Overlay */}
         <div className="relative z-10 text-center text-white">
           <h1 className="text-5xl font-bold">Welcome to Specialist Plus</h1>
@@ -69,7 +74,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 relative">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
 
-            {/* Card Wrapper 1 (Left anchor) */}
+            {/* Card 1 */}
             <div className="relative min-h-[480px]">
               <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-left">
                 <div className="w-full aspect-w-16 aspect-h-9 mb-4">
@@ -80,12 +85,16 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-col flex-grow p-[10%] min-h-[260px]">
-                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">Integrated Health Care</h3>
+                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">
+                    Integrated Health Care
+                  </h3>
                   <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
                     Comprehensive, multidisciplinary support for all aspects of your health
                   </p>
                   <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    Our collaborative team of specialists ensures that every part of your healthcare journey is supported, providing a seamless, integrated approach to your wellbeing.
+                    Our collaborative team of specialists ensures that every part of your 
+                    healthcare journey is supported, providing a seamless, integrated approach
+                    to your wellbeing.
                   </p>
                   <div className="mt-auto">
                     <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
@@ -103,7 +112,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card Wrapper 2 (Center anchor) */}
+            {/* Card 2 */}
             <div className="relative min-h-[480px]">
               <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-center">
                 <div className="w-full aspect-w-16 aspect-h-9 mb-4">
@@ -114,12 +123,15 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-col flex-grow p-[10%] min-h-[260px]">
-                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">Injury Management</h3>
+                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">
+                    Injury Management
+                  </h3>
                   <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
                     Expert care to help you recover and get back on track
                   </p>
                   <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    We provide personalised rehabilitation plans to ensure you get the support and care you need after injury.
+                    We provide personalised rehabilitation plans to ensure you get 
+                    the support and care you need after injury.
                   </p>
                   <div className="mt-auto">
                     <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
@@ -137,7 +149,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Card Wrapper 3 (Right anchor) */}
+            {/* Card 3 */}
             <div className="relative min-h-[480px]">
               <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-right">
                 <div className="w-full aspect-w-16 aspect-h-9 mb-4">
@@ -148,12 +160,15 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-col flex-grow p-[10%] min-h-[260px]">
-                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">Specialist Care</h3>
+                  <h3 className="text-md xl:text-lg font-semibold text-[#23528c]">
+                    Specialist Care
+                  </h3>
                   <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
                     Personalised medical care from a diverse team of experts
                   </p>
                   <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    Receive dedicated attention from experienced specialists, ensuring your unique health needs are met with precision.
+                    Receive dedicated attention from experienced specialists, ensuring 
+                    your unique health needs are met with precision.
                   </p>
                   <div className="mt-auto">
                     <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
@@ -203,7 +218,9 @@ export default function Home() {
             </p>
             <p className="text-gray-600 mb-4">
               <span className="font-medium">Phone:</span>{' '}
-              <a href="tel:+61884236477" className="text-red-600 hover:underline">(08) 8423 6477</a>
+              <a href="tel:+61884236477" className="text-red-600 hover:underline">
+                (08) 8423 6477
+              </a>
             </p>
             <a
               href="https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493"
@@ -231,7 +248,9 @@ export default function Home() {
             </p>
             <p className="text-gray-600 mb-4">
               <span className="font-medium">Phone:</span>{' '}
-              <a href="tel:+61884236477" className="text-red-600 hover:underline">(08) 8423 6477</a>
+              <a href="tel:+61884236477" className="text-red-600 hover:underline">
+                (08) 8423 6477
+              </a>
             </p>
             <a
               href="https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698"
@@ -247,7 +266,7 @@ export default function Home() {
         {/* Map view for larger screens */}
         {isLargeScreen && (
           <div className="w-full h-[500px] z-0">
-            <Map />
+            <CustomMap />
           </div>
         )}
       </section>
@@ -279,7 +298,9 @@ function MobileWhyChooseUsCarousel({ cards }) {
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
-          <h3 className="text-md font-semibold text-[#23528c]">{cards[currentSlide].title}</h3>
+          <h3 className="text-md font-semibold text-[#23528c]">
+            {cards[currentSlide].title}
+          </h3>
           <p className="my-4 text-[#1b2e60] font-semibold text-sm">
             {cards[currentSlide].description}
           </p>
@@ -287,7 +308,10 @@ function MobileWhyChooseUsCarousel({ cards }) {
             {cards[currentSlide].hoverText}
           </p>
           <div className="mt-auto">
-            <Link href={cards[currentSlide].link} className="text-[#7c7c7c] hover:text-[#1b2e60]">
+            <Link
+              href={cards[currentSlide].link}
+              className="text-[#7c7c7c] hover:text-[#1b2e60]"
+            >
               <span className="text-sm underline">Further info</span>
               <span className="text-[#de5857] font-bold">&nbsp; &gt;</span>
             </Link>
@@ -312,4 +336,4 @@ function MobileWhyChooseUsCarousel({ cards }) {
       </div>
     </div>
   );
-} 
+}
