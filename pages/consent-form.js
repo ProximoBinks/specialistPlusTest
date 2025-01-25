@@ -1,3 +1,5 @@
+// pages/consent-form.js
+
 'use client';
 import { useState } from 'react';
 import Layout from '@components/Layout';
@@ -31,6 +33,7 @@ export default function ConsentForm() {
         nonConsent: '',
         fullNameSignature: '',
         dateSigned: '',
+        subject: '',
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,16 +66,12 @@ export default function ConsentForm() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Build a FormData object from the form element
+        // Build a URLSearchParams body from the actual form element:
         const formDataObj = new FormData(e.target);
-
-        // Add the hidden `name` field dynamically from `givenNames`
-        formDataObj.set('name', formData.givenNames);
 
         // Serialize medications as JSON
         formDataObj.set('medications', JSON.stringify(formData.medications));
 
-        // Convert to x-www-form-urlencoded
         const formDataString = new URLSearchParams(formDataObj).toString();
 
         try {
@@ -103,9 +102,11 @@ export default function ConsentForm() {
                     All clients are required to complete the consent form below 48 hours prior to an appointment.
                 </p>
                 <form name="consent-form" onSubmit={handleSubmit}>
+                    {/* Netlify form name markers */}
                     <input type="hidden" name="form-name" value="consent-form" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Personal Information */}
                         <div>
                             <label className="block">
                                 Given names <span className="text-red-500">*</span>
@@ -539,7 +540,11 @@ export default function ConsentForm() {
                                 />
                             </label>
                         </div>
-
+                        <input
+                            type="hidden"
+                            name="subject"
+                            value={`Consent Form - ${formData.givenNames} ${formData.surname}`}
+                        />
                         {/* Signature Section */}
                         <div className="mt-8">
                             <label className="block">
