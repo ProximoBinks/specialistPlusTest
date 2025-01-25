@@ -2,7 +2,8 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { useState, useRef } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+// const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+const MAPBOX_TOKEN = "pk.eyJ1IjoicHJveGltb2JpbmtzIiwiYSI6ImNtNjhtaWcycjA5MHQydW9jZG12dTN2eW0ifQ.lSgeDwz-4KCfGxuMf5tjeA"
 
 export default function CustomMap() {
   const locations = [
