@@ -13,7 +13,7 @@ export default function CustomMap() {
       lng: 138.65407,
       address: '1A Williams Ave, St Morris, SA 5068',
       phone: '(08) 8423 6477',
-      directionsUrl: '...',
+      directionsUrl: 'https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493',
     },
     {
       name: 'Specialist Plus - Richmond',
@@ -21,7 +21,7 @@ export default function CustomMap() {
       lng: 138.55058,
       address: '129 Marion Rd, Richmond, SA 5033',
       phone: '(08) 8423 6477',
-      directionsUrl: '...',
+      directionsUrl: 'https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698',
     },
   ];
 
