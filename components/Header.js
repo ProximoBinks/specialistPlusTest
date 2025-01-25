@@ -187,9 +187,11 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <button className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
-              Call Us
-            </button>
+            <a href="tel:+61884236477">
+              <button className="w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                Call Us
+              </button>
+            </a>
           </div>
         </div>
       )}

@@ -1,4 +1,5 @@
 // pages/consent-form.js
+
 'use client';
 import { useState } from 'react';
 import Layout from '@components/Layout';
@@ -9,9 +10,12 @@ export default function ConsentForm() {
         surname: '',
         preferredNames: '',
         email: '',
-        dob: '',
-        addressUnitStreet: '',
-        addressSuburbPostcode: '',
+        // Changed from dob to dateOfBirth
+        dateOfBirth: '',
+        // Changed from addressUnitStreet to addressUnit
+        addressUnit: '',
+        // Changed from addressSuburbPostcode to addressSuburb
+        addressSuburb: '',
         phone: '',
         dateOfInjury: '',
         medicareNumber: '',
@@ -21,12 +25,17 @@ export default function ConsentForm() {
         claimNumber: '',
         claimManager: '',
         allergies: '',
+        // Matches the 'alcohol' field in __forms.html
         alcohol: 'Never',
-        alcoholConsumptionPerWeek: '',
-        smokingStatus: 'Never',
-        cigarettesPerDay: '',
+        // Changed from alcoholConsumptionPerWeek to alcoholConsumption
+        alcoholConsumption: '',
+        // Changed from smokingStatus to smoke
+        smoke: 'Never',
+        // Changed from cigarettesPerDay to smokePerDay
+        smokePerDay: '',
         yearsSmoked: '',
-        quitDate: '',
+        // Changed from quitDate to quitWhen
+        quitWhen: '',
         medications: [{ name: '', dosage: '' }],
         patientAuthority: '',
         nonConsent: '',
@@ -64,6 +73,7 @@ export default function ConsentForm() {
         e.preventDefault();
         setIsSubmitting(true);
 
+        // Build a URLSearchParams body from the actual form element:
         const formDataObj = new FormData(e.target);
         const formDataString = new URLSearchParams(formDataObj).toString();
 
@@ -88,16 +98,14 @@ export default function ConsentForm() {
     };
 
     return (
-        <Layout
-            title="Consent Form — Specialist Plus"
-            description=""
-        >
+        <Layout title="Consent Form — Specialist Plus" description="">
             <div className="max-w-3xl mx-auto py-12 px-4">
                 <h1 className="text-3xl font-bold mb-8">Consent Form</h1>
                 <p className="mb-4">
                     All clients are required to complete the consent form below 48 hours prior to an appointment.
                 </p>
                 <form name="consent-form" onSubmit={handleSubmit}>
+                    {/* Netlify form name markers */}
                     <input type="hidden" name="form-name" value="consent-form" />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -160,10 +168,11 @@ export default function ConsentForm() {
                         <div>
                             <label className="block">
                                 Date of Birth <span className="text-red-500">*</span>
+                                {/* Changed name from 'dob' to 'dateOfBirth' */}
                                 <input
                                     type="date"
-                                    name="dob"
-                                    value={formData.dob}
+                                    name="dateOfBirth"
+                                    value={formData.dateOfBirth}
                                     onChange={handleInputChange}
                                     className="w-full border rounded-md p-2"
                                     required
@@ -175,10 +184,11 @@ export default function ConsentForm() {
                         <div>
                             <label className="block">
                                 Address (Unit Number and Street) <span className="text-red-500">*</span>
+                                {/* Changed name from 'addressUnitStreet' to 'addressUnit' */}
                                 <input
                                     type="text"
-                                    name="addressUnitStreet"
-                                    value={formData.addressUnitStreet}
+                                    name="addressUnit"
+                                    value={formData.addressUnit}
                                     onChange={handleInputChange}
                                     className="w-full border rounded-md p-2"
                                     required
@@ -189,10 +199,11 @@ export default function ConsentForm() {
                         <div>
                             <label className="block">
                                 Address (Suburb and Postcode) <span className="text-red-500">*</span>
+                                {/* Changed name from 'addressSuburbPostcode' to 'addressSuburb' */}
                                 <input
                                     type="text"
-                                    name="addressSuburbPostcode"
-                                    value={formData.addressSuburbPostcode}
+                                    name="addressSuburb"
+                                    value={formData.addressSuburb}
                                     onChange={handleInputChange}
                                     className="w-full border rounded-md p-2"
                                     required
@@ -359,10 +370,11 @@ export default function ConsentForm() {
                             <div>
                                 <label className="block">
                                     Alcohol Consumption Per Week
+                                    {/* Changed name from 'alcoholConsumptionPerWeek' to 'alcoholConsumption' */}
                                     <input
                                         type="number"
-                                        name="alcoholConsumptionPerWeek"
-                                        value={formData.alcoholConsumptionPerWeek}
+                                        name="alcoholConsumption"
+                                        value={formData.alcoholConsumption}
                                         onChange={handleInputChange}
                                         className="w-full border rounded-md p-2"
                                         required
@@ -376,11 +388,12 @@ export default function ConsentForm() {
                                 Do you smoke? <span className="text-red-500">*</span>
                                 <div className="flex items-center space-x-4">
                                     <label className="inline-flex items-center">
+                                        {/* Changed name from 'smokingStatus' to 'smoke' */}
                                         <input
                                             type="radio"
-                                            name="smokingStatus"
+                                            name="smoke"
                                             value="Never"
-                                            checked={formData.smokingStatus === 'Never'}
+                                            checked={formData.smoke === 'Never'}
                                             onChange={handleInputChange}
                                             className="form-radio"
                                             required
@@ -390,9 +403,9 @@ export default function ConsentForm() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="radio"
-                                            name="smokingStatus"
+                                            name="smoke"
                                             value="Yes"
-                                            checked={formData.smokingStatus === 'Yes'}
+                                            checked={formData.smoke === 'Yes'}
                                             onChange={handleInputChange}
                                             className="form-radio"
                                             required
@@ -402,9 +415,9 @@ export default function ConsentForm() {
                                     <label className="inline-flex items-center">
                                         <input
                                             type="radio"
-                                            name="smokingStatus"
+                                            name="smoke"
                                             value="Quit"
-                                            checked={formData.smokingStatus === 'Quit'}
+                                            checked={formData.smoke === 'Quit'}
                                             onChange={handleInputChange}
                                             className="form-radio"
                                             required
@@ -415,15 +428,16 @@ export default function ConsentForm() {
                             </label>
                         </div>
 
-                        {formData.smokingStatus === 'Yes' && (
+                        {formData.smoke === 'Yes' && (
                             <>
                                 <div>
                                     <label className="block">
                                         If Yes, how many per day
+                                        {/* Changed name from 'cigarettesPerDay' to 'smokePerDay' */}
                                         <input
                                             type="number"
-                                            name="cigarettesPerDay"
-                                            value={formData.cigarettesPerDay}
+                                            name="smokePerDay"
+                                            value={formData.smokePerDay}
                                             onChange={handleInputChange}
                                             className="w-full border rounded-md p-2"
                                             required
@@ -434,6 +448,7 @@ export default function ConsentForm() {
                                 <div>
                                     <label className="block">
                                         If Yes, years smoked
+                                        {/* 'yearsSmoked' already matches the hidden form */}
                                         <input
                                             type="number"
                                             name="yearsSmoked"
@@ -447,14 +462,15 @@ export default function ConsentForm() {
                             </>
                         )}
 
-                        {formData.smokingStatus === 'Quit' && (
+                        {formData.smoke === 'Quit' && (
                             <div>
                                 <label className="block">
                                     If Quit, When did you quit
+                                    {/* Changed name from 'quitDate' to 'quitWhen' */}
                                     <input
                                         type="date"
-                                        name="quitDate"
-                                        value={formData.quitDate}
+                                        name="quitWhen"
+                                        value={formData.quitWhen}
                                         onChange={handleInputChange}
                                         className="w-full border rounded-md p-2"
                                         required
