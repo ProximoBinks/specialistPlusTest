@@ -5,10 +5,12 @@ import Layout from '@components/Layout';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function Contact() {
+  // 1. Keep track of subjectInput as well as firstName, lastName, etc.
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
+    subjectInput: '',
     message: '',
   });
 
@@ -25,7 +27,10 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Build form data:
     const formDataObj = new FormData(e.target);
+
+    // Convert to standard URL-encoded string:
     const formDataString = new URLSearchParams(formDataObj).toString();
 
     try {
@@ -59,11 +64,11 @@ export default function Contact() {
         <p className="text-center mb-6 text-gray-700">
           For all appointments and enquiries, please call&nbsp;
           <a href="tel:+61884236477" className="text-red-600 font-medium hover:underline">(08) 8423 6477</a>
-          
+
           &nbsp;or request an appointment online using the form <span className="underline font-bold cursor-pointer" onClick={scrollToContact}>below</span>.
         </p>
         <p className="text-center text-gray-700 mb-6">
-        Our practice staff will reach out to you as soon as possible to discuss your needs.<br></br>
+          Our practice staff will reach out to you as soon as possible to discuss your needs.<br></br>
           You can also reach us via fax at:
           <span className="text-gray-900 font-medium"> 08 8311 1755</span>
         </p>
@@ -157,13 +162,15 @@ export default function Contact() {
           <h2 className="text-3xl font-semibold text-center mb-6" id="contact-header">
             Contact Us
           </h2>
+
           <form
             name="contact-form"
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Netlify form name markers */}
+            {/* Netlify form marker */}
             <input type="hidden" name="form-name" value="contact-form" />
+
             <p className="hidden">
               <label>
                 Don’t fill this out if you're human: <input name="bot-field" />
@@ -215,14 +222,32 @@ export default function Contact() {
               </label>
             </div>
 
+            {/* 
+              SubjectInput (visible) 
+              The user sees this as "Subject" on the page. 
+            */}
+            <div>
+              <label className="block text-gray-700">
+                Subject <span className="text-red-500">*</span>
+                <input
+                  type="text"
+                  name="subjectInput"
+                  value={formData.subjectInput}
+                  onChange={handleInputChange}
+                  required
+                  className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                />
+              </label>
+            </div>
+
             {/*
-              Instead of letting the user type the subject, we create a hidden input that
-              dynamically fills the subject as "subject - firstName lastName"
+              Hidden actual subject field that Netlify sees as "subject".
+              We'll combine the typed subjectInput with "- firstName lastName".
             */}
             <input
               type="hidden"
               name="subject"
-              value={`subject - ${formData.firstName} ${formData.lastName}`}
+              value={`${formData.subjectInput} - ${formData.firstName} ${formData.lastName}`}
             />
 
             {/* Message */}
