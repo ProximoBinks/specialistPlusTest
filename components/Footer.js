@@ -1,8 +1,10 @@
 // components/Footer.js
 import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
-import Link from 'next/link'
+import Link from 'next/link';
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-white border-t border-gray-300">
       <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -39,8 +41,6 @@ export default function Footer() {
           {/* Contact Us & Social Icons */}
           <div className="flex flex-col items-center md:items-start">
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            {/* <p className="text-gray-500">1234 Specialist St, Suite 100</p>
-            <p className="text-gray-500">City, State, 12345</p> */}
             <p className="text-gray-500 mt-2">Email: admin@specialistplus.com.au</p>
             <p className="text-gray-500">Phone: (08) 8423 6477</p>
             <div className="flex space-x-4 mt-4">
@@ -63,24 +63,13 @@ export default function Footer() {
               >
                 <FaLinkedinIn size={20} />
               </a>
-
-              {/* Instagram (commented out) */}
-              {/* <a
-    href="#"
-    className="text-gray-500 hover:text-gray-900"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <FaInstagram size={20} />
-  </a> */}
             </div>
-
           </div>
         </div>
       </div>
       <div className="bg-gray-100 py-4">
         <p className="text-center text-gray-500 text-sm">
-          &copy; 2024 Specialist Plus. All rights reserved.
+          &copy; {currentYear} Specialist Plus. All rights reserved.
         </p>
       </div>
     </footer>
