@@ -9,7 +9,6 @@ export default function Contact() {
     firstName: '',
     lastName: '',
     email: '',
-    subject: '',
     message: '',
   });
 
@@ -155,18 +154,23 @@ export default function Contact() {
 
         {/* Contact Us Form */}
         <div className="rounded-lg p-8 max-w-lg mx-auto">
-          <h2 className="text-3xl font-semibold text-center mb-6" id="contact-header">Contact Us</h2>
+          <h2 className="text-3xl font-semibold text-center mb-6" id="contact-header">
+            Contact Us
+          </h2>
           <form
             name="contact-form"
             onSubmit={handleSubmit}
             className="space-y-6"
           >
+            {/* Netlify form name markers */}
             <input type="hidden" name="form-name" value="contact-form" />
             <p className="hidden">
               <label>
                 Don’t fill this out if you're human: <input name="bot-field" />
               </label>
             </p>
+
+            {/* First Name */}
             <div>
               <label className="block text-gray-700">
                 First Name <span className="text-red-500">*</span>
@@ -180,6 +184,8 @@ export default function Contact() {
                 />
               </label>
             </div>
+
+            {/* Last Name */}
             <div>
               <label className="block text-gray-700">
                 Last Name <span className="text-red-500">*</span>
@@ -193,6 +199,8 @@ export default function Contact() {
                 />
               </label>
             </div>
+
+            {/* Email */}
             <div>
               <label className="block text-gray-700">
                 Email <span className="text-red-500">*</span>
@@ -206,19 +214,18 @@ export default function Contact() {
                 />
               </label>
             </div>
-            <div>
-              <label className="block text-gray-700">
-                Subject <span className="text-red-500">*</span>
-                <input
-                  type="text"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
-                  required
-                  className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                />
-              </label>
-            </div>
+
+            {/*
+              Instead of letting the user type the subject, we create a hidden input that
+              dynamically fills the subject as "subject - firstName lastName"
+            */}
+            <input
+              type="hidden"
+              name="subject"
+              value={`subject - ${formData.firstName} ${formData.lastName}`}
+            />
+
+            {/* Message */}
             <div>
               <label className="block text-gray-700">
                 Message <span className="text-red-500">*</span>
@@ -232,6 +239,8 @@ export default function Contact() {
                 ></textarea>
               </label>
             </div>
+
+            {/* Submit Button */}
             <div>
               <button
                 type="submit"
@@ -241,8 +250,13 @@ export default function Contact() {
               </button>
             </div>
           </form>
-          {isSuccess && <p className="mt-4 text-green-600 text-center">Form submitted successfully!</p>}
-          {errorMessage && <p className="mt-4 text-red-600 text-center">Error: {errorMessage}</p>}
+
+          {isSuccess && (
+            <p className="mt-4 text-green-600 text-center">Form submitted successfully!</p>
+          )}
+          {errorMessage && (
+            <p className="mt-4 text-red-600 text-center">Error: {errorMessage}</p>
+          )}
         </div>
       </div>
     </Layout>
