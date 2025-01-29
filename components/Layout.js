@@ -9,7 +9,8 @@ export default function Layout({ children, title = "Specialist Plus", descriptio
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
       </Head>
 
       <Header />
