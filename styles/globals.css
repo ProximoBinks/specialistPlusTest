@@ -51,3 +51,27 @@ html, body {
 .slick-dots.custom-dots li.slick-active .custom-dot {
   background-color: #000; /* Active dot color */
 }
+
+/* red bar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #ed181c;
+  border-radius: 6px;
+  border: 2px solid #f1f1f1; /* optional border around thumb */
+}
+
+/* For Firefox */
+* {
+  scrollbar-color: #ed181c #f1f1f1;  /* thumb color, track color */
+  scrollbar-width: auto;             /* auto, thin, or none */
+}

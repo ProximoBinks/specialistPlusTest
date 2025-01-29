@@ -58,7 +58,7 @@ export default function Home() {
       {/* Hero Section */}
       <section
         className="relative w-full h-[500px] flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/homeBackground.png')" }}
+        style={{ backgroundImage: "url('/homeBackground.jpg')" }}
       >
         <div className="absolute inset-0 z-0"></div> {/* Overlay */}
         <div className="relative z-10 text-center text-white">
