@@ -1,6 +1,8 @@
 # Next + Netlify Starter
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
+used this netlify starter template and built the specialist plus site on it :))
+
+<!-- [![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
 
 This is a [Next.js](https://nextjs.org/) v14 project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) and set up to be instantly deployed to [Netlify](https://url.netlify.com/SyTBPVamO)!
 
@@ -12,11 +14,13 @@ This project is a very minimal starter that includes 2 sample components, a glob
 
 ## Table of Contents:
 
-- [Getting Started](#getting-started)
-- [Installation options](#installation-options)
-- [Testing](#testing)
-  - [Included Default Testing](#included-default-testing)
-  - [Removing Renovate](#removing-renovate)
+- [Next + Netlify Starter](#next--netlify-starter)
+  - [Table of Contents:](#table-of-contents)
+  - [Getting Started](#getting-started)
+    - [Installation options](#installation-options)
+  - [Testing](#testing)
+    - [Included Default Testing](#included-default-testing)
+    - [Removing Renovate](#removing-renovate)
 
 ## Getting Started
 
@@ -60,4 +64,4 @@ If your team is not interested in this tooling, you can remove them with ease!
 
 ### Removing Renovate
 
-In order to keep our project up-to-date with dependencies we use a tool called [Renovate](https://github.com/marketplace/renovate). If you’re not interested in this tooling, delete the `renovate.json` file and commit that onto your main branch.
+In order to keep our project up-to-date with dependencies we use a tool called [Renovate](https://github.com/marketplace/renovate). If you’re not interested in this tooling, delete the `renovate.json` file and commit that onto your main branch. -->

@@ -19,6 +19,10 @@ body {
   font-family: 'Gotham Book', sans-serif;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 /* Custom styling for the carousel dots */
 .slick-dots.custom-dots {
   bottom: -25px; /* Adjust position if needed */
