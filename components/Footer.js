@@ -11,10 +11,10 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Logo and Description */}
           <div className="flex flex-col justify-start xl:items-start items-center h-full">
-            <div className="flex flex-row items-center">
+            <Link className="flex flex-row items-center" href="/">
               <img src="/sp-logo.png" alt="Specialist Plus Logo" className="h-12" />
               <span className="text-2xl font-semibold ml-3">Specialist Plus</span>
-            </div>
+            </Link>
           </div>
           {/* Quick Links */}
           <div className="flex flex-col items-center md:items-start">
