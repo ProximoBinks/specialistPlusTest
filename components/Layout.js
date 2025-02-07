@@ -18,8 +18,8 @@ export default function Layout({
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
         <meta name="robots" content="max-snippet:320,max-image-preview:large,max-video-preview:-1" />
-        <meta name="theme-color" content="#ed181c" /> {/* Specialist Plus Red */}
-
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#ed181c" />
         {/* Open Graph / Facebook */}
         <meta property="og:site_name" content="Specialist Plus" />
         <meta property="og:title" content={title} />
