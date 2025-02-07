@@ -23,7 +23,7 @@ export default function ConsentForm() {
         claimManager: '',
         allergies: '',
         alcohol: 'Never',
-        alcoholConsumption: '',
+        alcoholConsumptionPerWeek: '',
         smoke: 'Never',
         smokePerDay: '',
         yearsSmoked: '',
@@ -369,11 +369,11 @@ export default function ConsentForm() {
                             <div>
                                 <label className="block">
                                     Alcohol Consumption Per Week
-                                    {/* Changed name from 'alcoholConsumptionPerWeek' to 'alcoholConsumption' */}
+                                    {/* Changed name from 'alcoholConsumptionPerWeekPerWeek' to 'alcoholConsumptionPerWeek' */}
                                     <input
                                         type="number"
-                                        name="alcoholConsumption"
-                                        value={formData.alcoholConsumption}
+                                        name="alcoholConsumptionPerWeek"
+                                        value={formData.alcoholConsumptionPerWeek}
                                         onChange={handleInputChange}
                                         className="w-full border rounded-md p-2"
                                         required
@@ -869,8 +869,8 @@ export default function ConsentForm() {
                                     Alcohol Consumption Per Week
                                     <input
                                         type="number"
-                                        name="alcoholConsumption"
-                                        value={formData.alcoholConsumption}
+                                        name="alcoholConsumptionPerWeek"
+                                        value={formData.alcoholConsumptionPerWeek}
                                         onChange={handleInputChange}
                                         className="w-full border rounded-md p-2"
                                         required
