@@ -18,8 +18,8 @@ export default function Custom404() {
       keywords="404 error, page not found, Specialist Plus, medical website"
       ogImage="/404-og-image.jpg"
     >
-      <div className="flex flex-col items-center justify-center text-center">
-        <h1 className="mt-[300px] text-4xl font-bold text-gray-800">404 - Page Not Found</h1>
+      <div className="px-2 my-[30vh] flex flex-col items-center justify-center text-center">
+        <h1 className="text-4xl font-bold text-gray-800">404 - Page Not Found</h1>
         <p className="text-lg text-gray-600 mt-4">Redirecting you to the homepage...</p>
         
         {/* Loading Spinner */}
