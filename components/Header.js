@@ -284,7 +284,7 @@ export default function Header() {
       {isOpen && (
         <div
           ref={menuRef}
-          className="xl:hidden bg-white shadow-lg rounded-md absolute w-full top-16 left-0"
+          className="xl:hidden bg-white shadow-lg absolute w-full top-16 left-0"
         >
           {links.map((item, index) => (
             <div key={index} className="border-b">

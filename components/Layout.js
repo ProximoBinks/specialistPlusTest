@@ -19,7 +19,9 @@ export default function Layout({
         <meta name="keywords" content={keywords} />
         <meta name="robots" content="max-snippet:320,max-image-preview:large,max-video-preview:-1" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#ed181c" />
+        <meta name="theme-color" content="#ed181c" media="(prefers-color-scheme: light)" />
+        {/* Mobile Theme Color (Sets to White or Light Gray) */}
+        <meta name="theme-color" content="#f8f9fa" media="(max-width: 768px)" />
         {/* Open Graph / Facebook */}
         <meta property="og:site_name" content="Specialist Plus" />
         <meta property="og:title" content={title} />

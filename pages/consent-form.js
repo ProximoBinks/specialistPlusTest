@@ -48,8 +48,11 @@ export default function ConsentForm() {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        const { name, type, checked, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === "checkbox" ? checked : value,
+        });
     };
 
     const handleMedicationChange = (index, event) => {
@@ -541,7 +544,7 @@ export default function ConsentForm() {
                                 <input
                                     type="checkbox"
                                     name="nonConsent"
-                                    checked={formData.nonConsent === 'on'}
+                                    checked={formData.nonConsent}
                                     onChange={handleInputChange}
                                     className="form-checkbox h-4 w-4"
                                 />
@@ -1053,7 +1056,7 @@ export default function ConsentForm() {
                                 <input
                                     type="checkbox"
                                     name="nonConsent"
-                                    checked={formData.nonConsent === 'on'}
+                                    checked={formData.nonConsent}
                                     onChange={handleInputChange}
                                     className="form-checkbox h-4 w-4"
                                 />
