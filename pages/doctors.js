@@ -39,8 +39,9 @@ export default function Doctors() {
   return (
     <Layout
       title="Our Doctors — Specialist Plus"
-      description="Meet the experienced team of doctors at Specialist Plus."
-    >
+      description="Meet the experienced team of doctors at Specialist Plus, providing expert medical care across multiple specialties."
+      keywords="doctors, specialist plus providers, medical team, specialist care"
+      ogImage="/doctors-og-image.jpg">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold text-center mb-12">
           Meet Our <span className="text-red-500">Providers</span>

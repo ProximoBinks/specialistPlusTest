@@ -4,7 +4,11 @@ import { FaClipboardList, FaBrain, FaStethoscope, FaUserMd } from 'react-icons/f
 
 export default function About() {
   return (
-    <Layout title="About — Specialist Plus" description="Learn more about Specialist Plus, our mission, and our specialties.">
+    <Layout
+      title="About Us — Specialist Plus"
+      description="Learn more about Specialist Plus, our mission, and the diverse medical services we provide to enhance patient care."
+      keywords="about Specialist Plus, healthcare mission, specialist services"
+      ogImage="/about-og-image.jpg">
       <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Introduction Section */}
         <div className="text-center mb-12">
