@@ -59,16 +59,50 @@ export default function Home() {
     >
       {/* Hero Section */}
       <section
-        className="relative w-full h-[500px] flex items-center justify-center bg-cover bg-center"
+        className="relative w-full h-[600px] md:h-[700px] flex items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: "url('/homeBackground.jpg')" }}
       >
-        <div className="absolute inset-0 z-0"></div> {/* Overlay */}
-        <div className="relative z-10 text-center text-white">
-          <h1 className="text-5xl font-bold">Welcome to Specialist Plus</h1>
-          <p className="mt-4 text-lg">
+        {/* Dark Gradient Overlay for Better Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/10"></div>
+
+        {/* Content */}
+        <div className="relative z-10 text-center text-white px-6">
+          <h1 className="text-4xl md:text-6xl font-bold opacity-0 animate-fadeIn">
+            Welcome to <span className="text-red-500">Specialist Plus</span>
+          </h1>
+          <p className="mt-6 text-lg md:text-2xl opacity-0 animate-fadeIn delay-200">
             Comprehensive care from experienced specialists
           </p>
+
+          {/* Call-to-Action Button */}
+          <div className="mt-8 opacity-0 animate-fadeIn delay-300">
+            <Link
+              href="/contact"
+              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-full text-lg transition-all shadow-md"
+            >
+              Book an Appointment
+            </Link>
+          </div>
         </div>
+
+        {/* Animations */}
+        <style jsx>{`
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-fadeIn {
+      animation: fadeIn 1s ease-out forwards;
+    }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+  `}</style>
       </section>
 
       {/* Why Choose Us Section (Shown only on md and up) */}
