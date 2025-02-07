@@ -8,6 +8,10 @@ export default function Header() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [openSubDropdown, setOpenSubDropdown] = useState(null);
   const [openMobileSubDropdown, setOpenMobileSubDropdown] = useState(null);
+
+  // Start as `null` so we don't show the banner until we know for sure
+  const [showBanner, setShowBanner] = useState(null);
+
   const menuRef = useRef();
   const buttonRef = useRef();
 
@@ -104,6 +108,26 @@ export default function Header() {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
+
+    // Only run localStorage check on client side
+    if (typeof window !== 'undefined') {
+      const closedAt = localStorage.getItem('bannerClosedAt');
+      if (closedAt) {
+        const closedTime = parseInt(closedAt, 10);
+        const now = Date.now();
+        const twentyFourHours = 24 * 60 * 60 * 1000;
+        // If it was closed less than 24 hours ago, hide banner
+        if (now - closedTime < twentyFourHours) {
+          setShowBanner(false);
+        } else {
+          setShowBanner(true);
+        }
+      } else {
+        // If never closed, show
+        setShowBanner(true);
+      }
+    }
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -114,6 +138,12 @@ export default function Header() {
     setOpenSubDropdown(null);
     setOpenMobileSubDropdown(null);
     setIsOpen(false);
+  };
+
+  // When user closes the banner, store the time
+  const handleCloseBanner = () => {
+    localStorage.setItem('bannerClosedAt', Date.now().toString());
+    setShowBanner(false);
   };
 
   return (
@@ -211,7 +241,7 @@ export default function Header() {
           {/* Call Button */}
           <div className="hidden xl:block">
             <a href="tel:+61884236477">
-              <button className="bg-red-600 text-white px-6 py-3 rounded-3xl hover:bg-red-700 font-bold">
+              <button className="transition-all bg-red-600 text-white px-6 py-3 rounded-3xl hover:bg-red-700 font-bold">
                 Call Us
               </button>
             </a>
@@ -219,13 +249,43 @@ export default function Header() {
 
           {/* Mobile Menu */}
           <div className="xl:hidden">
-            <Hamburger size={20} duration={0.8} toggled={isOpen} toggle={setIsOpen} ref={buttonRef} />
+            <Hamburger
+              size={20}
+              duration={0.8}
+              toggled={isOpen}
+              toggle={setIsOpen}
+              ref={buttonRef}
+            />
           </div>
         </div>
       </div>
 
+      {/* Dismissible Banner */}
+      {/* Render banner only if showBanner === true (avoid flicker by not rendering when showBanner === null) */}
+      {showBanner && (
+        <div className="flex items-center bg-[#af97c4] text-white px-4 py-2 mt-2">
+          <p className="flex-1 text-center text-sm">
+            Please complete the{' '}
+            <Link href="/consent-form" className="underline">
+              consent form
+            </Link>{' '}
+            48 hours prior to your appointment
+          </p>
+          <button
+            onClick={handleCloseBanner}
+            className="text-white text-lg font-bold"
+            aria-label="Close banner"
+          >
+            X
+          </button>
+        </div>
+      )}
+
       {isOpen && (
-        <div ref={menuRef} className="xl:hidden bg-white shadow-lg rounded-md absolute w-full top-16 left-0">
+        <div
+          ref={menuRef}
+          className="xl:hidden bg-white shadow-lg rounded-md absolute w-full top-16 left-0"
+        >
           {links.map((item, index) => (
             <div key={index} className="border-b">
               {/* If item has no subtitles, just a direct link */}

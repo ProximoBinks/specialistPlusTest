@@ -63,7 +63,7 @@ export default function Contact() {
         <h1 className="text-4xl font-bold text-center mb-4">Contact</h1>
         <p className="text-center mb-6 text-gray-700">
           For all appointments and enquiries, please call&nbsp;
-          <a href="tel:+61884236477" className="text-red-600 font-medium hover:underline">(08) 8423 6477</a>
+          <a href="tel:+61884236477" className="text-red-600 font-medium hover:underline transition-all">(08) 8423 6477</a>
 
           &nbsp;or request an appointment online using the form <span className="underline font-bold cursor-pointer" onClick={scrollToContact}>below</span>.
         </p>
@@ -95,7 +95,7 @@ export default function Contact() {
               <a
                 href="https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493"
                 target="_blank"
-                className="text-blue-600 hover:text-blue-800 flex items-center space-x-2"
+                className="text-blue-500 hover:text-blue-800 flex items-center space-x-2 transition-all"
               >
                 <FaMapMarkerAlt />
                 <span>Driving Directions and Location Map</span>
@@ -137,7 +137,7 @@ export default function Contact() {
               <a
                 href="https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698"
                 target="_blank"
-                className="text-blue-600 hover:text-blue-800 flex items-center space-x-2"
+                className="transition-all text-blue-500 hover:text-blue-800 flex items-center space-x-2"
               >
                 <FaMapMarkerAlt />
                 <span>Driving Directions and Location Map</span>

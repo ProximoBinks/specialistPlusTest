@@ -2,8 +2,9 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { useState, useRef } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 
-// const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-const MAPBOX_TOKEN = "pk.eyJ1IjoicHJveGltb2JpbmtzIiwiYSI6ImNtNjhtaWcycjA5MHQydW9jZG12dTN2eW0ifQ.lSgeDwz-4KCfGxuMf5tjeA"
+// If you have a public token, load via NEXT_PUBLIC_* or keep it hardcoded:
+const MAPBOX_TOKEN =
+  'pk.eyJ1IjoicHJveGltb2JpbmtzIiwiYSI6ImNtNjhtaWcycjA5MHQydW9jZG12dTN2eW0ifQ.lSgeDwz-4KCfGxuMf5tjeA';
 
 export default function CustomMap() {
   const locations = [
@@ -13,7 +14,8 @@ export default function CustomMap() {
       lng: 138.65407,
       address: '1A Williams Ave, St Morris, SA 5068',
       phone: '(08) 8423 6477',
-      directionsUrl: 'https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493',
+      directionsUrl:
+        'https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493',
     },
     {
       name: 'Specialist Plus - Richmond',
@@ -21,7 +23,8 @@ export default function CustomMap() {
       lng: 138.55058,
       address: '129 Marion Rd, Richmond, SA 5033',
       phone: '(08) 8423 6477',
-      directionsUrl: 'https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698',
+      directionsUrl:
+        'https://www.google.com/maps/dir//Specialist+Plus+-+Richmond/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0c5bf38d8d881:0xdfddaf4dc6ed69ef!2m2!1d138.5505827773002!2d-34.93641647283698',
     },
   ];
 
@@ -76,6 +79,19 @@ export default function CustomMap() {
 
   return (
     <div style={{ width: '100%', height: '500px' }}>
+      {/* 
+        Global style to load GothamBook font from /public/fonts/GothamBook.otf.
+        In production, you'd likely put this in a global CSS or custom _document.js.
+      */}
+      <style jsx global>{`
+        @font-face {
+          font-family: 'GothamBook';
+          src: url('/fonts/GothamBook.otf') format('opentype');
+          font-weight: normal;
+          font-style: normal;
+        }
+      `}</style>
+
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/light-v10"
@@ -85,7 +101,7 @@ export default function CustomMap() {
           longitude: 138.59863,
           zoom: 11,
         }}
-        // Make sure the map itself is not interfering with pointer events:
+        // Disable interactive behaviors (optional)
         dragPan={false}
         scrollZoom={false}
         dragRotate={false}
@@ -100,13 +116,13 @@ export default function CustomMap() {
             longitude={loc.lng}
             anchor="bottom"
           >
-            <div
-              style={{ cursor: 'pointer', color: 'red', fontSize: '1.4em' }}
+            <img
+              src="/marker.png"
+              alt={loc.name}
+              style={{ height: '40px', width: 'auto', cursor: 'pointer' }}
               onMouseEnter={() => handleMarkerMouseEnter(loc.name)}
               onMouseLeave={handleMarkerMouseLeave}
-            >
-              ●
-            </div>
+            />
           </Marker>
         ))}
 
@@ -121,18 +137,29 @@ export default function CustomMap() {
               offset={[0, -10]}
               closeButton={false}
               closeOnClick={false}
-              // Try making the popup fully interactive:
               interactive={true}
               style={{ zIndex: 1000 }}
             >
+              {/* 
+                w-[300px] for width,
+                no background color, no border, no shadow.
+                Apply the custom font by referencing 'GothamBook'.
+              */}
               <div
-                style={{ pointerEvents: 'auto' }}
+                className="w-full p-2 text-sm"
+                style={{
+                  pointerEvents: 'auto',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  boxShadow: 'none',
+                  fontFamily: 'GothamBook, sans-serif',
+                }}
                 onMouseEnter={handlePopupMouseEnter}
                 onMouseLeave={handlePopupMouseLeave}
               >
-                <h3 className="font-semibold">{loc.name}</h3>
-                <p>{loc.address}</p>
-                <p>Tel: {loc.phone}</p>
+                <h3 className="text-sm font-semibold mb-1">{loc.name}</h3>
+                <p className="mb-1">{loc.address}</p>
+                <p className="mb-1"><a href="tel:+61884236477" className="underline">Tel: {loc.phone}</a></p>
                 <a
                   href={loc.directionsUrl}
                   target="_blank"

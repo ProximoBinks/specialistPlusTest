@@ -21,33 +21,34 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="text-gray-500 space-y-2">
               <li>
-                <Link href="/about" className="block hover:text-gray-900">About Us</Link>
+                <Link href="/about" className="block hover:text-gray-900 transition-all">About Us</Link>
               </li>
               <li>
-                <Link href="/services" className="block hover:text-gray-900">Services</Link>
+                <Link href="/services" className="block hover:text-gray-900 transition-all">Services</Link>
               </li>
               <li>
-                <Link href="/doctors" className="block hover:text-gray-900">Providers</Link>
+                <Link href="/doctors" className="block hover:text-gray-900 transition-all">Providers</Link>
               </li>
               <li>
-                <Link href="/forms" className="block hover:text-gray-900">Forms</Link>
+                <Link href="/forms" className="block hover:text-gray-900 transition-all">Forms</Link>
               </li>
               <li>
-                <Link href="/contact" className="block hover:text-gray-900">Contact</Link>
+                <Link href="/contact" className="block hover:text-gray-900 transition-all">Contact</Link>
               </li>
             </ul>
           </div>
 
           {/* Contact Us & Social Icons */}
           <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <p className="text-gray-500 mt-2">Email: admin@specialistplus.com.au</p>
-            <p className="text-gray-500">Phone: (08) 8423 6477</p>
+            <h3 className="text-lg font-semibold mb-2">Contact Us</h3>
+            <Link className="text-gray-500 mt-2 hover:text-gray-900 transition-all" href="/contact">Practice Information</Link>
+            <a className="text-gray-500 mt-2 hover:text-gray-900 transition-all" href="mailto:admin@specialistplus.com.au">admin@specialistplus.com.au</a>
+            <a className="text-gray-500 mt-2 hover:text-gray-900 transition-all" href="tel:+61884236477">(08) 8423 6477</a>
             <div className="flex space-x-4 mt-4">
               {/* Facebook */}
               <a
                 href="https://www.facebook.com/p/Specialist-Plus-100083018906533/"
-                className="text-gray-500 hover:text-gray-900"
+                className="text-gray-500 hover:text-gray-900 transition-all"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -57,7 +58,7 @@ export default function Footer() {
               {/* LinkedIn */}
               <a
                 href="https://au.linkedin.com/company/specialistplus"
-                className="text-gray-500 hover:text-gray-900"
+                className="text-gray-500 hover:text-gray-900 transition-all"
                 target="_blank"
                 rel="noopener noreferrer"
               >

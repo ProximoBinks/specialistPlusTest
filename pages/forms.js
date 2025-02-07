@@ -13,7 +13,7 @@ export default function Forms() {
             <li className="py-4">
               <Link
                 href="/consent-form"
-                className="text-lg text-blue-600 font-medium hover:text-blue-800 hover:underline"
+                className="font-gotham-bold text-lg text-blue-500 font-medium hover:text-blue-800 underline transition-all"
               >
                 Consent Form
               </Link>
