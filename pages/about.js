@@ -6,9 +6,10 @@ export default function About() {
   return (
     <Layout
       title="About Us — Specialist Plus"
-      description="Learn more about Specialist Plus, our mission, and the diverse medical services we provide to enhance patient care."
-      keywords="about Specialist Plus, healthcare mission, specialist services"
-      ogImage="/about-og-image.jpg">
+      description="Learn more about Specialist Plus, our mission, and the diverse medical services we provide to enhance patient care in South Australia."
+      keywords="about Specialist Plus, healthcare mission, specialist services, doctors"
+      ogImage="/about-og-image.jpg"
+    >
       <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Introduction Section */}
         <div className="text-center mb-12">
@@ -90,6 +91,6 @@ export default function About() {
           </a>
         </div>
       </div>
-    </Layout>
+    </Layout >
   );
 }

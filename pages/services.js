@@ -5,10 +5,11 @@ import { FaUserMd, FaStethoscope } from 'react-icons/fa';
 export default function Services() {
     return (
         <Layout
-            title="Services — Specialist Plus"
-            description="Explore the range of professional medical services offered by Specialist Plus, including occupational health and medico-legal assessments."
-            keywords="occupational physician, medico-legal services, injury management, specialist consultations"
-            ogImage="/services-og-image.jpg">
+            title="Medical Services — Specialist Plus"
+            description="Explore the professional medical services offered by Specialist Plus, including occupational health, medico-legal assessments, and general healthcare."
+            keywords="occupational physician, medico-legal services, injury management, healthcare services, medical consultations"
+            ogImage="/services-og-image.jpg"
+        >
             <div className="max-w-6xl mx-auto px-6 py-12">
                 <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Our Services</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

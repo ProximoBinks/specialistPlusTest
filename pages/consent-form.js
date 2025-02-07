@@ -96,10 +96,11 @@ export default function ConsentForm() {
 
     return (
         <Layout
-            title="Consent Form — Specialist Plus"
+            title="Patient Consent Form — Specialist Plus"
             description="Complete the Specialist Plus consent form to authorize medical treatment and share relevant health information."
-            keywords="Specialist Plus consent form, medical authorization, patient agreement"
-            ogImage="/consent-form-og-image.jpg">
+            keywords="Specialist Plus consent form, medical authorization, patient agreement, treatment approval"
+            ogImage="/consent-form-og-image.jpg"
+        >
             <div className="max-w-3xl mx-auto py-12 px-4">
                 <h1 className="text-3xl font-bold mb-8">Consent Form</h1>
                 <p className="mb-4">

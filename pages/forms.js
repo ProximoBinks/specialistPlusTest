@@ -6,9 +6,10 @@ export default function Forms() {
   return (
     <Layout
       title="Forms — Specialist Plus"
-      description="Download and complete forms for Specialist Plus services, including patient consent forms."
-      keywords="Specialist Plus forms, patient consent form, medical documents"
-      ogImage="/forms-og-image.jpg">
+      description="Download and complete necessary forms for Specialist Plus services, including patient consent and medical documentation."
+      keywords="Specialist Plus forms, patient consent form, medical documents, download forms"
+      ogImage="/forms-og-image.jpg"
+    >
       <div className="max-w-4xl mx-auto px-6 py-12">
         <h1 className="text-4xl font-bold mb-6 text-center">Forms</h1>
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">

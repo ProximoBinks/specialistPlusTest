@@ -52,8 +52,10 @@ export default function Home() {
 
   return (
     <Layout
-      title="Home — Specialist Plus"
-      description="Welcome to Specialist Plus, providing comprehensive medical care in South Australia."
+      title="Specialist Plus — Comprehensive Medical Care in South Australia"
+      description="Specialist Plus provides expert healthcare solutions, including occupational health, medico-legal services, and specialist consultations."
+      keywords="medical care, occupational health, specialist consultations, medico-legal services, healthcare South Australia"
+      ogImage="/og-image.jpg"
     >
       {/* Hero Section */}
       <section
@@ -92,7 +94,7 @@ export default function Home() {
                     Comprehensive, multidisciplinary support for all aspects of your health
                   </p>
                   <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    Our collaborative team of specialists ensures that every part of your 
+                    Our collaborative team of specialists ensures that every part of your
                     healthcare journey is supported, providing a seamless, integrated approach
                     to your wellbeing.
                   </p>
@@ -130,7 +132,7 @@ export default function Home() {
                     Expert care to help you recover and get back on track
                   </p>
                   <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    We provide personalised rehabilitation plans to ensure you get 
+                    We provide personalised rehabilitation plans to ensure you get
                     the support and care you need after injury.
                   </p>
                   <div className="mt-auto">
@@ -167,7 +169,7 @@ export default function Home() {
                     Personalised medical care from a diverse team of experts
                   </p>
                   <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    Receive dedicated attention from experienced specialists, ensuring 
+                    Receive dedicated attention from experienced specialists, ensuring
                     your unique health needs are met with precision.
                   </p>
                   <div className="mt-auto">
@@ -270,7 +272,7 @@ export default function Home() {
           </div>
         )}
       </section>
-    </Layout>
+    </Layout >
   );
 }
 
