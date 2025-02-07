@@ -1,6 +1,5 @@
 /* styles/globals.css */
 
-/* Import Tailwind base styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,6 +12,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Gotham Bold';
+  src: url('/fonts/Gotham-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham Black';
+  src: url('/fonts/Gotham-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* Set Gotham Book as the default font */
 html,
 body {
   @apply p-0 m-0 w-full;
@@ -21,6 +35,15 @@ body {
 
 html, body {
   overflow-x: hidden;
+}
+
+/* Custom Tailwind font classes */
+.font-gotham-bold {
+  font-family: 'Gotham Bold', sans-serif;
+}
+
+.font-gotham-black {
+  font-family: 'Gotham Black', sans-serif;
 }
 
 /* Custom styling for the carousel dots */
