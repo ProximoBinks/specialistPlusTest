@@ -26,6 +26,17 @@ export default function Forms() {
                 Please complete this form to provide your consent for treatment or services.
               </p>
             </li>
+            <li className="py-4">
+              <Link
+                href="/contact/#contact-header"
+                className="font-gotham-bold text-lg text-blue-500 font-medium hover:text-blue-800 underline transition-all"
+              >
+                Contact Form
+              </Link>
+              <p className="text-sm text-gray-500 mt-1">
+                Use this form to get in touch with us for general inquiries or to schedule an appointment.
+              </p>
+            </li>
           </ul>
         </div>
       </div>

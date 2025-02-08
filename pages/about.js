@@ -12,7 +12,7 @@ export default function About() {
     >
       <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Introduction Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 px-2">
           <h1 className="text-4xl font-bold text-gray-800 mb-6">About Specialist Plus</h1>
           <p className="text-lg text-gray-600">
             At Specialist Plus, we are committed to delivering exceptional healthcare services with integrity, compassion, and expertise. Our mission is to empower patients and clients by providing tailored solutions that prioritise well-being and recovery.

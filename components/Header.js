@@ -79,7 +79,7 @@ export default function Header() {
     {
       title: 'Forms',
       url: '/forms',
-      subtitles: [{ title: 'Consent Form', url: '/consent-form' }],
+      subtitles: [{ title: 'Consent Form', url: '/consent-form' },{ title: 'Contact Form', url: '/contact/#contact-header' }],
     },
     { title: 'Contact', url: '/contact', subtitles: [] },
   ];
@@ -299,21 +299,30 @@ export default function Header() {
                 </Link>
               ) : (
                 <>
-                  <button
-                    className="w-full px-6 py-4 text-left text-gray-700 hover:bg-gray-100 flex justify-between"
-                    onClick={() =>
-                      setOpenDropdown(index === openDropdown ? null : index)
-                    }
-                  >
-                    {item.title}
-                    {item.subtitles.length > 0 && (
-                      <FaChevronDown
-                        className={`transition-transform ${
-                          openDropdown === index ? 'rotate-180' : ''
-                        }`}
-                      />
-                    )}
-                  </button>
+                  <div className="flex justify-between items-center px-6 py-4 hover:bg-gray-100">
+  <Link
+    href={item.url ?? '#'}
+    className="text-gray-700 flex-1"
+    onClick={closeAllMenus}
+  >
+    {item.title}
+  </Link>
+  {item.subtitles.length > 0 && (
+    <button
+      onClick={(e) => {
+        e.stopPropagation(); // Prevents the Link from being triggered
+        setOpenDropdown(index === openDropdown ? null : index);
+      }}
+      className="p-2"
+    >
+      <FaChevronDown
+        className={`transition-transform ${
+          openDropdown === index ? 'rotate-180' : ''
+        }`}
+      />
+    </button>
+  )}
+</div>
 
                   {openDropdown === index && item.subtitles.length > 0 && (
                     <div className="bg-gray-50">

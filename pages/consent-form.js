@@ -104,7 +104,7 @@ export default function ConsentForm() {
             keywords="Specialist Plus consent form, medical authorization, patient agreement, treatment approval"
             ogImage="/consent-form-og-image.jpg"
         >
-            <div className="max-w-3xl mx-auto py-12 px-4">
+            <div className="max-w-3xl mx-auto py-12 px-5">
                 <h1 className="text-3xl font-bold mb-8">Consent Form</h1>
                 <p className="mb-4">
                     All clients are required to complete the consent form below 48 hours prior to an appointment.
