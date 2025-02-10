@@ -94,7 +94,7 @@ export default async function handler(req, res) {
         // ✅ Email options
         const mailOptions = {
             from: '"Specialist Plus" <elliot@proximo.life>', // Must be a verified Postmark sender
-            to: "elliot@proximo.life",
+            to: ["elliot@proximo.life", "elliotkoh9@gmail.com"], // Sends to both emails
             subject: `New Consent Form Submission - ${formData.givenNames} ${formData.surname}`,
             text: `
                 A new consent form has been submitted.
