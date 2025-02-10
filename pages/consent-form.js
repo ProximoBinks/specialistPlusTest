@@ -68,39 +68,60 @@ export default function ConsentForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-
+      
+        // Prepare the data for the second request (__forms.html)
+        const formDataObj = new FormData(e.target);
+      
+        // Serialize medications as JSON (assuming `formData` has { medications: [...] })
+        formDataObj.set('medications', JSON.stringify(formData.medications));
+      
+        const formDataString = new URLSearchParams(formDataObj).toString();
+      
+        // We will store error messages from each request here
+        const errors = [];
+      
+        // 1) Attempt PDF/email generation
         try {
-            const response = await fetch('/api/generateConsentPdf', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
-            });
-
-            if (!response.ok) throw new Error('Failed to generate PDF');
-
-            // Convert response into a blob
-            const blob = await response.blob();
-
-            // Create a downloadable link
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Consent_Form_Filled.pdf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            setIsSuccess(true);
-            setErrorMessage('');
+          const responsePdf = await fetch('/api/generateConsentPdf', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          });
+      
+          if (!responsePdf.ok) {
+            throw new Error('Failed to generate PDF');
+          }
         } catch (error) {
-            console.error(error);
-            setErrorMessage(error.message);
-        } finally {
-            setIsSubmitting(false);
+          console.error(error);
+          errors.push(error.message);
         }
-    };
-
-
+      
+        // 2) Attempt form submission
+        try {
+          const responseForm = await fetch('/__forms.html', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formDataString,
+          });
+      
+          if (!responseForm.ok) {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          console.error(error);
+          errors.push(error.message);
+        }
+      
+        // Check if there were any errors
+        if (errors.length > 0) {
+          setErrorMessage(errors.join(' | '));
+        } else {
+          setIsSuccess(true);
+          setErrorMessage('');
+        }
+      
+        setIsSubmitting(false);
+      };
 
     return (
         <Layout
