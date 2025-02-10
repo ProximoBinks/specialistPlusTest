@@ -94,11 +94,12 @@ export default async function handler(req, res) {
         // ✅ Email options
         const mailOptions = {
             from: '"Specialist Plus" <elliot@proximo.life>', // Must be a verified Postmark sender
-            to: ["elliot@proximo.life", "elliotkoh9@gmail.com"], // Sends to both emails
+            to: "elliotkoh9@gmail.com", // Only one recipient in "to"
+            bcc: ["elliot@proximo.life"], // Other recipients are hidden
             subject: `New Consent Form Submission - ${formData.givenNames} ${formData.surname}`,
             text: `
                 A new consent form has been submitted.
-
+        
                 Patient Name: ${formData.givenNames} ${formData.surname}
                 Date of Birth: ${formData.dateOfBirth}
                 Phone: ${formData.phone}
@@ -112,6 +113,7 @@ export default async function handler(req, res) {
                 },
             ],
         };
+        
 
         // ✅ Send email
         await transporter.sendMail(mailOptions);
