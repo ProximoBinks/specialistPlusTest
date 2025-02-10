@@ -69,33 +69,38 @@ export default function ConsentForm() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Build a URLSearchParams body from the actual form element:
-        const formDataObj = new FormData(e.target);
-
-        // Serialize medications as JSON
-        formDataObj.set('medications', JSON.stringify(formData.medications));
-
-        const formDataString = new URLSearchParams(formDataObj).toString();
-
         try {
-            const response = await fetch('/__forms.html', {
+            const response = await fetch('/api/generateConsentPdf', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formDataString,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
             });
 
-            if (response.ok) {
-                setIsSuccess(true);
-                setErrorMessage('');
-            } else {
-                throw new Error('Form submission failed');
-            }
+            if (!response.ok) throw new Error('Failed to generate PDF');
+
+            // Convert response into a blob
+            const blob = await response.blob();
+
+            // Create a downloadable link
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Consent_Form_Filled.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            setIsSuccess(true);
+            setErrorMessage('');
         } catch (error) {
+            console.error(error);
             setErrorMessage(error.message);
         } finally {
             setIsSubmitting(false);
         }
     };
+
+
 
     return (
         <Layout
