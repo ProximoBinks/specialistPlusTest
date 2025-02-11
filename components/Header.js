@@ -55,7 +55,7 @@ export default function Header() {
         {
           title: 'General Dentists',
           doctors: [
-            { name: 'Dr Ishita Gupta', url: '/doctors/ishita-gupta' },
+            // { name: 'Dr Ishita Gupta', url: '/doctors/ishita-gupta' },
             { name: 'Dr Cecilia Yong', url: '/doctors/cecilia-yong' },
           ],
         },
