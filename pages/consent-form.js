@@ -97,20 +97,20 @@ export default function ConsentForm() {
         }
 
         // 2) Attempt form submission
-        try {
-            const responseForm = await fetch('/__forms.html', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formDataString,
-            });
+        // try {
+        //     const responseForm = await fetch('/__forms.html', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        //         body: formDataString,
+        //     });
 
-            if (!responseForm.ok) {
-                throw new Error('Form submission failed');
-            }
-        } catch (error) {
-            console.error(error);
-            errors.push(error.message);
-        }
+        //     if (!responseForm.ok) {
+        //         throw new Error('Form submission failed');
+        //     }
+        // } catch (error) {
+        //     console.error(error);
+        //     errors.push(error.message);
+        // }
 
         // Check if there were any errors
         if (errors.length > 0) {
