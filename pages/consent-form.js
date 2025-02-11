@@ -68,60 +68,60 @@ export default function ConsentForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-      
+
         // Prepare the data for the second request (__forms.html)
         const formDataObj = new FormData(e.target);
-      
+
         // Serialize medications as JSON (assuming `formData` has { medications: [...] })
         formDataObj.set('medications', JSON.stringify(formData.medications));
-      
+
         const formDataString = new URLSearchParams(formDataObj).toString();
-      
+
         // We will store error messages from each request here
         const errors = [];
-      
+
         // 1) Attempt PDF/email generation
         try {
-          const responsePdf = await fetch('/api/generateConsentPdf', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-          });
-      
-          if (!responsePdf.ok) {
-            throw new Error('Failed to generate PDF');
-          }
+            const responsePdf = await fetch('/api/generateConsentPdf', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (!responsePdf.ok) {
+                throw new Error('Failed to generate PDF');
+            }
         } catch (error) {
-          console.error(error);
-          errors.push(error.message);
+            console.error(error);
+            errors.push(error.message);
         }
-      
+
         // 2) Attempt form submission
         try {
-          const responseForm = await fetch('/__forms.html', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formDataString,
-          });
-      
-          if (!responseForm.ok) {
-            throw new Error('Form submission failed');
-          }
+            const responseForm = await fetch('/__forms.html', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formDataString,
+            });
+
+            if (!responseForm.ok) {
+                throw new Error('Form submission failed');
+            }
         } catch (error) {
-          console.error(error);
-          errors.push(error.message);
+            console.error(error);
+            errors.push(error.message);
         }
-      
+
         // Check if there were any errors
         if (errors.length > 0) {
-          setErrorMessage(errors.join(' | '));
+            setErrorMessage(errors.join(' | '));
         } else {
-          setIsSuccess(true);
-          setErrorMessage('');
+            setIsSuccess(true);
+            setErrorMessage('');
         }
-      
+
         setIsSubmitting(false);
-      };
+    };
 
     return (
         <Layout
@@ -303,7 +303,7 @@ export default function ConsentForm() {
                             <label className="block">
                                 Expiry Date <span className="text-red-500">*</span>
                                 <input
-                                    type="date"
+                                    type="month"
                                     name="expiryDate"
                                     value={formData.expiryDate}
                                     onChange={handleInputChange}
@@ -799,7 +799,7 @@ export default function ConsentForm() {
                             <label className="block">
                                 Expiry Date <span className="text-red-500">*</span>
                                 <input
-                                    type="date"
+                                    type="month"
                                     name="expiryDate"
                                     value={formData.expiryDate}
                                     onChange={handleInputChange}
