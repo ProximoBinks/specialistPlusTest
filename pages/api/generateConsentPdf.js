@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
         // ✅ Convert boolean `nonConsent` to "Yes" or "No"
-        const nonConsentText = formData.nonConsent ? "No" : "Yes";
+        const nonConsentText = formData.nonConsent ? "I do not consent to my personal information being disclosed to the following" : "";
 
         // ✅ Fill in PDF form fields
         firstPage.drawText(formData.givenNames, { x: 50, y: 650, size: 12, font, color: rgb(0, 0, 0) });
@@ -70,8 +70,8 @@ export default async function handler(req, res) {
         });
 
         // ✅ Move "Patient Authority", "Non-Consent", and Signature fields to the second page
-        secondPage.drawText(`${nonConsentText}`, { x: 130, y: 471, size: 12, font, color: rgb(0, 0, 0) });
-        secondPage.drawText(formData.patientAuthority, { x: 88, y: 453, size: 12, font, color: rgb(0, 0, 0), maxWidth: 500, lineHeight: 14 });
+        secondPage.drawText(`${nonConsentText}`, { x: 130, y: 472, size: 12, font, color: rgb(0, 0, 0) });
+        secondPage.drawText(formData.patientAuthority, { x: 50, y: 453, size: 12, font, color: rgb(0, 0, 0), maxWidth: 500, lineHeight: 14 });
 
         secondPage.drawText(formData.fullNameSignature, { x: 230, y: 415, size: 12, font, color: rgb(0, 0, 0) });
 
@@ -92,6 +92,7 @@ export default async function handler(req, res) {
         });
 
         // ✅ Email options
+        // admin@specialistplus.com.au
         const mailOptions = {
             from: '"Specialist Plus" <elliot@proximo.life>', // Must be a verified Postmark sender
             to: "admin@specialistplus.com.au", // Only one recipient in "to"

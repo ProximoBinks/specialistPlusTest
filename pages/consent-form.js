@@ -575,7 +575,7 @@ export default function ConsentForm() {
                                     className="form-checkbox h-4 w-4"
                                 />
                                 <span className="ml-2">
-                                    Do not consent to my personal information being disclosed to the following
+                                    I do not consent to my personal information being disclosed to the following
                                 </span>
 
                             </label>
@@ -1087,7 +1087,7 @@ export default function ConsentForm() {
                                     className="form-checkbox h-4 w-4"
                                 />
                                 <span className="ml-2">
-                                    Do not consent to my personal information being disclosed to the following
+                                    I do not consent to my personal information being disclosed to the following
                                 </span>
                             </label>
                             <textarea
