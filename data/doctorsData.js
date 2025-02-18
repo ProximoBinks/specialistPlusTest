@@ -44,15 +44,15 @@ export const doctors = [
         image: '/Bill-Papps.jpg',
         profileUrl: '/doctors/bill-papps',
     },
-    {
-        id: 6,
-        name: 'Mr Gilles Hammond',
-        title: 'Rehabilitation Psychologist',
-        description: 'Expert in trauma and occupational psychology.',
-        about: 'Gilles Hammond joined Specialist Plus in 2022 after gaining extensive experience over the years in Rehabilitation Psychology, as a Trauma and Organizational psychologist and, as an Occupational Psychologist.<br /><br />He has experience working with clients who face multiple barriers to employment and general functional capacity issues including complex injuries, chronic pain, brain injury, trauma, mental health issues, and a range of physical disabilities.',
-        image: '/Gilles-Hammond.jpg',
-        profileUrl: '/doctors/gilles-hammond',
-    },
+    // {
+    //     id: 6,
+    //     name: 'Mr Gilles Hammond',
+    //     title: 'Rehabilitation Psychologist',
+    //     description: 'Expert in trauma and occupational psychology.',
+    //     about: 'Gilles Hammond joined Specialist Plus in 2022 after gaining extensive experience over the years in Rehabilitation Psychology, as a Trauma and Organizational psychologist and, as an Occupational Psychologist.<br /><br />He has experience working with clients who face multiple barriers to employment and general functional capacity issues including complex injuries, chronic pain, brain injury, trauma, mental health issues, and a range of physical disabilities.',
+    //     image: '/Gilles-Hammond.jpg',
+    //     profileUrl: '/doctors/gilles-hammond',
+    // },
     // {
     //     id: 7,
     //     name: 'Dr Ishita Gupta',
@@ -101,7 +101,7 @@ export const doctors = [
     {
         id: 12,
         name: 'Dr Katherine Murray-Smith',
-        title: 'Lecturer and Medical Practitioner',
+        title: 'General Dentist',
         description: 'Passionate about integrating multidisciplinary approaches to treatment.',
         about: 'Katherine Murray-Smith completed her postgraduate medical degree at Flinders University following a background in speech pathology. She is passionate about integrating multidisciplinary approaches to treatment.<br /><br />In addition to her clinical work, Katherine is also a lecturer in medical education, where she shares her expertise and knowledge with medical students.',
         image: '/katherine-smith.jpg',

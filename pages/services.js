@@ -17,7 +17,7 @@ export default function Services() {
                     <div className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
                         <div className="flex items-center space-x-4 mb-4">
                             <FaStethoscope className="text-red-600 text-4xl" />
-                            <h2 className="text-2xl font-semibold text-gray-800">Specialised Services</h2>
+                            <h2 className="text-2xl font-semibold text-gray-800">Specialist Medical Services</h2>
                         </div>
                         {/* <h3 className="text-lg font-medium text-gray-700 mb-2">Specialised Services</h3> */}
                         <ul className="list-disc pl-6 space-y-2 text-black mb-4 font-bold">

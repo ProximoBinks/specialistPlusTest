@@ -575,7 +575,7 @@ export default function ConsentForm() {
                                     className="form-checkbox h-4 w-4"
                                 />
                                 <span className="ml-2">
-                                    I do not consent to my personal information being disclosed to the following
+                                    I do not consent to my personal information being disclosed to the following:
                                 </span>
 
                             </label>
@@ -625,7 +625,11 @@ export default function ConsentForm() {
                         <div className="mt-8">
                             <button
                                 type="submit"
-                                className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700"
+                                disabled={isSubmitting}
+                                className={`px-6 py-3 rounded-md text-white ${isSubmitting
+                                        ? 'bg-gray-400 cursor-not-allowed'  // Disabled styling
+                                        : 'bg-green-600 hover:bg-green-700'
+                                    }`}
                             >
                                 {isSubmitting ? 'Submitting...' : 'Submit'}
                             </button>
@@ -1087,7 +1091,7 @@ export default function ConsentForm() {
                                     className="form-checkbox h-4 w-4"
                                 />
                                 <span className="ml-2">
-                                    I do not consent to my personal information being disclosed to the following
+                                    I do not consent to my personal information being disclosed to the following:
                                 </span>
                             </label>
                             <textarea
@@ -1140,11 +1144,16 @@ export default function ConsentForm() {
                         <div className="mt-8">
                             <button
                                 type="submit"
-                                className="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700"
+                                disabled={isSubmitting}
+                                className={`px-6 py-3 rounded-md text-white ${isSubmitting
+                                    ? 'bg-gray-400 cursor-not-allowed'  // Disabled styling
+                                    : 'bg-green-600 hover:bg-green-700'
+                                    }`}
                             >
                                 {isSubmitting ? 'Submitting...' : 'Submit'}
                             </button>
                         </div>
+
                     </div>
                 </form>
 

@@ -1,15 +1,39 @@
 // components/Layout.js
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
+import clsx from 'clsx';
 
 export default function Layout({
   children,
-  title = "Specialist Plus",
-  description = "Comprehensive medical care at Specialist Plus.",
-  keywords = "Specialist Plus, healthcare, doctors, medical services, occupational health",
-  ogImage = "/default-og-image.jpg",
+  title = 'Specialist Plus',
+  description = 'Comprehensive medical care at Specialist Plus.',
+  keywords = 'Specialist Plus, healthcare, doctors, medical services, occupational health',
+  ogImage = '/default-og-image.jpg',
 }) {
+  // extraOffset = 0 or 30, depending on banner status
+  const [extraOffset, setExtraOffset] = useState(0);
+
+  useEffect(() => {
+    // Handler for the custom "bannerStatus" event
+    function handleBannerStatus(e) {
+      const isBannerOpen = e.detail; // true or false
+      if (isBannerOpen) {
+        setExtraOffset(30); // add 30px
+      } else {
+        setExtraOffset(0); // remove extra offset
+      }
+    }
+
+    // Listen for "bannerStatus" event on the window object
+    window.addEventListener('bannerStatus', handleBannerStatus);
+
+    return () => {
+      window.removeEventListener('bannerStatus', handleBannerStatus);
+    };
+  }, []);
+
   return (
     <div className="w-full min-h-screen flex flex-col">
       <Head>
@@ -52,7 +76,12 @@ export default function Layout({
 
       <Header />
 
-      <main className="flex-grow w-full pt-[60px] xl:pt-[95px] z-0">
+      <main
+        className={clsx(
+          "flex-grow w-full z-0",
+          extraOffset === 30 ? "pt-[90px] xl:pt-[125px]" : "pt-[60px] xl:pt-[95px]"
+        )}
+      >
         {children}
       </main>
 

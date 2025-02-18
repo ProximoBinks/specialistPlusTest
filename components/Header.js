@@ -48,32 +48,33 @@ export default function Header() {
             { name: 'Dr Bill Papps', url: '/doctors/bill-papps' },
           ],
         },
-        {
-          title: 'Rehabilitation Psychologist',
-          doctors: [{ name: 'Mr Gilles Hammond', url: '/doctors/gilles-hammond' }],
-        },
+        // {
+        //   title: 'Rehabilitation Psychologist',
+        //   doctors: [{ name: 'Mr Gilles Hammond', url: '/doctors/gilles-hammond' }],
+        // },
         {
           title: 'General Dentists',
           doctors: [
             // { name: 'Dr Ishita Gupta', url: '/doctors/ishita-gupta' },
             { name: 'Dr Cecilia Yong', url: '/doctors/cecilia-yong' },
+            { name: 'Katherine Murray-Smith', url: '/doctors/katherine-murray-smith' },
           ],
         },
         {
           title: 'General Surgeons',
           doctors: [
             { name: 'Dr Aiden Tieu', url: '/doctors/aiden-tieu' },
-            { name: 'Dr Devinder Raju (Colorectal)', url: '/doctors/devinder-raju' },
+            { name: 'Dr Devinder Raju', url: '/doctors/devinder-raju' },
           ],
         },
         {
           title: 'Consultant Radiologist',
           doctors: [{ name: 'Dr Kristy Yang', url: '/doctors/kristy-yang' }],
         },
-        {
-          title: 'Medical Practitioner',
-          doctors: [{ name: 'Katherine Murray-Smith', url: '/doctors/katherine-murray-smith' }],
-        },
+        // {
+        //   title: 'Medical Practitioner',
+        //   doctors: [{ name: 'Katherine Murray-Smith', url: '/doctors/katherine-murray-smith' }],
+        // },
       ],
     },
     {
@@ -132,6 +133,12 @@ export default function Header() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (showBanner !== null) {
+      window.dispatchEvent(new CustomEvent('bannerStatus', { detail: showBanner }));
+    }
+  }, [showBanner]);
 
   const closeAllMenus = () => {
     setOpenDropdown(null);
@@ -261,7 +268,6 @@ export default function Header() {
       </div>
 
       {/* Dismissible Banner */}
-      {/* Render banner only if showBanner === true (avoid flicker by not rendering when showBanner === null) */}
       {showBanner && (
         <div className="flex items-center bg-[#af97c4] text-white px-4 py-2 mt-2">
           <p className="flex-1 text-center text-sm">
