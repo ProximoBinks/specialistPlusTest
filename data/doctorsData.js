@@ -101,7 +101,7 @@ export const doctors = [
     {
         id: 12,
         name: 'Dr Katherine Murray-Smith',
-        title: 'General Dentist',
+        title: 'Medical Practitioner',
         description: 'Passionate about integrating multidisciplinary approaches to treatment.',
         about: 'Katherine Murray-Smith completed her postgraduate medical degree at Flinders University following a background in speech pathology. She is passionate about integrating multidisciplinary approaches to treatment.<br /><br />In addition to her clinical work, Katherine is also a lecturer in medical education, where she shares her expertise and knowledge with medical students.',
         image: '/katherine-smith.jpg',

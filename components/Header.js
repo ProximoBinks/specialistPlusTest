@@ -57,7 +57,6 @@ export default function Header() {
           doctors: [
             // { name: 'Dr Ishita Gupta', url: '/doctors/ishita-gupta' },
             { name: 'Dr Cecilia Yong', url: '/doctors/cecilia-yong' },
-            { name: 'Katherine Murray-Smith', url: '/doctors/katherine-murray-smith' },
           ],
         },
         {
@@ -71,10 +70,10 @@ export default function Header() {
           title: 'Consultant Radiologist',
           doctors: [{ name: 'Dr Kristy Yang', url: '/doctors/kristy-yang' }],
         },
-        // {
-        //   title: 'Medical Practitioner',
-        //   doctors: [{ name: 'Katherine Murray-Smith', url: '/doctors/katherine-murray-smith' }],
-        // },
+        {
+          title: 'Medical Practitioner',
+          doctors: [{ name: 'Dr Katherine Murray-Smith', url: '/doctors/katherine-murray-smith' }],
+        },
       ],
     },
     {
