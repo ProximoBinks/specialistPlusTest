@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Header from '@components/Header';
 import Footer from '@components/Footer';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 
 export default function Layout({
   children,
@@ -12,6 +13,8 @@ export default function Layout({
   keywords = 'Specialist Plus, healthcare, doctors, medical services, occupational health',
   ogImage = '/default-og-image.jpg',
 }) {
+  const router = useRouter();
+  const canonicalUrl = `https://specialistplus.com.au${router.asPath.split('?')[0]}`;
   // extraOffset = 0 or 30, depending on banner status
   const [extraOffset, setExtraOffset] = useState(0);
 
@@ -65,7 +68,8 @@ export default function Layout({
         <link rel="preload" as="image" href="/hero-image.jpg" /> */}
 
         {/* Canonical URL (SEO Best Practice) */}
-        <link rel="canonical" href="https://specialistplus.com.au/" />
+        {/* <link rel="canonical" href="https://specialistplus.com.au/" /> */}
+        <link rel="canonical" href={canonicalUrl} />
 
         {/* Favicon & Apple Icons */}
         <link rel="icon" href="/favicon.ico" type="image/x-icon" />
