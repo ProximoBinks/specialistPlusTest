@@ -112,7 +112,7 @@ export default function Home() {
 
             {/* Card 1 */}
             <div className="relative min-h-[480px]">
-              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-left">
+              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-left z-10 group-hover:z-50">
                 <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                   <img
                     src="/integrated-health.jpg"
@@ -127,7 +127,10 @@ export default function Home() {
                   <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
                     Comprehensive, multidisciplinary support for all aspects of your health
                   </p>
-                  <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
+                  {/* Smooth expanding effect */}
+                  <p
+                    className="max-h-0 opacity-0 overflow-hidden transition-all duration-500 text-[#4d4d4d] text-[13px] mb-6 group-hover:max-h-40 group-hover:opacity-100"
+                  >
                     Our collaborative team of specialists ensures that every part of your
                     healthcare journey is supported, providing a seamless, integrated approach
                     to your wellbeing.
@@ -140,17 +143,23 @@ export default function Home() {
                   </div>
                 </div>
                 <style jsx>{`
-                  .group:hover {
-                    transform: scale(1.2);
-                    z-index: 50;
-                  }
-                `}</style>
+      .group {
+        transition: transform 0.3s ease-in-out, z-index 0s 0.3s, border-color 0.3s ease-in-out;
+        border: 2px solid transparent; /* Ensures no shift when border appears */
+      }
+      .group:hover {
+        transform: scale(1.2);
+        z-index: 50;
+        border-color: #ef4444; /* Tailwind's red-500 */
+        transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, z-index 0s;
+      }
+    `}</style>
               </div>
             </div>
 
             {/* Card 2 */}
             <div className="relative min-h-[480px]">
-              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-center">
+              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-center z-10 group-hover:z-50">
                 <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                   <img
                     src="/injury-management.jpg"
@@ -165,7 +174,10 @@ export default function Home() {
                   <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
                     Expert care to help you recover and get back on track
                   </p>
-                  <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
+                  {/* Smooth expanding effect */}
+                  <p
+                    className="max-h-0 opacity-0 overflow-hidden transition-all duration-500 text-[#4d4d4d] text-[13px] mb-6 group-hover:max-h-40 group-hover:opacity-100"
+                  >
                     We provide personalised rehabilitation plans to ensure you get
                     the support and care you need after injury.
                   </p>
@@ -177,17 +189,23 @@ export default function Home() {
                   </div>
                 </div>
                 <style jsx>{`
-                  .group:hover {
-                    transform: scale(1.2);
-                    z-index: 50;
-                  }
-                `}</style>
+      .group {
+        transition: transform 0.3s ease-in-out, z-index 0s 0.3s, border-color 0.3s ease-in-out;
+        border: 2px solid transparent; /* Ensures border doesn't shift content */
+      }
+      .group:hover {
+        transform: scale(1.2);
+        z-index: 50;
+        border-color: #ef4444; /* Tailwind's red-500 */
+        transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, z-index 0s;
+      }
+    `}</style>
               </div>
             </div>
 
             {/* Card 3 */}
             <div className="relative min-h-[480px]">
-              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-right">
+              <div className="group absolute top-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md transition-all duration-500 flex flex-col origin-right z-10 group-hover:z-50">
                 <div className="w-full aspect-w-16 aspect-h-9 mb-4">
                   <img
                     src="/specialist-care.jpg"
@@ -202,9 +220,12 @@ export default function Home() {
                   <p className="my-6 text-[#1b2e60] font-semibold text-sm xl:text-lg">
                     Personalised medical care from a diverse team of experts
                   </p>
-                  <p className="hidden group-hover:block text-[#4d4d4d] transition-opacity duration-300 text-[13px] mb-6">
-                    Receive dedicated attention from experienced specialists, ensuring
-                    your unique health needs are met with precision.
+                  {/* Smooth expanding effect */}
+                  <p
+                    className="max-h-0 opacity-0 overflow-hidden transition-all duration-500 text-[#4d4d4d] text-[13px] mb-6 group-hover:max-h-40 group-hover:opacity-100"
+                  >
+                    Receive dedicated attention from experienced specialists, ensuring your
+                    unique health needs are met with precision.
                   </p>
                   <div className="mt-auto">
                     <Link href="/about" className="text-[#7c7c7c] hover:text-[#1b2e60]">
@@ -214,14 +235,19 @@ export default function Home() {
                   </div>
                 </div>
                 <style jsx>{`
-                  .group:hover {
-                    transform: scale(1.2);
-                    z-index: 50;
-                  }
-                `}</style>
+      .group {
+        transition: transform 0.3s ease-in-out, z-index 0s 0.3s, border-color 0.3s ease-in-out;
+        border: 2px solid transparent; /* Prevents layout shift when border appears */
+      }
+      .group:hover {
+        transform: scale(1.2);
+        z-index: 50;
+        border-color: #ef4444; /* Tailwind's red-500 */
+        transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, z-index 0s;
+      }
+    `}</style>
               </div>
             </div>
-
           </div>
         </div>
       </section>
