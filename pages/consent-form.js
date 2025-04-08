@@ -33,7 +33,6 @@ export default function ConsentForm() {
         nonConsent: '',
         fullNameSignature: '',
         dateSigned: '',
-        subject: '',
     });
 
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -68,59 +67,74 @@ export default function ConsentForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setErrorMessage('');
 
-        // Prepare the data for the second request (__forms.html)
-        const formDataObj = new FormData(e.target);
-
-        // Serialize medications as JSON (assuming `formData` has { medications: [...] })
-        formDataObj.set('medications', JSON.stringify(formData.medications));
-
-        const formDataString = new URLSearchParams(formDataObj).toString();
-
-        // We will store error messages from each request here
-        const errors = [];
-
-        // 1) Attempt PDF/email generation
         try {
-            const responsePdf = await fetch('/api/generateConsentPdf', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData),
+            // Validate required fields client-side
+            if (!formData.givenNames || !formData.surname || !formData.email || 
+                !formData.dateOfBirth || !formData.addressUnit || !formData.addressSuburb || 
+                !formData.phone || !formData.medicareNumber || !formData.referenceNumber ||
+                !formData.expiryDate || !formData.dateSigned || !formData.fullNameSignature) {
+                throw new Error('Please fill in all required fields marked with *');
+            }
+
+            // Log form data for debugging
+            console.log("Form data:", {
+                name: `${formData.givenNames} ${formData.surname}`,
+                email: formData.email,
+                dob: formData.dateOfBirth
             });
 
-            if (!responsePdf.ok) {
-                throw new Error('Failed to generate PDF');
+            // 1) Attempt PDF/email generation via our API
+            console.log("Submitting to API...");
+            
+            try {
+                const responsePdf = await fetch('/api/generateConsentPdf', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData),
+                });
+
+                console.log("API response status:", responsePdf.status);
+                
+                const responseData = await responsePdf.json().catch(err => {
+                    console.error("Failed to parse JSON response:", err);
+                    return { error: "Invalid response from server" };
+                });
+                
+                console.log("API response data:", responseData);
+                
+                if (!responsePdf.ok) {
+                    throw new Error(`Failed to generate PDF: ${responseData.error || responseData.message || responsePdf.statusText}`);
+                }
+                
+                // If we're here, the API call was successful
+                if (!responseData.success) {
+                    // Response came back with 200 status but indicated failure in the JSON
+                    throw new Error(responseData.message || "Unknown error occurred");
+                }
+                
+                // Handle partial success (PDF generated but email failed)
+                if (responseData.success && responseData.emailSuccess === false) {
+                    console.warn("PDF was generated but email sending failed");
+                    setErrorMessage("Your form was processed but there was an issue sending the confirmation email. Please contact support.");
+                    setIsSuccess(true);
+                    return;
+                }
+            } catch (apiError) {
+                console.error("API call error:", apiError);
+                throw new Error(`API error: ${apiError.message}`);
             }
-        } catch (error) {
-            console.error(error);
-            errors.push(error.message);
-        }
 
-        // 2) Attempt form submission
-        // try {
-        //     const responseForm = await fetch('/__forms.html', {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        //         body: formDataString,
-        //     });
-
-        //     if (!responseForm.ok) {
-        //         throw new Error('Form submission failed');
-        //     }
-        // } catch (error) {
-        //     console.error(error);
-        //     errors.push(error.message);
-        // }
-
-        // Check if there were any errors
-        if (errors.length > 0) {
-            setErrorMessage(errors.join(' | '));
-        } else {
+            // If we got here, the form submission was successful
             setIsSuccess(true);
-            setErrorMessage('');
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setErrorMessage(error.message || "An unknown error occurred");
+            setIsSuccess(false);
+        } finally {
+            setIsSubmitting(false);
         }
-
-        setIsSubmitting(false);
     };
 
     return (
@@ -136,9 +150,6 @@ export default function ConsentForm() {
                     All clients are required to complete the consent form below 48 hours prior to an appointment.
                 </p>
                 <form className="flex md:hidden" name="consent-form" onSubmit={handleSubmit}>
-                    {/* Netlify form name markers */}
-                    <input type="hidden" name="form-name" value="consent-form" />
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Personal Information */}
                         <div>
@@ -586,11 +597,6 @@ export default function ConsentForm() {
                                 className="w-full border rounded-md p-2"
                             />
                         </div>
-                        <input
-                            type="hidden"
-                            name="subject"
-                            value={`Consent Form - ${formData.givenNames} ${formData.surname}`}
-                        />
 
                         <hr className="my-4 border-gray-300" />
                         {/* Signature Section */}
@@ -637,9 +643,6 @@ export default function ConsentForm() {
                     </div>
                 </form>
                 <form name="consent-form" onSubmit={handleSubmit} className="hidden md:flex">
-                    {/* Netlify form name markers */}
-                    <input type="hidden" name="form-name" value="consent-form" />
-
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {/* Personal Information */}
                         <div>
@@ -1101,14 +1104,6 @@ export default function ConsentForm() {
                                 className="w-full border rounded-md p-2 mt-2"
                             />
                         </div>
-
-                        {/* We'll store the subject in a hidden field */}
-                        <input
-                            type="hidden"
-                            name="subject"
-                            value={`Consent Form - ${formData.givenNames} ${formData.surname}`}
-                        />
-
 
                         <hr className="col-span-2 my-4 border-gray-300" />
 
