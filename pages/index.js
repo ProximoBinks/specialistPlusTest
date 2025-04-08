@@ -57,52 +57,271 @@ export default function Home() {
       keywords="medical care, occupational health, specialist consultations, medico-legal services, healthcare South Australia"
       ogImage="/og-image.jpg"
     >
-      {/* Hero Section */}
-      <section
-        className="relative w-full h-[600px] md:h-[700px] flex items-center justify-center bg-cover bg-center"
+      {/* Hero Section - Modernized */}
+      <section className="relative w-full min-h-[700px] md:min-h-[800px] bg-cover bg-center overflow-hidden" 
         style={{ backgroundImage: "url('/homeBackground.jpg')" }}
       >
-        {/* Dark Gradient Overlay for Better Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/10"></div>
-
-        {/* Content */}
-        <div className="relative z-10 text-center text-white px-6">
-          <h1 className="text-4xl md:text-6xl font-bold opacity-0 animate-fadeIn">
-            Welcome to <span className="text-red-500">Specialist Plus</span>
-          </h1>
-          <p className="mt-6 text-lg md:text-2xl opacity-0 animate-fadeIn delay-200">
-            Comprehensive care from experienced specialists
-          </p>
-
-          {/* Call-to-Action Button */}
-          <div className="mt-8 opacity-0 animate-fadeIn delay-300">
-            <Link
-              href="/contact"
-              className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-full text-lg transition-all shadow-md"
-            >
-              Book an Appointment
-            </Link>
+        {/* Gradient Overlays - Multiple layers for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent"></div>
+        
+        {/* Animated particles effect (optional) */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="particles-container">
+            <div className="particle particle-1"></div>
+            <div className="particle particle-2"></div>
+            <div className="particle particle-3"></div>
+            <div className="particle particle-4"></div>
+            <div className="particle particle-5"></div>
           </div>
         </div>
 
-        {/* Animations */}
+        {/* Main Content */}
+        <div className="relative z-10 flex flex-col md:flex-row h-full max-w-7xl mx-auto px-6 py-20">
+          {/* Left Side - Text Content */}
+          <div className="md:w-1/2 flex flex-col justify-center items-start text-white">
+            <div className="inline-block bg-red-600/90 px-4 py-1 rounded-full text-sm font-semibold mb-5 animate-slideRight">
+              South Australia's Premier Healthcare Provider
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold leading-tight animate-slideUp">
+              Expert Care <br/>
+              <span className="relative inline-block mt-2">
+                When You 
+                <span className="text-red-500"> Need It</span>
+                <svg className="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 400 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0L400 12H0V0Z" fill="#ef4444" fillOpacity="0.3" />
+                </svg>
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl mt-8 text-gray-200 max-w-lg animate-slideUp animation-delay-300">
+              Comprehensive healthcare solutions from a multidisciplinary team of specialists dedicated to your wellbeing.
+            </p>
+            
+            {/* CTA Buttons - Multiple options */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-10 animate-slideUp animation-delay-500">
+              <Link
+                href="/contact"
+                className="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all shadow-lg flex items-center"
+              >
+                <span>Book an Appointment</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+              <Link
+                href="/doctors"
+                className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all"
+              >
+                Meet Our Specialists
+              </Link>
+            </div>
+          </div>
+          
+          {/* Right Side - Floating Stats/Features */}
+          <div className="hidden md:flex md:w-1/2 items-center justify-end">
+            <div className="grid grid-cols-2 gap-4 relative">
+              {/* Stat Box 1 */}
+              <div className="stat-box bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all border border-white/20 animate-float">
+                <div className="rounded-full bg-red-600/20 w-12 h-12 flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">10+ Specialists</h3>
+                <p className="text-gray-300 mt-2 text-sm">Expert doctors across multiple disciplines</p>
+              </div>
+              
+              {/* Stat Box 2 */}
+              <div className="stat-box bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all border border-white/20 animate-float animation-delay-200 mt-8">
+                <div className="rounded-full bg-blue-600/20 w-12 h-12 flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">2 Locations</h3>
+                <p className="text-gray-300 mt-2 text-sm">Conveniently serving South Australia</p>
+              </div>
+              
+              {/* Stat Box 3 */}
+              <div className="stat-box bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all border border-white/20 animate-float animation-delay-400">
+                <div className="rounded-full bg-green-600/20 w-12 h-12 flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">Fast Appointments</h3>
+                <p className="text-gray-300 mt-2 text-sm">Quick access to the care you need</p>
+              </div>
+              
+              {/* Stat Box 4 */}
+              <div className="stat-box bg-white/10 backdrop-blur-sm rounded-2xl p-6 transform hover:scale-105 transition-all border border-white/20 animate-float animation-delay-600 mt-8">
+                <div className="rounded-full bg-purple-600/20 w-12 h-12 flex items-center justify-center mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-bold text-white">Advanced Care</h3>
+                <p className="text-gray-300 mt-2 text-sm">Using the latest medical technologies</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Bottom decorative wave */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" className="w-full h-auto">
+            <path fill="#ffffff" fillOpacity="1" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1440,58.7L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+          </svg>
+        </div>
+
+        {/* Enhanced animations */}
         <style jsx>{`
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    .animate-fadeIn {
-      animation: fadeIn 1s ease-out forwards;
-    }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-  `}</style>
+          @keyframes slideUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes slideRight {
+            from {
+              opacity: 0;
+              transform: translateX(-30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes float {
+            0% {
+              transform: translateY(0px);
+            }
+            50% {
+              transform: translateY(-10px);
+            }
+            100% {
+              transform: translateY(0px);
+            }
+          }
+          
+          @keyframes moveParticle {
+            0% {
+              transform: translate(0, 0);
+            }
+            25% {
+              transform: translate(100px, 100px);
+            }
+            50% {
+              transform: translate(200px, 0);
+            }
+            75% {
+              transform: translate(100px, -100px);
+            }
+            100% {
+              transform: translate(0, 0);
+            }
+          }
+          
+          .animate-slideUp {
+            opacity: 0;
+            animation: slideUp 1s ease-out forwards;
+          }
+          
+          .animate-slideRight {
+            opacity: 0;
+            animation: slideRight 1s ease-out forwards;
+          }
+          
+          .animate-float {
+            animation: float 6s ease-in-out infinite;
+          }
+          
+          .animation-delay-200 {
+            animation-delay: 0.2s;
+          }
+          
+          .animation-delay-300 {
+            animation-delay: 0.3s;
+          }
+          
+          .animation-delay-400 {
+            animation-delay: 0.4s;
+          }
+          
+          .animation-delay-500 {
+            animation-delay: 0.5s;
+          }
+          
+          .animation-delay-600 {
+            animation-delay: 0.6s;
+          }
+          
+          /* Particles */
+          .particles-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+          }
+          
+          .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: moveParticle 15s linear infinite;
+          }
+          
+          .particle-1 {
+            width: 100px;
+            height: 100px;
+            left: 10%;
+            top: 20%;
+            animation-duration: 25s;
+          }
+          
+          .particle-2 {
+            width: 70px;
+            height: 70px;
+            left: 50%;
+            top: 70%;
+            animation-duration: 35s;
+            animation-delay: 2s;
+          }
+          
+          .particle-3 {
+            width: 50px;
+            height: 50px;
+            left: 70%;
+            top: 30%;
+            animation-duration: 30s;
+            animation-delay: 4s;
+          }
+          
+          .particle-4 {
+            width: 80px;
+            height: 80px;
+            left: 30%;
+            top: 50%;
+            animation-duration: 40s;
+            animation-delay: 1s;
+          }
+          
+          .particle-5 {
+            width: 60px;
+            height: 60px;
+            left: 80%;
+            top: 60%;
+            animation-duration: 20s;
+            animation-delay: 3s;
+          }
+        `}</style>
       </section>
 
       {/* Why Choose Us Section (Shown only on md and up) */}
@@ -119,23 +338,20 @@ export default function Home() {
               <div className="card-container">
                 <div className="card">
                   {/* Card Front */}
-                  <div className="card-front bg-white rounded-xl shadow-md overflow-hidden">
-                    <div className="relative">
+                  <div className="card-front bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
+                    <div>
                       <img
                         src="/integrated-health.jpg"
                         alt="Integrated Health Care"
-                        className="w-full h-64 object-cover"
+                        className="w-full h-52 object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b2e60]/80 to-transparent opacity-70"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 className="text-xl font-bold mb-2">Integrated Health Care</h3>
-                        <p className="text-sm text-white/90">
-                          Comprehensive, multidisciplinary support for all aspects of your health
-                        </p>
-                      </div>
                     </div>
-                    <div className="p-5">
-                      <div className="flex justify-between items-center">
+                    <div className="p-5 flex flex-col flex-grow">
+                      <h3 className="text-xl font-bold mb-2 text-[#1b2e60]">Integrated Health Care</h3>
+                      <p className="text-gray-700 mb-4">
+                        Comprehensive, multidisciplinary support for all aspects of your health
+                      </p>
+                      <div className="mt-auto flex justify-between items-center pt-2">
                         <span className="text-[#de5857] text-sm font-semibold">Learn More</span>
                         <span className="bg-[#f8f8f8] rounded-full w-8 h-8 flex items-center justify-center">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#1b2e60]" viewBox="0 0 20 20" fill="currentColor">
@@ -190,23 +406,20 @@ export default function Home() {
               <div className="card-container">
                 <div className="card">
                   {/* Card Front */}
-                  <div className="card-front bg-white rounded-xl shadow-md overflow-hidden">
-                    <div className="relative">
+                  <div className="card-front bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
+                    <div>
                       <img
                         src="/injury-management.jpg"
                         alt="Injury Management"
-                        className="w-full h-64 object-cover"
+                        className="w-full h-52 object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b2e60]/80 to-transparent opacity-70"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 className="text-xl font-bold mb-2">Injury Management</h3>
-                        <p className="text-sm text-white/90">
-                          Expert care to help you recover and get back on track
-                        </p>
-                      </div>
                     </div>
-                    <div className="p-5">
-                      <div className="flex justify-between items-center">
+                    <div className="p-5 flex flex-col flex-grow">
+                      <h3 className="text-xl font-bold mb-2 text-[#1b2e60]">Injury Management</h3>
+                      <p className="text-gray-700 mb-4">
+                        Expert care to help you recover and get back on track
+                      </p>
+                      <div className="mt-auto flex justify-between items-center pt-2">
                         <span className="text-[#de5857] text-sm font-semibold">Learn More</span>
                         <span className="bg-[#f8f8f8] rounded-full w-8 h-8 flex items-center justify-center">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#1b2e60]" viewBox="0 0 20 20" fill="currentColor">
@@ -261,23 +474,20 @@ export default function Home() {
               <div className="card-container">
                 <div className="card">
                   {/* Card Front */}
-                  <div className="card-front bg-white rounded-xl shadow-md overflow-hidden">
-                    <div className="relative">
+                  <div className="card-front bg-white rounded-xl shadow-md overflow-hidden flex flex-col h-full">
+                    <div>
                       <img
                         src="/specialist-care.jpg"
                         alt="Specialist Care"
-                        className="w-full h-64 object-cover"
+                        className="w-full h-52 object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1b2e60]/80 to-transparent opacity-70"></div>
-                      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-                        <h3 className="text-xl font-bold mb-2">Specialist Care</h3>
-                        <p className="text-sm text-white/90">
-                          Personalised medical care from a diverse team of experts
-                        </p>
-                      </div>
                     </div>
-                    <div className="p-5">
-                      <div className="flex justify-between items-center">
+                    <div className="p-5 flex flex-col flex-grow">
+                      <h3 className="text-xl font-bold mb-2 text-[#1b2e60]">Specialist Care</h3>
+                      <p className="text-gray-700 mb-4">
+                        Personalised medical care from a diverse team of experts
+                      </p>
+                      <div className="mt-auto flex justify-between items-center pt-2">
                         <span className="text-[#de5857] text-sm font-semibold">Learn More</span>
                         <span className="bg-[#f8f8f8] rounded-full w-8 h-8 flex items-center justify-center">
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#1b2e60]" viewBox="0 0 20 20" fill="currentColor">
