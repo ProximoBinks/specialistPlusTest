@@ -26,28 +26,60 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Build form data:
-    const formDataObj = new FormData(e.target);
-
-    // Convert to standard URL-encoded string:
-    const formDataString = new URLSearchParams(formDataObj).toString();
+    setErrorMessage('');
 
     try {
-      const response = await fetch('/__forms.html', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formDataString,
+      // Validate required fields client-side
+      if (!formData.firstName || !formData.lastName || !formData.email || !formData.subjectInput || !formData.message) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      // Log form data for debugging
+      console.log("Contact form data:", {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        subject: formData.subjectInput
       });
 
-      if (response.ok) {
-        setIsSuccess(true);
-        setErrorMessage('');
-      } else {
-        throw new Error('Form submission failed');
+      // Submit to our API endpoint
+      console.log("Submitting to contact API...");
+      const response = await fetch('/api/sendContactEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      console.log("API response status:", response.status);
+      
+      const responseData = await response.json().catch(err => {
+        console.error("Failed to parse JSON response:", err);
+        return { error: "Invalid response from server" };
+      });
+      
+      console.log("API response data:", responseData);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to submit form: ${responseData.error || responseData.message || response.statusText}`);
       }
+      
+      // If we're here, the API call was successful
+      if (!responseData.success) {
+        // Response came back with 200 status but indicated failure in the JSON
+        throw new Error(responseData.message || "Unknown error occurred");
+      }
+
+      setIsSuccess(true);
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        subjectInput: '',
+        message: '',
+      });
     } catch (error) {
-      setErrorMessage(error.message);
+      console.error("Form submission error:", error);
+      setErrorMessage(error.message || "An unknown error occurred");
+      setIsSuccess(false);
     } finally {
       setIsSubmitting(false);
     }
@@ -173,15 +205,6 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Netlify form marker */}
-            <input type="hidden" name="form-name" value="contact-form" />
-
-            <p className="hidden">
-              <label>
-                Don’t fill this out if you're human: <input name="bot-field" />
-              </label>
-            </p>
-
             {/* First Name */}
             <div>
               <label className="block text-gray-700">
@@ -227,10 +250,7 @@ export default function Contact() {
               </label>
             </div>
 
-            {/* 
-              SubjectInput (visible) 
-              The user sees this as "Subject" on the page. 
-            */}
+            {/* Subject */}
             <div>
               <label className="block text-gray-700">
                 Subject <span className="text-red-500">*</span>
@@ -244,16 +264,6 @@ export default function Contact() {
                 />
               </label>
             </div>
-
-            {/*
-              Hidden actual subject field that Netlify sees as "subject".
-              We'll combine the typed subjectInput with "- firstName lastName".
-            */}
-            <input
-              type="hidden"
-              name="subject"
-              value={`${formData.subjectInput} - ${formData.firstName} ${formData.lastName}`}
-            />
 
             {/* Message */}
             <div>
@@ -274,7 +284,8 @@ export default function Contact() {
             <div>
               <button
                 type="submit"
-                className="w-full bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-200"
+                disabled={isSubmitting}
+                className="w-full bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition duration-200 disabled:bg-red-400"
               >
                 {isSubmitting ? 'Submitting...' : 'Submit'}
               </button>
