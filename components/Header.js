@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
+import { FaChevronDown, FaChevronRight, FaPhone, FaTimes } from 'react-icons/fa';
 import { Spin as Hamburger } from 'hamburger-react';
 import Link from 'next/link';
 
@@ -11,6 +11,9 @@ export default function Header() {
 
   // Start as `null` so we don't show the banner until we know for sure
   const [showBanner, setShowBanner] = useState(null);
+
+  // Add this for mobile menu animation
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const menuRef = useRef();
   const buttonRef = useRef();
@@ -83,7 +86,7 @@ export default function Header() {
     {
       title: 'Forms',
       url: '/forms',
-      subtitles: [{ title: 'Consent Form', url: '/consent-form' },{ title: 'Contact Form', url: '/contact/#contact-header' }],
+      subtitles: [{ title: 'Consent Form', url: '/consent-form' }, { title: 'Contact Form', url: '/contact/#contact-header' }],
     },
     { title: 'Contact', url: '/contact', subtitles: [] },
   ];
@@ -103,10 +106,31 @@ export default function Header() {
       buttonRef.current &&
       !buttonRef.current.contains(event.target)
     ) {
+      closeMenu();
+    }
+  };
+
+  // Add smooth animation for closing menu
+  const closeMenu = () => {
+    setMenuVisible(false);
+    // Wait for animation to complete before removing from DOM
+    setTimeout(() => {
       setIsOpen(false);
       setOpenDropdown(null);
       setOpenSubDropdown(null);
       setOpenMobileSubDropdown(null);
+    }, 300);
+  };
+
+  // Handle menu toggle with animation
+  const toggleMenu = () => {
+    if (isOpen) {
+      closeMenu();
+    } else {
+      setIsOpen(true);
+      setTimeout(() => {
+        setMenuVisible(true);
+      }, 50);
     }
   };
 
@@ -148,6 +172,7 @@ export default function Header() {
     setOpenSubDropdown(null);
     setOpenMobileSubDropdown(null);
     setIsOpen(false);
+    setMenuVisible(false);
   };
 
   // When user closes the banner, store the time
@@ -155,6 +180,32 @@ export default function Header() {
     localStorage.setItem('bannerClosedAt', Date.now().toString());
     setShowBanner(false);
   };
+
+  // Add effect to prevent scrolling when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+    };
+  }, [isOpen]);
 
   return (
     <header className="bg-white shadow-lg fixed w-full z-10">
@@ -186,9 +237,8 @@ export default function Header() {
                   {item.title}
                   {item.subtitles.length > 0 && (
                     <FaChevronDown
-                      className={`ml-1 text-sm text-gray-700 transition-transform duration-200 ${
-                        openDropdown === index ? 'rotate-180' : ''
-                      }`}
+                      className={`ml-1 text-sm text-gray-700 transition-transform duration-200 ${openDropdown === index ? 'rotate-180' : ''
+                        }`}
                     />
                   )}
                 </Link>
@@ -210,9 +260,8 @@ export default function Header() {
                             {subtitle.title}
                             {/* Animated arrow for sub-category */}
                             <FaChevronRight
-                              className={`text-gray-600 transition-transform duration-200 ${
-                                openSubDropdown === subIndex ? 'rotate-90' : ''
-                              }`}
+                              className={`text-gray-600 transition-transform duration-200 ${openSubDropdown === subIndex ? 'rotate-90' : ''
+                                }`}
                             />
                           </button>
                         ) : (
@@ -248,7 +297,7 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Call Button */}
+          {/* Desktop Call Button */}
           <div className="hidden xl:block">
             <a href="tel:+61884236477">
               <button className="transition-all bg-red-600 text-white px-6 py-3 rounded-3xl hover:bg-red-700 font-bold">
@@ -257,14 +306,16 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Mobile Menu */}
-          <div className="xl:hidden">
+          {/* Mobile Header Controls */}
+          <div className="xl:hidden flex items-center space-x-4">
+            {/* Mobile Menu Toggle */}
             <Hamburger
               size={20}
               duration={0.8}
               toggled={isOpen}
-              toggle={setIsOpen}
+              toggle={toggleMenu}
               ref={buttonRef}
+              color="#222"
             />
           </div>
         </div>
@@ -290,108 +341,145 @@ export default function Header() {
         </div>
       )}
 
+      {/* Fullscreen Mobile Menu with Animation */}
       {isOpen && (
         <div
           ref={menuRef}
-          className="xl:hidden bg-white shadow-lg absolute w-full top-16 left-0"
+          className={`xl:hidden fixed inset-0 bg-white z-50 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100' : 'opacity-0'}`}
+          style={{ top: '0', paddingTop: '20px' }}
         >
-          {links.map((item, index) => (
-            <div key={index} className="border-b">
-              {/* If item has no subtitles, just a direct link */}
-              {item.subtitles.length === 0 ? (
-                <Link
-                  href={item.url ?? '#'}
-                  className="w-full px-6 py-4 block text-gray-700 hover:bg-gray-100"
-                  onClick={closeAllMenus}
-                >
-                  {item.title}
-                </Link>
-              ) : (
-                <>
-                  <div className="flex justify-between items-center px-6 py-4 hover:bg-gray-100">
-  <Link
-    href={item.url ?? '#'}
-    className="text-gray-700 flex-1"
-    onClick={closeAllMenus}
-  >
-    {item.title}
-  </Link>
-  {item.subtitles.length > 0 && (
-    <button
-      onClick={(e) => {
-        e.stopPropagation(); // Prevents the Link from being triggered
-        setOpenDropdown(index === openDropdown ? null : index);
-      }}
-      className="p-2"
-    >
-      <FaChevronDown
-        className={`transition-transform ${
-          openDropdown === index ? 'rotate-180' : ''
-        }`}
-      />
-    </button>
-  )}
-</div>
+          {/* Mobile Menu Header */}
+          <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100">
+            <Link
+              href="/"
+              className="flex items-center select-none"
+              onClick={closeAllMenus}
+            >
+              <img src="/sp-logo.png" alt="Specialist Plus Logo" className="h-10 w-10 mr-2" />
+              <span className="text-xl font-semibold">Specialist Plus</span>
+            </Link>
+            <button
+              onClick={closeMenu}
+              className="p-2"
+              aria-label="Close menu"
+            >
+              <FaTimes className="h-6 w-6 text-gray-800" />
+            </button>
+          </div>
 
-                  {openDropdown === index && item.subtitles.length > 0 && (
-                    <div className="bg-gray-50">
-                      {item.subtitles.map((subtitle, subIndex) => (
-                        <div key={subIndex} className="border-t">
-                          {/* If sub has no doctors, direct link */}
-                          {subtitle.doctors ? (
-                            <button
-                              className="w-full px-8 py-3 text-left text-gray-700 hover:bg-gray-200 flex justify-between"
-                              onClick={() =>
-                                setOpenMobileSubDropdown(
-                                  subIndex === openMobileSubDropdown
-                                    ? null
-                                    : subIndex
-                                )
-                              }
-                            >
-                              {subtitle.title}
-                              {/* Animated arrow for sub-category */}
-                              <FaChevronRight
-                                className={`text-gray-600 transition-transform duration-200 ${
-                                  openMobileSubDropdown === subIndex
-                                    ? 'rotate-90'
-                                    : ''
-                                }`}
-                              />
-                            </button>
-                          ) : (
-                            <Link
-                              href={subtitle.url ?? '#'}
-                              className="block px-8 py-3 text-gray-700 hover:bg-gray-200"
-                              onClick={closeAllMenus}
-                            >
-                              {subtitle.title}
-                            </Link>
-                          )}
-
-                          {subtitle.doctors &&
-                            openMobileSubDropdown === subIndex && (
-                              <div className="bg-white">
-                                {subtitle.doctors.map((doctor, doctorIndex) => (
-                                  <Link
-                                    key={doctorIndex}
-                                    href={doctor.url ?? '#'}
-                                    className="block px-10 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    onClick={closeAllMenus}
-                                  >
-                                    {doctor.name}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
-                        </div>
-                      ))}
+          {/* Mobile Menu Content */}
+          <div className="overflow-y-auto h-[calc(100vh-180px)] p-4">
+            {links.map((item, index) => (
+              <div key={index} className="py-2">
+                {/* If item has no subtitles, just a direct link */}
+                {item.subtitles.length === 0 ? (
+                  <Link
+                    href={item.url ?? '#'}
+                    className="w-full py-4 block text-gray-800 text-xl font-medium"
+                    onClick={closeAllMenus}
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  <>
+                    <div className="flex justify-between items-center py-3">
+                      <Link
+                        href={item.url ?? '#'}
+                        className="text-gray-800 flex-1 text-xl font-medium"
+                        onClick={closeAllMenus}
+                      >
+                        {item.title}
+                      </Link>
+                      {item.subtitles.length > 0 && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation(); // Prevents the Link from being triggered
+                            setOpenDropdown(index === openDropdown ? null : index);
+                          }}
+                          className="p-2"
+                          aria-label={`Toggle ${item.title} submenu`}
+                        >
+                          <FaChevronRight
+                            className={`transition-transform duration-300 text-gray-500 ${openDropdown === index ? 'rotate-90 text-red-600' : ''
+                              }`}
+                          />
+                        </button>
+                      )}
                     </div>
-                  )}
-                </>
-              )}
-            </div>
-          ))}
+
+                    {openDropdown === index && item.subtitles.length > 0 && (
+                      <div className="pl-4 overflow-hidden transition-all duration-200 border-l-2 border-gray-100 ml-2 mt-2">
+                        {item.subtitles.map((subtitle, subIndex) => (
+                          <div key={subIndex} className="py-1">
+                            {/* If subtitle has doctors */}
+                            {subtitle.doctors ? (
+                              <div>
+                                <button
+                                  className="w-full py-3 text-left text-gray-700 flex justify-between items-center"
+                                  onClick={() =>
+                                    setOpenMobileSubDropdown(
+                                      subIndex === openMobileSubDropdown
+                                        ? null
+                                        : subIndex
+                                    )
+                                  }
+                                >
+                                  <span className="font-medium">{subtitle.title} -</span>
+                                  <FaChevronDown
+                                    className={`text-gray-500 transition-transform duration-300 mr-2 ${openMobileSubDropdown === subIndex
+                                      ? 'rotate-180 text-red-600'
+                                      : ''
+                                      }`}
+                                  />
+                                </button>
+
+                                {openMobileSubDropdown === subIndex && (
+                                  <div className="border-l-2 border-gray-100 ml-2 pl-4 py-2">
+                                    {subtitle.doctors.map((doctor, doctorIndex) => (
+                                      <Link
+                                        key={doctorIndex}
+                                        href={doctor.url ?? '#'}
+                                        className="block py-3 text-gray-700 hover:text-red-600 transition-colors mr-9"
+                                        onClick={closeAllMenus}
+                                      >
+                                        <span className="flex items-center justify-between gap-2">
+                                          {doctor.name}
+                                          <img src="/arrow.png" alt="Arrow Right" className="w-3 h-3" />
+                                        </span>
+                                      </Link>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <Link
+                                href={subtitle.url ?? '#'}
+                                className="block py-3 text-gray-700 hover:text-red-600 transition-colors"
+                                onClick={closeAllMenus}
+                              >
+                                {subtitle.title}
+                              </Link>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Call Button at bottom of mobile menu */}
+          <div className="absolute bottom-8 left-0 right-0 px-6">
+            <a
+              href="tel:+61884236477"
+              className="transition-all bg-red-600 text-white w-full py-4 rounded-lg hover:bg-red-700 font-bold flex items-center justify-center gap-3"
+            >
+              <div className="text-lg">Call Us</div>
+              <FaPhone className="text-white h-5 w-5" />
+            </a>
+          </div>
         </div>
       )}
     </header>
