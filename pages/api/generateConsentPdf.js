@@ -95,8 +95,8 @@ export default async function handler(req, res) {
         // admin@specialistplus.com.au
         const mailOptions = {
             from: '"Specialist Plus" <elliot@proximo.life>', // Must be a verified Postmark sender
-            to: "admin@specialistplus.com.au", // Only one recipient in "to"
-            bcc: ["elliot@proximo.life"], // Other recipients are hidden
+            to: "elliotkoh9@gmail.com", // Only one recipient in "to"
+            // bcc: ["elliot@proximo.life"], // Other recipients are hidden
             subject: `New Consent Form Submission - ${formData.givenNames} ${formData.surname}`,
             text: `
                 A new consent form has been submitted.
