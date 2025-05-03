@@ -216,9 +216,9 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-lg fixed w-full z-10">
+    <header className="bg-white fixed w-full z-10">
       {/* Fixed header that stays at the top of the screen */}
-      <div className="fixed top-0 left-0 right-0 bg-white shadow-lg z-50">
+      <div className="fixed top-0 left-0 right-0 bg-white z-50">
         <div className="max-w-[105rem] mx-auto px-4 sm:px-6 lg:px-6 py-3 xl:py-4">
           <div className="flex justify-between items-center h-16">
             <Link
