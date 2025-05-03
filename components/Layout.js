@@ -83,7 +83,7 @@ export default function Layout({
       <main
         className={clsx(
           "flex-grow w-full z-0",
-          extraOffset === 30 ? "pt-[100px] xl:pt-[125px]" : "pt-[70px] xl:pt-[95px]"
+          extraOffset === 30 ? "pt-[140px] xl:pt-[125px]" : "pt-[70px] xl:pt-[95px]"
         )}
       >
         {children}

@@ -115,15 +115,17 @@ export default function Header() {
 
   // Add smooth animation for closing menu
   const closeMenu = () => {
-    // First set menuVisible to false to start animation
+    // Update hamburger state immediately
+    setIsOpen(false);
+    
+    // Then start the animation for the menu
     setMenuVisible(false);
     
     // Store the scroll position that we'll need to restore
     const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
     
-    // Wait for animation to complete before removing from DOM
+    // Wait for animation to complete before cleaning up
     setTimeout(() => {
-      setIsOpen(false);
       setOpenDropdown(null);
       setOpenSubDropdown(null);
       setOpenMobileSubDropdown(null);
@@ -142,6 +144,7 @@ export default function Header() {
   // Handle menu toggle with animation
   const toggleMenu = () => {
     if (isOpen) {
+      // Close immediately without delay
       closeMenu();
     } else {
       // Save scroll position before opening menu
@@ -153,12 +156,9 @@ export default function Header() {
       document.body.style.width = '100%';
       document.body.style.top = `-${scrollPositionRef.current}px`;
       
-      // Set isOpen first, then make it visible to trigger animation
+      // Set isOpen and menuVisible immediately for instant response
       setIsOpen(true);
-      // Make the animation immediate for opening
-      requestAnimationFrame(() => {
-        setMenuVisible(true);
-      });
+      setMenuVisible(true);
     }
   };
 
@@ -320,7 +320,7 @@ export default function Header() {
             <div className="xl:hidden flex items-center space-x-4">
               <Hamburger
                 size={22}
-                duration={0.3}
+                duration={0.3} // Make the icon animation super fast
                 toggled={isOpen}
                 toggle={toggleMenu}
                 ref={buttonRef}
@@ -336,7 +336,7 @@ export default function Header() {
 
       {/* Dismissible Banner */}
       {showBanner && (
-        <div className="flex items-center bg-[#af97c4] text-white px-4 py-2 mt-2">
+        <div className="flex items-center bg-[#af97c4] text-white px-4 py-2 mt-8">
           <p className="flex-1 text-center text-sm">
             Please complete the{' '}
             <Link href="/consent-form" className="underline">
@@ -358,7 +358,11 @@ export default function Header() {
       {isOpen && (
         <div
           ref={menuRef}
-          className={`xl:hidden fixed inset-0 bg-white z-40 transition-all duration-300 ease-in-out ${menuVisible ? 'opacity-100' : 'opacity-0'}`}
+          className={`xl:hidden fixed inset-0 bg-white z-40 transition-all duration-300 ease-in-out ${
+            menuVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-4'
+          }`}
           style={{ paddingTop: '76px' }}
         >
           {/* Scrollable container for menu content */}
@@ -371,7 +375,15 @@ export default function Header() {
               {/* Main navigation items */}
               <nav className="space-y-4">
                 {links.map((item, index) => (
-                  <div key={index}>
+                  <div 
+                    key={index}
+                    className={`transform transition-all duration-300 ease-out ${
+                      menuVisible 
+                        ? 'translate-y-0 opacity-100' 
+                        : 'translate-y-4 opacity-0'
+                    }`}
+                    style={{ transitionDelay: `${index * 50}ms` }}
+                  >
                     {/* If item has no subtitles, just a direct link */}
                     {item.subtitles.length === 0 ? (
                       <Link
@@ -409,9 +421,13 @@ export default function Header() {
                         </div>
 
                         {openDropdown === index && item.subtitles.length > 0 && (
-                          <div className="pl-5 overflow-hidden transition-all duration-200 border-l-2 border-gray-100 ml-2 mt-2">
+                          <div className="pl-5 overflow-hidden transition-all duration-300 ease-in-out border-l-2 border-gray-100 ml-2 mt-2 max-h-[2000px]">
                             {item.subtitles.map((subtitle, subIndex) => (
-                              <div key={subIndex} className="py-1">
+                              <div 
+                                key={subIndex} 
+                                className="py-1 transform transition-transform duration-200"
+                                style={{ transitionDelay: `${subIndex * 30}ms` }}
+                              >
                                 {/* If subtitle has doctors */}
                                 {subtitle.doctors ? (
                                   <div>
@@ -472,7 +488,14 @@ export default function Header() {
               </nav>
               
               {/* Call Us Button */}
-              <div className="mt-[6rem] mb-10">
+              <div 
+                className={`mt-[6rem] mb-10 transform transition-all duration-300 ease-out ${
+                  menuVisible 
+                    ? 'translate-y-0 opacity-100' 
+                    : 'translate-y-4 opacity-0'
+                }`}
+                style={{ transitionDelay: `${links.length * 50 + 100}ms` }}
+              >
                 <a
                   href="tel:+61884236477"
                   className="transition-all bg-red-600 text-white w-full py-3 rounded-xl hover:bg-red-700 font-bold flex items-center justify-center gap-2"
