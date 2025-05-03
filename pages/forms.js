@@ -10,7 +10,7 @@ export default function Forms() {
       keywords="Specialist Plus forms, patient consent form, medical documents, download forms"
       ogImage="/forms-og-image.jpg"
     >
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-6 py-12 min-h-screen">
         <h1 className="text-4xl font-bold mb-6 text-center">Forms</h1>
         <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
           <h2 className="text-2xl font-semibold mb-4">Available Forms</h2>
