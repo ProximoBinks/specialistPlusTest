@@ -11,10 +11,11 @@ export default function Header() {
 
   // Start as `null` so we don't show the banner until we know for sure
   const [showBanner, setShowBanner] = useState(null);
-
-  // Add this for mobile menu animation
+  
+  // Add state for menu animation phases
   const [menuVisible, setMenuVisible] = useState(false);
-
+  const [menuClosing, setMenuClosing] = useState(false);
+  
   // Store scroll position
   const scrollPositionRef = useRef(0);
 
@@ -109,44 +110,41 @@ export default function Header() {
       buttonRef.current &&
       !buttonRef.current.contains(event.target)
     ) {
-      closeMenu();
+      closeAllMenus();
     }
-  };
-
-  // Add smooth animation for closing menu
-  const closeMenu = () => {
-    // Update hamburger state immediately
-    setIsOpen(false);
-    
-    // Then start the animation for the menu
-    setMenuVisible(false);
-    
-    // Store the scroll position that we'll need to restore
-    const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
-    
-    // Wait for animation to complete before cleaning up
-    setTimeout(() => {
-      setOpenDropdown(null);
-      setOpenSubDropdown(null);
-      setOpenMobileSubDropdown(null);
-      
-      // Now restore body styling
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-      document.body.style.top = '';
-      
-      // And restore scroll position
-      window.scrollTo(0, scrollY);
-    }, 500); // Increased timeout for longer animation
   };
 
   // Handle menu toggle with animation
   const toggleMenu = () => {
-    if (isOpen) {
-      // Close immediately without delay
-      closeMenu();
-    } else {
+    if (isOpen && !menuClosing) {
+      // Update hamburger state immediately (separate from menu animation)
+      setIsOpen(false);
+      
+      // Start closing animation sequence for the menu content
+      setMenuClosing(true);
+      setMenuVisible(false);
+      
+      // Store the scroll position that we'll need to restore
+      const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+      
+      // Wait for animation to complete before cleaning up
+      setTimeout(() => {
+        // After animations complete, remove the menu from DOM
+        setMenuClosing(false);
+        setOpenDropdown(null);
+        setOpenSubDropdown(null);
+        setOpenMobileSubDropdown(null);
+        
+        // Now restore body styling
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        
+        // And restore scroll position
+        window.scrollTo(0, scrollY);
+      }, 600); // Increased timeout for longer animation
+    } else if (!isOpen) {
       // Save scroll position before opening menu
       scrollPositionRef.current = window.pageYOffset;
       
@@ -200,9 +198,32 @@ export default function Header() {
   }, [showBanner]);
 
   const closeAllMenus = () => {
-    // If the menu is open, use the closeMenu function to properly restore scroll
-    if (isOpen) {
-      closeMenu();
+    // If the menu is open, close it with animation
+    if (isOpen && !menuClosing) {
+      // Update hamburger state immediately
+      setIsOpen(false);
+      
+      // Start closing animation for menu content
+      setMenuClosing(true);
+      setMenuVisible(false);
+      
+      // Store the scroll position that we'll need to restore
+      const scrollY = parseInt(document.body.style.top || '0', 10) * -1;
+      
+      // Wait for animation to complete before cleaning up
+      setTimeout(() => {
+        setMenuClosing(false);
+        setOpenDropdown(null);
+        setOpenSubDropdown(null);
+        setOpenMobileSubDropdown(null);
+        
+        // Restore body styling and scroll position
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+      }, 600);
     } else {
       // Just reset the state values
       setOpenDropdown(null);
@@ -359,7 +380,7 @@ export default function Header() {
       )}
 
       {/* Fullscreen Mobile Menu with Animation */}
-      {isOpen && (
+      {(isOpen || menuClosing) && (
         <div
           ref={menuRef}
           className={`xl:hidden fixed inset-0 bg-white z-40 transition-all duration-500 ease-out ${
@@ -390,7 +411,11 @@ export default function Header() {
                         ? 'translate-y-0 opacity-100' 
                         : 'translate-y-8 opacity-0'
                     }`}
-                    style={{ transitionDelay: `${150 + index * 100}ms` }}
+                    style={{ 
+                      transitionDelay: menuVisible 
+                        ? `${150 + index * 100}ms` // Staggered delay when opening
+                        : `${150 + (links.length - index - 1) * 80}ms` // Reversed staggered delay when closing
+                    }}
                   >
                     {/* If item has no subtitles, just a direct link */}
                     {item.subtitles.length === 0 ? (
@@ -502,7 +527,11 @@ export default function Header() {
                     ? 'translate-y-0 opacity-100 scale-100' 
                     : 'translate-y-8 opacity-0 scale-95'
                 }`}
-                style={{ transitionDelay: `${links.length * 100 + 250}ms` }}
+                style={{ 
+                  transitionDelay: menuVisible 
+                    ? `${links.length * 100 + 250}ms` // Delay when opening
+                    : '50ms' // Quick fade out when closing (first element to disappear)
+                }}
               >
                 <a
                   href="tel:+61884236477"
