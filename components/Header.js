@@ -138,7 +138,7 @@ export default function Header() {
       
       // And restore scroll position
       window.scrollTo(0, scrollY);
-    }, 300);
+    }, 500); // Increased timeout for longer animation
   };
 
   // Handle menu toggle with animation
@@ -156,9 +156,13 @@ export default function Header() {
       document.body.style.width = '100%';
       document.body.style.top = `-${scrollPositionRef.current}px`;
       
-      // Set isOpen and menuVisible immediately for instant response
+      // First set isOpen to show container
       setIsOpen(true);
-      setMenuVisible(true);
+      
+      // Then trigger the visible animation after a brief delay
+      setTimeout(() => {
+        setMenuVisible(true);
+      }, 50);
     }
   };
 
@@ -358,10 +362,10 @@ export default function Header() {
       {isOpen && (
         <div
           ref={menuRef}
-          className={`xl:hidden fixed inset-0 bg-white z-40 transition-all duration-300 ease-in-out ${
+          className={`xl:hidden fixed inset-0 bg-white z-40 transition-all duration-500 ease-out ${
             menuVisible 
               ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-4'
+              : 'opacity-0 translate-y-10'
           }`}
           style={{ paddingTop: '76px' }}
         >
@@ -370,19 +374,23 @@ export default function Header() {
             {/* Menu items container with padding */}
             <div className="px-12">
               {/* Top border line similar to the screenshot */}
-              <div className="w-full h-px bg-gray-100 mb-6"></div>
+              <div 
+                className={`w-full h-px bg-gray-100 mb-6 transition-opacity duration-700 ${
+                  menuVisible ? 'opacity-100' : 'opacity-0'
+                }`}
+              ></div>
               
               {/* Main navigation items */}
               <nav className="space-y-4">
                 {links.map((item, index) => (
                   <div 
                     key={index}
-                    className={`transform transition-all duration-300 ease-out ${
+                    className={`transform transition-all duration-400 ease-out ${
                       menuVisible 
                         ? 'translate-y-0 opacity-100' 
-                        : 'translate-y-4 opacity-0'
+                        : 'translate-y-8 opacity-0'
                     }`}
-                    style={{ transitionDelay: `${index * 50}ms` }}
+                    style={{ transitionDelay: `${150 + index * 100}ms` }}
                   >
                     {/* If item has no subtitles, just a direct link */}
                     {item.subtitles.length === 0 ? (
@@ -489,12 +497,12 @@ export default function Header() {
               
               {/* Call Us Button */}
               <div 
-                className={`mt-[6rem] mb-10 transform transition-all duration-300 ease-out ${
+                className={`mt-[6rem] mb-10 transform transition-all duration-500 ease-out ${
                   menuVisible 
-                    ? 'translate-y-0 opacity-100' 
-                    : 'translate-y-4 opacity-0'
+                    ? 'translate-y-0 opacity-100 scale-100' 
+                    : 'translate-y-8 opacity-0 scale-95'
                 }`}
-                style={{ transitionDelay: `${links.length * 50 + 100}ms` }}
+                style={{ transitionDelay: `${links.length * 100 + 250}ms` }}
               >
                 <a
                   href="tel:+61884236477"
