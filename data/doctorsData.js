@@ -18,6 +18,15 @@ export const doctors = [
         profileUrl: '/doctors/dion-suyapto',
     },
     {
+        id: 12,
+        name: 'Dr Mandeep Singh',
+        title: 'Pain Medicine Physician',
+        description: 'Specialist in pain medicine, accepting private and third-party claims.',
+        about: 'Dr Mandeep Balbir Singh is a specialist Pain Medicine Physician who graduated from Adelaide University in 2013. He completed his speciality training in 2025 through the Faculty of Pain Medicine, Australian and New Zealand College of Anaesthetists (ANZCA).<br /><br />He is currently a staff specialist at the Central Adelaide Local Health Network and consults privately at Specialist Plus. He accepts private patients and third-party claims, including work injuries and motor vehicle accident injuries.',
+        image: '/mandeep-singh.jpg',
+        profileUrl: '/doctors/mandeep-singh',
+    },    
+    {
         id: 3,
         name: 'Dr Arun Gupta',
         title: 'Consultant Psychiatrist',

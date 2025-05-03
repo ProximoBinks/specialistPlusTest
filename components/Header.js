@@ -38,6 +38,10 @@ export default function Header() {
           doctors: [{ name: 'Dr Dion Suyapto', url: '/doctors/dion-suyapto' }],
         },
         {
+          title: 'Pain Medicine Physician',
+          doctors: [{ name: 'Dr Mandeep Singh', url: '/doctors/mandeep-singh' }],
+        },
+        {
           title: 'Consultant Psychiatrist',
           doctors: [{ name: 'Dr Arun Gupta', url: '/doctors/arun-gupta' }],
         },
