@@ -474,7 +474,7 @@ export default function Header() {
                                         )
                                       }
                                     >
-                                      <span className="font-medium">{subtitle.title} -</span>
+                                      <span className="font-medium">{subtitle.title}</span>
                                       <FaChevronDown
                                         className={`text-gray-500 transition-transform duration-300 mr-2 ${openMobileSubDropdown === subIndex
                                             ? 'rotate-180 text-red-600'

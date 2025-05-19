@@ -23,7 +23,7 @@ export default function Services() {
                         <ul className="list-disc pl-6 space-y-2 text-black mb-4 font-bold">
                             <li>Occupational Physician</li>
                             <li>Psychiatry</li>
-                            <li>Psychology</li>
+                            <li>Second Opinion Medicine</li>
                             <li>Injury Management</li>
                         </ul>
                         <h3 className="text-lg font-medium text-gray-700 mb-2">Additional Services</h3>
