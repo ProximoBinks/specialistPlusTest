@@ -10,8 +10,8 @@ export default function CustomMap() {
   const locations = [
     {
       name: 'Specialist Plus - Richmond',
-      lat: -34.93642,
-      lng: 138.55058,
+      lat: -34.93630292750359,
+      lng: 138.55301536048418,
       address: '129 Marion Rd, Richmond, SA 5033',
       phone: '(08) 8423 6477',
       directionsUrl:
@@ -20,8 +20,17 @@ export default function CustomMap() {
   ];
 
   const [openPopup, setOpenPopup] = useState(null);
-  const [hovering, setHovering] = useState(false);
+  const mapRef = useRef(null);
   const closeTimer = useRef(null);
+  const isHoveringMarker = useRef(false);
+  const isHoveringPopup = useRef(false);
+
+  // Initial map view state
+  const initialViewState = {
+    latitude: -34.93630292750359,
+    longitude: 138.55301536048418,
+    zoom: 13,
+  };
 
   function clearCloseTimer() {
     if (closeTimer.current) {
@@ -30,42 +39,57 @@ export default function CustomMap() {
     }
   }
 
-  function closePopup() {
-    if (!hovering) {
-      console.log('Closing popup...');
-      setOpenPopup(null);
-    }
+  function schedulePopupClose() {
+    clearCloseTimer();
+    closeTimer.current = setTimeout(() => {
+      // Only close if neither marker nor popup is being hovered
+      if (!isHoveringMarker.current && !isHoveringPopup.current) {
+        console.log('Closing popup and zooming out');
+        setOpenPopup(null);
+        // Zoom back out when popup closes
+        if (mapRef.current) {
+          mapRef.current.flyTo({
+            center: [138.55301536048418, -34.93630292750359],
+            zoom: 13,
+            duration: 1000,
+          });
+        }
+      }
+    }, 300);
   }
 
-  const handleMarkerMouseEnter = (locName) => {
-    console.log('Marker mouse enter:', locName);
+  const handleMarkerMouseEnter = (location) => {
+    console.log('Marker mouse enter:', location.name);
+    isHoveringMarker.current = true;
     clearCloseTimer();
-    setOpenPopup(locName);
-    setHovering(true);
+    setOpenPopup(location.name);
+    
+    // Zoom in to the location
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: [location.lng, location.lat],
+        zoom: 16,
+        duration: 1000,
+      });
+    }
   };
 
   const handleMarkerMouseLeave = () => {
     console.log('Marker mouse leave');
-    setHovering(false);
-    clearCloseTimer();
-    closeTimer.current = setTimeout(() => {
-      closePopup();
-    }, 500);
+    isHoveringMarker.current = false;
+    schedulePopupClose();
   };
 
   const handlePopupMouseEnter = () => {
     console.log('Popup mouse enter');
+    isHoveringPopup.current = true;
     clearCloseTimer();
-    setHovering(true);
   };
 
   const handlePopupMouseLeave = () => {
     console.log('Popup mouse leave');
-    setHovering(false);
-    clearCloseTimer();
-    closeTimer.current = setTimeout(() => {
-      closePopup();
-    }, 500);
+    isHoveringPopup.current = false;
+    schedulePopupClose();
   };
 
   return (
@@ -84,39 +108,20 @@ export default function CustomMap() {
       `}</style>
 
       <Map
+        ref={mapRef}
         mapboxAccessToken={MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/light-v10"
         style={{ width: '100%', height: '100%' }}
-        initialViewState={{
-          latitude: -34.92866,
-          longitude: 138.59863,
-          zoom: 11,
-        }}
-        // Disable interactive behaviors (optional)
-        dragPan={false}
+        initialViewState={initialViewState}
+        // Disable user scroll - only programmatic zoom allowed
+        dragPan={true}
         scrollZoom={false}
         dragRotate={false}
         doubleClickZoom={false}
         touchZoomRotate={false}
         keyboard={false}
       >
-        {locations.map((loc) => (
-          <Marker
-            key={loc.name}
-            latitude={loc.lat}
-            longitude={loc.lng}
-            anchor="bottom"
-          >
-            <img
-              src="/marker.png"
-              alt={loc.name}
-              style={{ height: '40px', width: 'auto', cursor: 'pointer' }}
-              onMouseEnter={() => handleMarkerMouseEnter(loc.name)}
-              onMouseLeave={handleMarkerMouseLeave}
-            />
-          </Marker>
-        ))}
-
+        {/* Render popups first so they appear behind markers */}
         {locations
           .filter((loc) => loc.name === openPopup)
           .map((loc) => (
@@ -129,7 +134,7 @@ export default function CustomMap() {
               closeButton={false}
               closeOnClick={false}
               interactive={true}
-              style={{ zIndex: 1000 }}
+              style={{ zIndex: 100 }}
             >
               {/* 
                 w-[300px] for width,
@@ -162,6 +167,31 @@ export default function CustomMap() {
               </div>
             </Popup>
           ))}
+
+        {/* Render markers last so they appear on top */}
+        {locations.map((loc) => (
+          <Marker
+            key={loc.name}
+            latitude={loc.lat}
+            longitude={loc.lng}
+            anchor="bottom"
+            style={{ zIndex: 200 }}
+          >
+            <img
+              src="/marker.png"
+              alt={loc.name}
+              style={{ 
+                height: '40px', 
+                width: 'auto', 
+                cursor: 'pointer',
+                zIndex: 200,
+                position: 'relative'
+              }}
+              onMouseEnter={() => handleMarkerMouseEnter(loc)}
+              onMouseLeave={handleMarkerMouseLeave}
+            />
+          </Marker>
+        ))}
       </Map>
     </div>
   );
