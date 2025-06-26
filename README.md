@@ -1,4 +1,4 @@
-# Next + Netlify Starter
+# Specialist Plus Website
 
 used this netlify starter template and built the specialist plus site on it :))
 
