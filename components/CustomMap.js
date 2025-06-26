@@ -9,15 +9,6 @@ const MAPBOX_TOKEN =
 export default function CustomMap() {
   const locations = [
     {
-      name: 'Specialist Plus - St Morris',
-      lat: -34.91342,
-      lng: 138.65407,
-      address: '1A Williams Ave, St Morris, SA 5068',
-      phone: '(08) 8423 6477',
-      directionsUrl:
-        'https://www.google.com/maps/dir//Specialist+Plus+-+St+Morris/data=!4m6!4m5!1m0!1m2!1m1!1s0x6ab0cb7939e68915:0xf78c5ddd0d188532!2m2!1d138.65407417729955!2d-34.91342997284493',
-    },
-    {
       name: 'Specialist Plus - Richmond',
       lat: -34.93642,
       lng: 138.55058,

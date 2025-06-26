@@ -265,7 +265,7 @@ export default function Home() {
         {/* Grid view for smaller screens */}
         <div className="grid grid-cols-1 gap-8 p-4 w-full md:hidden">
           {/* St Morris Location */}
-          <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white">
+          {/* <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white">
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
               Specialist Plus - St Morris
             </h3>
@@ -292,7 +292,7 @@ export default function Home() {
             >
               View on Google Maps
             </a>
-          </div>
+          </div> */}
 
           {/* Richmond Location */}
           <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white">
